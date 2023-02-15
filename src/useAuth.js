@@ -20,12 +20,26 @@ export function useAuth() {
          }));
          dispatch(setAccessToken(appInfo.accessToken));
          dispatch(setUser(appInfo.user));
+         history.push('/home');
          return;
       }
       history.push('/login');
-
       // eslint-disable-next-line
    }, []);
+
+   function goToHome({ accessToken, user }) {
+      dispatch(setAccessToken(accessToken));
+      dispatch(setUser(user));
+      localStorage.setItem('auth-metadata', JSON.stringify({ accessToken, user }));
+
+      client.setLink(createHttpLink({
+         uri: 'http://localhost:3000/graphql',
+         headers: {
+            'authorization': `Bearer ${accessToken}`
+         },
+      }));
+      history.push('/home');
+   }
 
    async function login({ email, password }) {
       const LOGIN = gql`
@@ -37,8 +51,9 @@ export function useAuth() {
       `;
 
       const { data: { login } } = await client.mutate({ mutation: LOGIN, variables: { email, password } });
+      const { accessToken, user } = login;
 
-      return login;
+      goToHome({ accessToken, user });
    }
 
    async function signin({
@@ -55,18 +70,33 @@ export function useAuth() {
          }
       `;
 
-      const response = await client.mutate({
+      const { data: { signin } } = await client.mutate({
          mutation: SIGNIN, variables: {
-            password,
-            lastname,
-            firstname,
-            email,
+            user: {
+               password,
+               lastname,
+               firstname,
+               email,
+            }
          }
       });
 
-      console.log({ response });
+      const { accessToken, user } = signin;
+
+      goToHome({ accessToken, user });
+   }
+
+   async function logout() {
+      dispatch(setAccessToken(null));
+      dispatch(setUser(null));
+      localStorage.setItem('auth-metadata', JSON.stringify({ accessToken: null, user: null }));
+      client.setLink(createHttpLink({
+         uri: 'http://localhost:3000/graphql',
+         headers: {},
+      }));
+      history.push('/login');
    }
 
 
-   return { login, signin }
+   return { login, signin, logout }
 }

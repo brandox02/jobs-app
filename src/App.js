@@ -1,8 +1,7 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import Index from './markup/Markup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { checkAutoLogin } from './services/AuthService';
 import './css/plugins.css';
 import './css/style.css';
 import './css/templete.css';
@@ -13,24 +12,16 @@ import Login from './markup/Pages/Loginpage2';
 import SignUp from './markup/Pages/Register2';
 import { useAuth } from './useAuth';
 
-
-
-function App(props) {
-    const dispatch = useDispatch();
+function App() {
     const { accessToken } = useSelector(state => state.app);
-    const { login } = useAuth();
-    // useEffect(() => {
-    //     checkAutoLogin(dispatch, props.history);
-    // }, [dispatch, props.history]);
-
-
+    useAuth();
     let routes = (
         <Switch>
             <Route path='/login' component={Login} />
             <Route path='/register-2' component={SignUp} />
         </Switch>
     );
-    console.log({ accessToken });
+
     return (
         <>
             {!!accessToken ? (
@@ -66,6 +57,4 @@ function App(props) {
     )
 };
 
-export default withRouter((App));
-
-//export default App;
+export default withRouter(App);

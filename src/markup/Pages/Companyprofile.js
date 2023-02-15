@@ -1,13 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header2 from './../Layout/Header2';
 import Footer from './../Layout/Footer';
-import {Form} from 'react-bootstrap';
-import GoogleMaps from "simple-react-google-maps";
+import { Form } from 'react-bootstrap';
 import { CompanySideBar } from '../../components/CompanySideBar';
 
-function Companyprofile(){
-	return(
+function Companyprofile() {
+	return (
 		<>
 			<Header2 />
 			<div className="page-content bg-white">
@@ -51,7 +50,7 @@ function Companyprofile(){
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
 														<label>Pais</label>
-														 <Form.Control as="select" custom className="custom-select">
+														<Form.Control as="select" custom className="custom-select">
 															<option>República Dominicana</option>
 															<option>Colombia</option>
 															<option>USA</option>
@@ -61,7 +60,7 @@ function Companyprofile(){
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
 														<label>Ciudad</label>
-														 <Form.Control as="select" custom className="custom-select">
+														<Form.Control as="select" custom className="custom-select">
 															<option>Santiago</option>
 															<option>Santo Domingo</option>
 															<option>San Francisco de Macorís</option>
@@ -77,7 +76,7 @@ function Companyprofile(){
 														</Form.Control>
 													</div>
 												</div> */}
-												
+
 												<div className="col-lg-12 col-md-12">
 													<div className="form-group">
 														<label>Descripción:</label>
@@ -86,7 +85,7 @@ function Companyprofile(){
 													</div>
 												</div>
 											</div>
-											
+
 											{/* <div className="job-bx-title clearfix">
 												<h5 className="font-weight-700 pull-left text-uppercase">Información de Contacto</h5>
 											</div>
@@ -137,7 +136,7 @@ function Companyprofile(){
 													/>
 												</div>
 											</div> */}
-											
+
 											<div className="job-bx-title clearfix">
 												<h5 className="font-weight-700 pull-left text-uppercase">Redes Sociales</h5>
 											</div>
@@ -174,7 +173,7 @@ function Companyprofile(){
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<Footer />

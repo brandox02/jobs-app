@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../useAuth';
 
 
 
 export function CompanySideBar() {
+   const { logout } = useAuth();
    const items = [
       {
          text: 'Información de Perfil',
@@ -33,7 +35,8 @@ export function CompanySideBar() {
       {
          text: 'Cerrar Sesión',
          to: './',
-         iconClassname: 'fa fa-sign-out'
+         iconClassname: 'fa fa-sign-out',
+         onClick: logout
       }
    ]
    return (
@@ -56,9 +59,14 @@ export function CompanySideBar() {
                </div>
                <ul>
                   {items.map(item => (
-                     <li><Link to={item.to} className={window.location.href.includes(item.to) ? 'active' : ''}>
-                        <i className={item.iconClassname} aria-hidden="true"></i>
-                        <span>{item.text}</span></Link></li>
+                     <li
+                        onClick={item?.onClick ? item.onClick : () => { }}
+                     >
+                        <Link to={item.to} className={window.location.href.includes(item.to) ? 'active' : ''}>
+                           <i className={item.iconClassname} aria-hidden="true"></i>
+                           <span>{item.text}</span>
+                        </Link>
+                     </li>
                   ))}
                </ul>
             </div>

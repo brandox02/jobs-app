@@ -1,42 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect, useDispatch } from 'react-redux';
-import {
-	loadingToggleAction,
-	signupAction,
-} from '../../store/actions/AuthActions';
+import { useDispatch } from 'react-redux';
+import { Form } from '../../components/form/Form';
+import { RHFTextInput } from '../../components/form/RHFTextInput';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../../useAuth';
+import { withErrorHandler } from '../../withErrorHandler';
 var bnr = require('./../../images/background/bg6.jpg');
 
 
-function Register2({
-	errorMessage = '',
-	successMessage = '',
-	showLoading = false,
-	history }) {
-	const [email, setEmail] = useState('');
-	let errorsObj = { email: '', password: '' };
-	const [errors, setErrors] = useState(errorsObj);
-	const [password, setPassword] = useState('');
+function Register2() {
+	const methods = useForm();
+	const { signin } = useAuth()
 
-	const dispatch = useDispatch();
+	const onSignUp = withErrorHandler(async (data) => {
+		await signin(data);
+	}, () => ({ 'Is not possible to create a user with the given definition because another user already exists with the same attributes': 'Ya existe una cuenta con este mismo correo' }))
 
-	function onSignUp(e) {
-		e.preventDefault();
-		let error = false;
-		const errorObj = { ...errorsObj };
-		if (email === '') {
-			errorObj.email = 'Email is Required';
-			error = true;
-		}
-		if (password === '') {
-			errorObj.password = 'Password is Required';
-			error = true;
-		}
-		setErrors(errorObj);
-		if (error) return;
-		dispatch(loadingToggleAction(true));
-		dispatch(signupAction(email, password, history));
-	}
 	return (
 		<div className="page-wraper">
 			<div className="browse-job login-style3">
@@ -51,59 +31,33 @@ function Register2({
 								<div className="clearfix"></div>
 								<div className="tab-content nav p-b30 tab">
 									<div id="login" className="tab-pane active ">
-										{errorMessage && (
-											<div className=''>
-												{errorMessage}
-											</div>
-										)}
-										{successMessage && (
-											<div className=''>
-												{successMessage}
-											</div>
-										)}
-										<form className=" dez-form p-b30" onSubmit={onSignUp}>
-											<h3 className="form-title m-t0">Registro</h3>
-											<div className="dez-separator-outer m-b5">
-												<div className="dez-separator bg-primary style-liner"></div>
-											</div>
-											<div className="form-group">
-												<label>Nombres</label>
-												<input value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="" />
-												<div className="text-danger">{errors.email && <div>{errors.email}</div>}</div>
-											</div>
-											<div className="form-group" style={{ marginTop: -20 }}>
-												<label>Apellidos</label>
-												<input value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="" />
-												<div className="text-danger">{errors.email && <div>{errors.email}</div>}</div>
-											</div>
-											<div className="form-group" style={{ marginTop: -20 }}>
-												<label>Email</label>
-												<input value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" placeholder="" />
-												<div className="text-danger">{errors.email && <div>{errors.email}</div>}</div>
-											</div>
-											<div className="form-group" style={{ marginTop: -20 }}>
-												<label>Contraseña</label>
-												<input value={password} className="form-control" defaultValue="Password"
-													onChange={(e) =>
-														setPassword(e.target.value)
-													}
-												/>
-												<div className="text-danger">{errors.password && <div>{errors.password}</div>}</div>
-											</div>
-											{/* <Link data-toggle="tab" to="#forgot-password" className="forget-pass m-l5"><i className="fa fa-unlock-alt"></i> Olvidé mi contraseña</Link> */}
-											{/* <div className="dz-social clearfix">
-												<h5 className="form-title m-t5 pull-left">Sign In With</h5>
-												<ul className="dez-social-icon dez-border pull-right dez-social-icon-lg text-white">
-													<li><Link to={''} className="fa fa-facebook  fb-btn mr-1" target="bank"></Link></li>
-													<li><Link to={''} className="fa fa-twitter  tw-btn mr-1" target="bank"></Link></li>
-													<li><Link to={''} className="fa fa-linkedin link-btn mr-1" target="bank"></Link></li>
-													<li><Link to={''} className="fa fa-google-plus  gplus-btn" target="bank"></Link></li>
-												</ul>
-											</div> */}
-										</form>
-										<div className="text-center bottom">
-											<Link to="/login" className="site-button button-md btn-block text-white">Registrarme</Link>
+										<h3 className="form-title m-t0">Registro</h3>
+										<div className="dez-separator-outer m-b5">
+											<div className="dez-separator bg-primary style-liner"></div>
 										</div>
+										<Form methods={methods} onSubmit={onSignUp}>
+											<RHFTextInput
+												name={'firstname'}
+												label={'Nombres'}
+											/>
+											<RHFTextInput
+												name={'lastname'}
+												label={'Apellidos'}
+											/>
+											<RHFTextInput
+												name={'email'}
+												label={'Email'}
+												inputPattern={{ value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Email inválido' }}
+											/>
+											<RHFTextInput
+												name={'password'}
+												label={'Contraseña'}
+												inputProps={{ type: 'password' }}
+											/>
+											<div className="text-center bottom">
+												<button type='submit' className='site-button button-md btn-block text-white'>Registrarme</button>
+											</div>
+										</Form>
 									</div>
 								</div>
 								<div className="bottom-footer clearfix m-t10 m-b20 row text-center">

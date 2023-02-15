@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import SimpleReactLightbox from "simple-react-lightbox";
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { Toaster } from 'react-hot-toast';
-
+// console.log('env: ', process.env.API_URL)
 const client = new ApolloClient({
     uri: 'http://localhost:3000/graphql',
     cache: new InMemoryCache({ addTypename: false }),

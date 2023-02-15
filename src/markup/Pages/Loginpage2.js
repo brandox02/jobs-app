@@ -1,44 +1,18 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Form } from '../../components/form/Form';
 import { RHFTextInput } from '../../components/form/RHFTextInput';
-import { setAccessToken, setUser } from '../../store/slices/appSlice';
 import { useAuth } from '../../useAuth';
 import loginbg from "./../../images/bg6.jpg";
 import logo2 from './../../images/logo-white2.png';
 import { useForm } from 'react-hook-form';
-import { useApolloClient, createHttpLink } from '@apollo/client';
-import toast from 'react-hot-toast';
 import { withErrorHandler } from '../../withErrorHandler';
 
-function Login({
-	errorMessage = '',
-	successMessage = '',
-	showLoading = false,
-	history
-}) {
+function Login() {
 	const methods = useForm();
-	const client = useApolloClient();
-
-	const dispatch = useDispatch();
 	const { login } = useAuth();
 
-	const onLogin = withErrorHandler(async ({ email, password }) => {
-		const { accessToken, user } = await login({ email, password });
-		dispatch(setAccessToken(accessToken));
-		dispatch(setUser(user));
-		localStorage.setItem('auth-metadata', JSON.stringify({ accessToken, user }));
-
-		client.setLink(createHttpLink({
-			uri: 'http://localhost:3000/graphql',
-			headers: {
-				'authorization': `Bearer ${accessToken}`
-			},
-		}));
-
-		history.push('/home');
-	}, () => ({ "Resource not found": 'Usuario o contraseña incorrectos' }))
+	const onLogin = withErrorHandler(login, () => ({ "Resource not found": 'Usuario o contraseña incorrectos', 'Unauthorized': 'Usuario o contraseña incorrectos' }));
 
 	return (
 

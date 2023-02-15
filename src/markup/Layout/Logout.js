@@ -2,14 +2,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import { logout } from '../../store/actions/AuthActions';
-
 
 function LogoutPage(props) {
     const dispatch = useDispatch();
 
     function onLogout() {
-        dispatch(logout(props.history));
+        // dispatch(logout(props.history));
         // window.location.reload();
     }
     return (

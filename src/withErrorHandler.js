@@ -5,7 +5,6 @@ export function withErrorHandler(fn, messageErrorHandler) {
       try {
          await fn(...params);
       } catch (error) {
-         console.error(error);
          const dict = messageErrorHandler ? messageErrorHandler(error) : {};
          const message = dict[error.message] || 'Algo salió mal';
          toast.error(message);
