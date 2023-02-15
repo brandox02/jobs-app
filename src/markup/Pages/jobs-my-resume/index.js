@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
-import { Modal } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
 import Listingsidebar from '../../Element/Listingsidebar';
 import { Resume } from './Resume';
 import { KeySkills } from './KeySkills';
@@ -16,22 +14,6 @@ var bnr = require('./../../../images/banner/bnr1.jpg');
 //var bnr2 = require('./../../images/background/bg3.jpg');
 
 function Jobmyresume() {
-	// const [basicdetails, setBasicDetails] = useState(false);	
-	const [resume, setResume] = useState(false);
-	const [keyskill, setKeyskill] = useState(false);
-	const [employment, setEmployment] = useState(false);
-	const [education, setEducation] = useState(false);
-	const [itskills, setItSkills] = useState(false);
-	const [projects, setProjects] = useState(false);
-	const [profilesummary, setProfileSummary] = useState(false);
-	const [onlineprofile, setOnlineProfile] = useState(false);
-	const [worksample, setWorkSample] = useState(false);
-	const [whitepaper, setWhitePaper] = useState(false);
-	const [presentation, setPresentation] = useState(false);
-	const [patent, setPatent] = useState(false);
-	const [certification, setCertification] = useState(false);
-	const [careerprofile, setCareerProfile] = useState(false);
-	const [personaldetails, setPersonalDetails] = useState(false);
 	return (
 		<>
 			<Header />
@@ -86,9 +68,7 @@ function Jobmyresume() {
 							</div> */}
 						</div>
 					</div>
-
 				</div>
-
 				<div className="content-block">
 					<div className="section-full browse-job content-inner-2">
 						<div className="container">
@@ -1387,7 +1367,6 @@ function Jobmyresume() {
 					</div>
 
 				</div>
-
 			</div>
 			<Footer />
 		</>

@@ -1,26 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-//import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
-import {Provider} from 'react-redux';
-import {store} from './store/store';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 import reportWebVitals from "./reportWebVitals";
 import SimpleReactLightbox from "simple-react-lightbox";
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { Toaster } from 'react-hot-toast';
 
-//ReactDOM.render(<App />, document.getElementById('root'));
+const client = new ApolloClient({
+    uri: 'http://localhost:3000/graphql',
+    cache: new InMemoryCache({ addTypename: false }),
+});
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Provider store = {store}>
+    <React.StrictMode>
+        <Provider store={store}>
             <SimpleReactLightbox>
                 <BrowserRouter basename='/react/demo'>
-                    <App />
-                </BrowserRouter>    
+                    <ApolloProvider client={client}>
+                        <Toaster />
+                        <App />
+                    </ApolloProvider>
+                </BrowserRouter>
             </SimpleReactLightbox>
-        </Provider>	
-	</React.StrictMode>,
-  document.getElementById("root")
+        </Provider>
+    </React.StrictMode>,
+    document.getElementById("root")
 );
 reportWebVitals();
 

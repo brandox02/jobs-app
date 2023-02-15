@@ -18,7 +18,8 @@ export function signUp(email, password) {
     );
 }
 
-export function login(email, password) {
+export function login({ email, password, apolloClient }) {
+
     const postData = {
         email,
         password,
@@ -38,11 +39,11 @@ export function formatError(errorResponse) {
             break;
         case 'EMAIL_NOT_FOUND':
             //return 'Email not found';
-           swal("Oops", "Email not found", "error",{ button: "Try Again!",});
-           break;
+            swal("Oops", "Email not found", "error", { button: "Try Again!", });
+            break;
         case 'INVALID_PASSWORD':
             //return 'Invalid Password';
-            swal("Oops", "Invalid Password", "error",{ button: "Try Again!",});
+            swal("Oops", "Invalid Password", "error", { button: "Try Again!", });
             break;
         case 'USER_DISABLED':
             return 'User Disabled';
@@ -52,11 +53,8 @@ export function formatError(errorResponse) {
     }
 }
 
-export function saveTokenInLocalStorage(tokenDetails) {
-    tokenDetails.expireDate = new Date(
-        new Date().getTime() + tokenDetails.expiresIn * 1000,
-    );
-    localStorage.setItem('userDetails', JSON.stringify(tokenDetails));
+export function saveTokenInLocalStorage(userDetails) {
+    localStorage.setItem('userDetails', JSON.stringify(userDetails));
 }
 
 export function runLogoutTimer(dispatch, timer, history) {

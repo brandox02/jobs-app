@@ -1,8 +1,36 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Profilesidebar(){
-	return(
+const items = [
+	{
+		text: 'Información de Perfil',
+		to: '/jobs-profile',
+		iconClassname: 'fa fa-user-o'
+	},
+	{
+		text: 'Mi Resumen',
+		to: '/jobs-my-resume',
+		iconClassname: 'fa fa-file-text-o'
+	},
+	{
+		text: 'Mis Aplicaciones',
+		to: '/jobs-applied-job',
+		iconClassname: 'fa fa-briefcase'
+	},
+	{
+		text: 'Cambiar Contraseña',
+		to: '/jobs-change-password',
+		iconClassname: 'fa fa-key'
+	},
+	{
+		text: 'Cerrar Sesión',
+		to: './',
+		iconClassname: 'fa fa-sign-out'
+	}
+]
+
+function Profilesidebar() {
+	return (
 		<div className="col-xl-3 col-lg-4 m-b30">
 			<div className="sticky-top">
 				<div className="candidate-info">
@@ -19,36 +47,16 @@ function Profilesidebar(){
 						<div className="candidate-title">
 							<div className="">
 								<h4 className="m-b5"><Link to={"#"}>David Martin</Link></h4>
-								<p  className="m-b0"><Link to={"#"}>Web developer</Link></p>
+								<p className="m-b0"><Link to={"#"}>Web developer</Link></p>
 							</div>
 						</div>
 					</div>
 					<ul>
-						<li><Link to={"/jobs-profile"} className="active">
-							<i className="fa fa-user-o" aria-hidden="true"></i> 
-							<span>Profile</span></Link></li>
-						<li><Link to={"/jobs-my-resume"}>
-							<i className="fa fa-file-text-o" aria-hidden="true"></i> 
-							<span>My Resume</span></Link></li>
-						{/* <li><Link to={"/jobs-saved-jobs"}>
-							<i className="fa fa-heart-o" aria-hidden="true"></i> 
-							<span>Saved Jobs</span></Link></li> */}
-						<li><Link to={"/jobs-applied-job"}>
-							<i className="fa fa-briefcase" aria-hidden="true"></i> 
-							<span>Applied Jobs</span></Link></li>
-						{/* <li><Link to={"/jobs-alerts"}>
-							<i className="fa fa-bell-o" aria-hidden="true"></i> 
-							<span>Job Alerts</span></Link></li> */}
-							{/* <li><Link to={"/jobs-cv-manager"}>
-							<i className="fa fa-id-card-o" aria-hidden="true"></i> 
-							<span>CV Manager</span></Link></li> */}
-						<li><Link to={"/jobs-change-password"}>
-							<i className="fa fa-key" aria-hidden="true"></i> 
-							<span>Change Password</span></Link></li>
-						<li><Link to={"./"}>
-							<i className="fa fa-sign-out" aria-hidden="true"></i> 
-							<span>Log Out</span></Link>
-						</li>
+						{items.map(item => (
+							<li><Link to={item.to} className={window.location.href.includes(item.to) ? 'active' : ''}>
+								<i className={item.iconClassname} aria-hidden="true"></i>
+								<span>{item.text}</span></Link></li>
+						))}
 					</ul>
 				</div>
 			</div>

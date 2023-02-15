@@ -73,18 +73,18 @@ function Jobprofile() {
 												</div>
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
-														<label>Gender</label>
+														<label>Género</label>
 														<div className="row">
-															<div className="col-lg-3 col-md-6 col-sm-6 col-6">
+															<div className="col-lg-6 col-md-6 col-sm-6 col-6">
 																<div className="custom-control custom-radio">
 																	<input type="radio" className="custom-control-input" id="male" name="example1" />
-																	<label className="custom-control-label" htmlFor="male">Male</label>
+																	<label className="custom-control-label" htmlFor="male">Masculino</label>
 																</div>
 															</div>
 															<div className="col-lg-3 col-md-6 col-sm-6 col-6">
 																<div className="custom-control custom-radio">
 																	<input type="radio" className="custom-control-input" id="female" name="example1" />
-																	<label className="custom-control-label" htmlFor="female">Female</label>
+																	<label className="custom-control-label" htmlFor="female">Femenino</label>
 																</div>
 															</div>
 														</div>

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from "react-scroll";
-
+import { useHistory } from 'react-router-dom'
 
 function Listingsidebar() {
+	const { push } = useHistory();
+	const goBack = () => push('/jobs-profile');
 	return (
 		<div className="sticky-top bg-white">
+			<Link onClick={goBack} className="site-button right-arrow button-sm float-right" style={{ color: 'white', transform: 'scale(1.2)', marginRight: 5 }}>Atrás</Link>
 			<div className="candidate-info onepage">
 				<ul>
 					<li>
@@ -66,6 +69,7 @@ function Listingsidebar() {
 				</ul>
 			</div>
 		</div>
+
 	)
 }
 export default Listingsidebar;
