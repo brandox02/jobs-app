@@ -20,7 +20,8 @@ export function RHFTextInput({ name, label, inputProps = {}, labelProps = {}, in
             }
             return <input
                type="text"
-               value={value} onChange={onChange}
+               value={value}
+               onChange={onChange}
                {...inputProps}
                className={'form-control ' + inputProps?.className || ''}
             />

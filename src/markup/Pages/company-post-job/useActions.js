@@ -1,6 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { withErrorHandler } from '../../../withErrorHandler';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { parseIntKeysInObject } from '../../../utils/parseIntKeysInObject';
+
 
 const SELECTS = gql`
    query ListSelects{
@@ -35,7 +39,7 @@ const SELECTS = gql`
          id
       }
 }
-`
+`;
 
 const CITIES = gql`
    query Cities($countryId: Float) {
@@ -49,16 +53,41 @@ const CITIES = gql`
          name
       }
    }
-`
+`;
+
+const CREATE_JOB = gql`
+   mutation CreateJob($input: CreateJobInput!) {
+      createJob(input: $input) {
+         id
+      }
+   }
+`;
 
 export const useActions = () => {
    const methods = useForm({ defaultValues: { englishRequired: false } });
    const countryId = methods.watch('countryId') ? parseInt(methods.watch('countryId')) : null;
    const { data } = useQuery(CITIES, { variables: { countryId }, fetchPolicy: 'cache-and-network' });
    const { data: dataSelects } = useQuery(SELECTS, { fetchPolicy: 'cache-and-network' });
+   const [createJobMutation] = useMutation(CREATE_JOB);
+   const history = useHistory();
 
-   const onSubmit = withErrorHandler((data) => {
-      console.log({ data });
+   const onSubmit = withErrorHandler(async (data) => {
+      const copyData = { ...data };
+
+      copyData.tags = copyData.tags ? copyData.tags.split(',').map(item => ({ name: item })) : [];
+      copyData.statusId = 1;
+
+      await createJobMutation({
+         variables:
+         {
+            input: parseIntKeysInObject(copyData,
+               ['workingModalityId', 'employmentContractId', 'experienceTimeId', 'dailyWorkTimeId', 'categoryId', 'countryId', 'cityId', 'statusId']
+            )
+         }
+      });
+
+      toast.success('Vacante creada correctamente');
+      history.push('/company-manage-job');
    });
 
    const cities = data?.cities || [];

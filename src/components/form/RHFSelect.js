@@ -29,7 +29,8 @@ export function RHFSelect({
                className="custom-select"
                onChange={onChange}
             >
-               {[{ label: 'Selecciona una opción', value: null }, ...options].map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
+               {[{ label: 'Selecciona una opción', value: null }, ...options]
+                  .map(item => <option key={item.value} value={item.value}>{item.label}</option>)}
             </Form.Control>
             {errors[name] && (
                <div className='' style={{ color: 'red' }}>

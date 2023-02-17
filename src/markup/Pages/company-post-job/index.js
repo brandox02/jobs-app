@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
 import { CompanySideBar } from '../../../components/CompanySideBar';
-import { NumericFormat } from 'react-number-format';
 import { useActions } from './useActions';
 import { Form } from '../../../components/form/Form';
 import { RHFTextInput } from '../../../components/form/RHFTextInput';
 import { RHFCheckbox } from '../../../components/form/RHFCheckbox';
 import { RHFSelect } from '../../../components/form/RHFSelect';
+import { RHFNumberFormatInput } from '../../../components/form/RHFNumberFormatInput';
+import { RHFTextarea } from '../../../components/form/RHFTextarea';
 
 function CompanyPostJob() {
 	const { methods, onSubmit, dataSelects, cities } = useActions();
@@ -38,19 +39,23 @@ function CompanyPostJob() {
 												</div>
 												<div className="col-lg-6 col-md-6">
 													<RHFTextInput
-														name={'email'}
+														name={'contactEmail'}
 														label={'Email de Contacto'}
 														// eslint-disable-next-line
 														inputPattern={{ value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: 'Email inválido' }}
 														inputProps={{ placeholder: 'Introduce el email de contacto de la vacante' }}
 													/>
 												</div>
+												<div className="col-lg-12 col-md-12">
+													<RHFTextarea
+														label={'Descripción'}
+														name={'description'}
+														inputProps={{ placeholder: 'Agrega una descripción detallada a esta vacante' }}
+													/>
+												</div>
 												<div className="col-lg-8 col-md-8">
-													{/* <div className="form-group">
-														<label>Tags</label>
-														<input type="text" className="form-control tags_input" placeholder='html,css,javascript' />
-													</div> */}
 													<RHFTextInput
+														required={false}
 														name={'tags'}
 														label={'Tags'}
 														inputPattern={{ value: /^[^\s,]+(,[^\s,]+)*$/, message: 'No debes tener espacios en blanco' }}
@@ -94,7 +99,7 @@ function CompanyPostJob() {
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
-													<RHFTextInput
+													<RHFNumberFormatInput
 														name={'minSalary'}
 														label={'Salario Mínimo'}
 														inputProps={{
@@ -103,11 +108,10 @@ function CompanyPostJob() {
 															placeholder: 'Introduce el salario mínimo para esta vacante',
 															className: 'form-control',
 														}}
-														CustomInput={NumericFormat}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
-													<RHFTextInput
+													<RHFNumberFormatInput
 														name={'maxSalary'}
 														label={'Salario Máximo'}
 														inputProps={{
@@ -116,7 +120,6 @@ function CompanyPostJob() {
 															placeholder: 'Introduce el salario máximo para esta vacante',
 															className: 'form-control',
 														}}
-														CustomInput={NumericFormat}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
@@ -147,8 +150,9 @@ function CompanyPostJob() {
 														inputProps={{ placeholder: 'Introduce la dirección del trabajo' }}
 													/>
 												</div>
+
 												<div className="col-lg-4 col-md-4 d-flex align-items-center">
-													<RHFTextInput
+													<RHFNumberFormatInput
 														name={'vigencyDays'}
 														label={'Tiempo de Vigencia de la Vacante'}
 														inputProps={{
@@ -156,7 +160,6 @@ function CompanyPostJob() {
 															suffix: ' Dias',
 															placeholder: 'Dias'
 														}}
-														CustomInput={NumericFormat}
 													/>
 												</div>
 												{/* <div className="col-lg-12 col-md-12">

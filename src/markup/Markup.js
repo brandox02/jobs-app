@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Homepage from './Pages/Homepage1';
 import Homepage2 from './Pages/Homepage2';
@@ -15,7 +15,7 @@ import Changepasswordpage from './Pages/Changepasswordpage';
 import Companyprofile from './Pages/company-profile';
 import Companyresume from './Pages/Companyresume';
 import CompanyPostJob from './Pages/company-post-job';
-import Companymanage from './Pages/Companymanage';
+import CompanyManageJob from './Pages/company-manage-job';
 import Companytransactions from './Pages/Companytransactions';
 import Browsecandidates from './Pages/Browsecandidates';
 
@@ -74,7 +74,7 @@ const Markup = () => {
 					<Route path='/company-profile' exact component={Companyprofile} />
 					<Route path='/company-resume' exact component={Companyresume} />
 					<Route path='/company-post-jobs' exact component={CompanyPostJob} />
-					<Route path='/company-manage-job' exact component={Companymanage} />
+					<Route path='/company-manage-job' exact component={CompanyManageJob} />
 					<Route path='/company-transactions' exact component={Companytransactions} />
 					<Route path='/company-change-password' exact component={CompanyChangePassword} />
 					<Route path='/browse-candidates' exact component={Browsecandidates} />

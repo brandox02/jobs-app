@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from './../Layout/Header';
-import Footer from './../Layout/Footer';
+import Header from '../../Layout/Header';
+import Footer from '../../Layout/Footer';
 import { Modal } from 'react-bootstrap';
-import { CompanySideBar } from '../../components/CompanySideBar';
+import { CompanySideBar } from '../../../components/CompanySideBar';
+import { useActions } from './useActions';
+import { Pagination } from '../../../components/Pagination';
 
 function Companymanage() {
 	const [company, setCompany] = useState(false);
+	const { jobs, page, setPage } = useActions();
+	console.log({ jobs, page });
 	return (
 		<>
 			<Header />
@@ -37,9 +41,9 @@ function Companymanage() {
 												<tr>
 													<th className="feature">
 														{/* <div className="custom-control custom-checkbox">
-																<input type="checkbox" id="check12" className="custom-control-input selectAllCheckBox" name="example1" />
-																<label className="custom-control-label" htmlFor="check12"></label>
-															</div> */}
+															<input type="checkbox" id="check12" className="custom-control-input selectAllCheckBox" name="example1" />
+															<label className="custom-control-label" htmlFor="check12"></label>
+														</div> */}
 													</th>
 													<th>Vacante</th>
 													<th>Postulaciones</th>
@@ -48,7 +52,32 @@ function Companymanage() {
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
+												{jobs.map(job => (
+													<tr key={job.id}>
+														<td className="feature">
+															<div className="custom-control custom-checkbox">
+																<input type="checkbox" className="custom-control-input" id="check1" name="example1" />
+																<label className="custom-control-label" htmlFor="check1"></label>
+															</div>
+														</td>
+														<td className="job-name">
+															<Link to={"#"}>{job.name}</Link>
+															<ul className="job-post-info">
+																<li><i className="fa fa-map-marker"></i>{`${job.city.name}, ${job.country.name}`}</li>
+																<li><i className="fa fa-bookmark-o"></i> {job.dailyWorkTime.name}</li>
+																<li><i className="fa fa-filter"></i> {job.workingModality.name}</li>
+															</ul>
+														</td>
+														<td className="application text-primary">(5) Applications</td>
+														<td className="expired pending">{job.status.name} </td>
+														<td className="job-links">
+															<Link to={"#"} onClick={() => setCompany(true)}>
+																<i className="fa fa-eye"></i></Link>
+															<Link to={"#"}><i className="ti-trash"></i></Link>
+														</td>
+													</tr>
+												))}
+												{/* <tr>
 													<td className="feature">
 														<div className="custom-control custom-checkbox">
 															<input type="checkbox" className="custom-control-input" id="check1" name="example1" />
@@ -277,10 +306,10 @@ function Companymanage() {
 															<i className="fa fa-eye"></i></Link>
 														<Link to={"#"}><i className="ti-trash"></i></Link>
 													</td>
-												</tr>
+												</tr> */}
 											</tbody>
 										</table>
-										<div className="pagination-bx m-t30 float-right">
+										{/* <div className="pagination-bx m-t30 float-right">
 											<ul className="pagination">
 												<li className="previous"><Link to={"#"}><i className="ti-arrow-left"></i> Prev</Link></li>
 												<li className="active"><Link to={"#"}>1</Link></li>
@@ -288,14 +317,15 @@ function Companymanage() {
 												<li><Link to={"#"}>3</Link></li>
 												<li className="next"><Link to={"#"}>Next <i className="ti-arrow-right"></i></Link></li>
 											</ul>
-										</div>
+										</div> */}
+										<Pagination page={page} setPage={setPage} pageQuantity={5} />
 
 										<Modal show={company} onHide={setCompany} className="modal fade modal-bx-info">
 											<div className="modal-dialog my-0" role="document">
 												<div className="modal-content">
 													<div className="modal-header">
 														<div className="logo-img">
-															<img alt="" src={require("./../../images/logo/icon2.png")} />
+															<img alt="" src={require("./../../../images/logo/icon2.png")} />
 														</div>
 														<h5 className="modal-title">Company Name</h5>
 														<button type="button" className="close" onClick={() => setCompany(false)}>
@@ -317,7 +347,6 @@ function Companymanage() {
 												</div>
 											</div>
 										</Modal>
-
 									</div>
 								</div>
 							</div>
