@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header2 from '../Layout/Header2';
+import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import { CompanySideBar } from '../../components/CompanySideBar';
 
 function CompanyChangePassword() {
 	return (
 		<>
-			<Header2 />
+			<Header />
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white p-t50 p-b20">

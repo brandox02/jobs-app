@@ -12,7 +12,7 @@ import Jobsavedjobs from './Pages/Jobsavedjobs';
 import Jobcvmanager from './Pages/Jobcvmanager';
 import Changepasswordpage from './Pages/Changepasswordpage';
 
-import Companyprofile from './Pages/Companyprofile';
+import Companyprofile from './Pages/company-profile';
 import Companyresume from './Pages/Companyresume';
 import Componypostjobs from './Pages/Componypostjobs';
 import Companymanage from './Pages/Companymanage';
@@ -58,15 +58,15 @@ import Blogdetail from './Pages/Blogdetail';
 import ScrollToTop from './Element/ScrollToTop';
 import CompanyChangePassword from './Pages/Componychangepasword';
 
-const Markup= () => {
-	return(
+const Markup = () => {
+	return (
 		<>
 			<div className="page-wraper">
 				<Switch>
 					<Route path='/' exact component={Homepage} />
-						 <Route path='/home' exact component={Homepage} />
+					<Route path='/home' exact component={Homepage} />
 					<Route path='/index-2' exact component={Homepage2} />
-					
+
 					<Route path='/jobs-profile' exact component={Jobprofile} />
 					<Route path='/jobs-my-resume' exact component={Jobmyresume} />
 					<Route path='/jobs-applied-job' exact component={Jobsappliedjob} />
@@ -74,8 +74,8 @@ const Markup= () => {
 					<Route path='/jobs-saved-jobs' exact component={Jobsavedjobs} />
 					<Route path='/jobs-cv-manager' exact component={Jobcvmanager} />
 					<Route path='/jobs-change-password' exact component={Changepasswordpage} />
-						
-						
+
+
 					<Route path='/company-profile' exact component={Companyprofile} />
 					<Route path='/company-resume' exact component={Companyresume} />
 					<Route path='/company-post-jobs' exact component={Componypostjobs} />
@@ -83,8 +83,8 @@ const Markup= () => {
 					<Route path='/company-transactions' exact component={Companytransactions} />
 					<Route path='/company-change-password' exact component={CompanyChangePassword} />
 					<Route path='/browse-candidates' exact component={Browsecandidates} />
-					
-					
+
+
 					<Route path='/about-us' exact component={Aboutus} />
 					<Route path='/job-detail' exact component={Jobdetail} />
 					<Route path='/companies' exact component={Companies} />
@@ -93,40 +93,36 @@ const Markup= () => {
 					<Route path='/browse-job-grid' exact component={Browsejobgrid} />
 					<Route path='/browse-job-filter-list' exact component={Browsejobfilterlist} />
 					<Route path='/browse-job-filter-grid' exact component={Browsejobfiltergrid} />
-					
+
 					<Route path='/category-all-jobs' exact component={Categoryalljob} />
 					<Route path='/category-company-jobs' exact component={Categorycompanyjob} />
 					<Route path='/category-designations-jobs' exact component={Categorydesignationsjob} />
 					<Route path='/category-jobs' exact component={Categoryjobs} />
 					<Route path='/category-location-jobs' exact component={Categorylocationjobs} />
 					<Route path='/category-skill-jobs' exact component={Categoryskilljobs} />
-					
-					<Route path='/portfolio-grid-2' exact component={Portfoliogrid2} /> 
-					
-					{/* <Route path='/login' exact component={Loginpage2 } />
-					<Route path='/login-2' exact component={Loginpage1} />
-					<Route path='/login-3' exact component={Loginpage3} /> */}
-					
-					 <Route path='/register' exact component={Register1} />
+
+					<Route path='/portfolio-grid-2' exact component={Portfoliogrid2} />
+
+					<Route path='/register' exact component={Register1} />
 					<Route path='/register-2' exact component={Register2} />
 					<Route path='/error-404' exact component={Error404} />
-					
+
 					<Route path='/contact' exact component={Contact} />
-					
+
 					<Route path='/blog-classic' exact component={Blogclassic} />
 					<Route path='/blog-classic-sidebar' exact component={Blogclassicsidebar} />
 					<Route path='/blog-detailed-grid' exact component={Blogdetailgrid} />
 					<Route path='/blog-detailed-grid-sidebar' exact component={Blogdetailgridsidebar} />
 					<Route path='/blog-left-img' exact component={Blogleftimg} />
-					<Route path='/blog-details' exact component={Blogdetail} /> 
-					
+					<Route path='/blog-details' exact component={Blogdetail} />
+
 				</Switch>
 			</div>
 			<ScrollToTop />
-		</>	
+		</>
 	)
-	
-	
+
+
 }
 
 export default Markup;

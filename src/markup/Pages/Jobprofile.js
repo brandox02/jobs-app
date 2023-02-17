@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header2 from './../Layout/Header2';
+import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import Profilesidebar from './../Element/Profilesidebar';
 import { Form } from 'react-bootstrap';
@@ -9,7 +9,7 @@ import { NumericFormat } from 'react-number-format';
 function Jobprofile() {
 	return (
 		<>
-			<Header2 />
+			<Header />
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white browse-job p-t50 p-b20">
@@ -24,12 +24,6 @@ function Jobprofile() {
 										</div>
 										<form>
 											<div className="row m-b30">
-												<div className="col-lg-6 col-md-6">
-													<div className="form-group">
-														<label>Tu Nombre:</label>
-														<input type="text" className="form-control" placeholder="" />
-													</div>
-												</div>
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
 														<label>Titulo Profesional:</label>

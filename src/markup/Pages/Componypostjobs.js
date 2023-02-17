@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header2 from './../Layout/Header2';
+import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import { Form } from 'react-bootstrap';
 import { CompanySideBar } from '../../components/CompanySideBar';
-import {NumericFormat} from 'react-number-format';
+import { NumericFormat } from 'react-number-format';
 
 function Componypostjobs() {
 	return (
 		<>
-			<Header2 />
+			<Header />
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white p-t50 p-b20">
@@ -50,10 +50,10 @@ function Componypostjobs() {
 												</div>
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
-														<label>Modalidad de Trabajo</label>
+														<label>Contrato de Trabajo</label>
 														<Form.Control as="select" custom className="custom-select">
-															<option>Tiempo Completo</option>
-															<option>Medio Tiempo</option>
+															<option>Por Tiempo Indefinido</option>
+															<option>Temporal</option>
 															<option>Pasantia</option>
 															<option>Freelance</option>
 														</Form.Control>
@@ -61,7 +61,7 @@ function Componypostjobs() {
 												</div>
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
-														<label>Tipo de Trabajo</label>
+														<label>Modalidad de Trabajo</label>
 														<Form.Control as="select" custom className="custom-select">
 															<option>Presencial</option>
 															<option>Semi Presencial</option>
@@ -71,13 +71,14 @@ function Componypostjobs() {
 												</div>
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
-														<label>Tipo de Contrato de Trabajo</label>
+														<label>Horario de Trabajo</label>
 														<Form.Control as="select" custom className="custom-select">
-															<option>Contrato Indefinido</option>
-															<option>Temporal</option>
+															<option>Tiempo Completo</option>
+															<option>Medio Tiempo</option>
 														</Form.Control>
 													</div>
 												</div>
+
 												<div className="col-lg-6 col-md-6">
 													<div className="form-group">
 														<label>Tiempo de Experiencia Requerido</label>
@@ -160,8 +161,8 @@ function Componypostjobs() {
 													<div className="form-group">
 														<label>Tiempo de Vigencia de la Vacante</label>
 														{/* <input type="text" className="form-control w-50" placeholder={''} value={30}/> */}
-														<NumericFormat 
-														className='form-control'
+														<NumericFormat
+															className='form-control'
 															suffix=' Dias'
 															placeholder='Dias'
 														/>
@@ -181,7 +182,7 @@ function Componypostjobs() {
 													</div>
 												</div> */}
 											</div>
-											<button type="button" className="site-button m-b30">Upload</button>
+											<button type="button" className="site-button m-b30">Publicar Vacante</button>
 										</form>
 									</div>
 								</div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import Header2 from './../Layout/Header2';
+import { Link } from 'react-router-dom';
+import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import { CompanySideBar } from '../../components/CompanySideBar';
 
@@ -15,10 +15,10 @@ const postResume = [
 	{ title: 'Ali Tufan', },
 ]
 
-function Companyresume(){
-	return(
+function Companyresume() {
+	return (
 		<>
-			<Header2 />
+			<Header />
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white p-t50 p-b20">
@@ -32,7 +32,7 @@ function Companyresume(){
 											<Link to={"/company-manage-job"} className="site-button right-arrow button-sm float-right">Back</Link>
 										</div>
 										<ul className="post-job-bx browse-job-grid post-resume row">
-											{postResume.map((item,index)=>(
+											{postResume.map((item, index) => (
 												<li className="col-lg-6 col-md-6" key={index}>
 													<div className="post-bx">
 														<div className="d-flex m-b20">
@@ -58,7 +58,7 @@ function Companyresume(){
 													</div>
 												</li>
 											))}
-											
+
 										</ul>
 										<div className="pagination-bx float-right">
 											<ul className="pagination">
@@ -74,7 +74,7 @@ function Companyresume(){
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<Footer />

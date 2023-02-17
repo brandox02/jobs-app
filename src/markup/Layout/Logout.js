@@ -1,22 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import { useAuth } from '../../useAuth';
 
-
-function LogoutPage(props) {
-    const dispatch = useDispatch();
-
-    function onLogout() {
-        // dispatch(logout(props.history));
-        // window.location.reload();
-    }
+function LogoutPage() {
+    const { logout } = useAuth();
     return (
-        <>
-
-            <Link to={'#'} title="READ MORE" className="site-button" onClick={onLogout}>
-                <i className="fa fa-lock"></i> Logout
-            </Link>
-        </>
+        <Link to={'#'} title="READ MORE" className="site-button" onClick={logout}>
+            <i className="fa fa-lock"></i> Logout
+        </Link>
     )
 }
 

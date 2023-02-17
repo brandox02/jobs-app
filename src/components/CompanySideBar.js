@@ -61,6 +61,7 @@ export function CompanySideBar() {
                   {items.map(item => (
                      <li
                         onClick={item?.onClick ? item.onClick : () => { }}
+                        key={item.to}
                      >
                         <Link to={item.to} className={window.location.href.includes(item.to) ? 'active' : ''}>
                            <i className={item.iconClassname} aria-hidden="true"></i>

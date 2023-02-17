@@ -1,22 +1,20 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import Jobcategories from './../Element/Jobcategories';
 import Jobsection from './../Element/Jobsection';
-import Owltestimonial from './../Element/Owlblog1';
-import Latestblogowl from './../Element/Owlblog2';
+
 
 var bnr1 = require('./../../images/main-slider/slide1.jpg');
 var bnr2 = require('./../../images/background/bg4.jpg');
-var bnr3 = require('./../../images/background/bg3.jpg');
 
-function Homepage2(){
-	return(
+function Homepage2() {
+	return (
 		<>
-			<Header />	
+			<Header />
 			<div className="page-content">
-				<div className="dez-bnr-inr dez-bnr-inr-md overlay-black-dark" style={{backgroundImage:"url(" + bnr1 + ")"}}>
+				<div className="dez-bnr-inr dez-bnr-inr-md overlay-black-dark" style={{ backgroundImage: "url(" + bnr1 + ")" }}>
 					<div className="container">
 						<div className="dez-bnr-inr-entry align-m text-white">
 							<div className=" job-search-form">
@@ -41,11 +39,11 @@ function Homepage2(){
 							<h2 className="m-b5">Categorias Populares</h2>
 							<h5 className="fw4">Más de 20 categorias esperando por ti</h5>
 						</div>
-						
+
 						<Jobcategories />
 					</div>
-				</div>	
-				<div className="section-full content-inner-2 call-to-action overlay-black-dark text-white text-center bg-img-fix" style={{backgroundImage:"url(" + bnr2 + ")"}}>
+				</div>
+				<div className="section-full content-inner-2 call-to-action overlay-black-dark text-white text-center bg-img-fix" style={{ backgroundImage: "url(" + bnr2 + ")" }}>
 					<div className="container">
 						<div className="row">
 							<div className="col-lg-12">
@@ -77,7 +75,7 @@ function Homepage2(){
 				</div>	 */}
 			</div>
 			<Footer />
-		</>	
+		</>
 	)
 }
 

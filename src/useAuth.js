@@ -1,29 +1,76 @@
 import { gql, createHttpLink, useApolloClient } from '@apollo/client';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setAccessToken, setUser } from './store/slices/appSlice';
+
+const LOGIN = gql`
+         mutation Login($email: String!, $password: String!){
+            login(email: $email, password: $password) {
+               accessToken user { 
+                  id 
+                  email       
+                  lastname
+                  imageUrl
+                  imageId
+                  firstname
+                  companyProfile {
+                     website
+                     twitterUrl
+                     linkedinUrl
+                     name
+                     email
+                     description
+                     countryId
+                     id
+                     foundationDate
+                     facebookUrl
+                     cityId
+                  }
+                  candidateProfile {
+                     id
+                     genderId
+                     facebookUrl
+                     desiredSalary
+                     currentSalary
+                     countryId
+                     cityId
+                     bornDate
+                     aboutMe
+                     linkedinUrl
+                     phone
+                     professionalTitle
+                     twitterUrl
+                     updatedAt
+                  }
+               }
+            }
+         }
+`;
+
+const SIGNIN = gql`
+         mutation Signin($user: CreateUserInput!){
+            signin(user: $user) {
+               accessToken user { id firstname lastname}
+            }
+         }
+`;
 
 export function useAuth() {
    const client = useApolloClient();
    const dispatch = useDispatch();
-   const history = useHistory()
+   const history = useHistory();
+   const { accessToken } = useSelector(state => state.app);
 
    useEffect(() => {
       const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));
-      if (appInfo) {
-         client.setLink(createHttpLink({
-            uri: 'http://localhost:3000/graphql',
-            headers: {
-               'authorization': `Bearer ${appInfo.accessToken}`
-            },
-         }));
-         dispatch(setAccessToken(appInfo.accessToken));
-         dispatch(setUser(appInfo.user));
-         history.push('/home');
-         return;
+      if (!accessToken) {
+         if (appInfo) {
+            goToHome(appInfo);
+            return;
+         }
+         history.push('/login');
       }
-      history.push('/login');
       // eslint-disable-next-line
    }, []);
 
@@ -42,13 +89,6 @@ export function useAuth() {
    }
 
    async function login({ email, password }) {
-      const LOGIN = gql`
-         mutation Login($email: String!, $password: String!){
-            login(email: $email, password: $password) {
-               accessToken user { id firstname}
-            }
-         }
-      `;
 
       const { data: { login } } = await client.mutate({ mutation: LOGIN, variables: { email, password } });
       const { accessToken, user } = login;
@@ -62,13 +102,7 @@ export function useAuth() {
       firstname,
       email,
    }) {
-      const SIGNIN = gql`
-         mutation Signin($user: CreateUserInput!){
-            signin(user: $user) {
-               accessToken user { id firstname lastname}
-            }
-         }
-      `;
+
 
       const { data: { signin } } = await client.mutate({
          mutation: SIGNIN, variables: {
@@ -82,14 +116,14 @@ export function useAuth() {
       });
 
       const { accessToken, user } = signin;
-
       goToHome({ accessToken, user });
    }
 
    async function logout() {
       dispatch(setAccessToken(null));
       dispatch(setUser(null));
-      localStorage.setItem('auth-metadata', JSON.stringify({ accessToken: null, user: null }));
+      localStorage.removeItem('auth-metadata');
+
       client.setLink(createHttpLink({
          uri: 'http://localhost:3000/graphql',
          headers: {},
@@ -98,5 +132,5 @@ export function useAuth() {
    }
 
 
-   return { login, signin, logout }
+   return { login, signin, logout, goToHome }
 }

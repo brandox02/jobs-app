@@ -1,35 +1,35 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Modal} from 'react-bootstrap';
-import Header2 from './../Layout/Header2';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 
-const jobAlert= [
-	{ id:1,title:'Social Media Expert',	date:'December 15,2018',},
-	{ id:2,title:'Web Designer',	date:'November 10,2018',},
-	{ id:3,title:'Finance Accountant',	date:'October 5,2018',},
-	{ id:4,title:'Social Media Expert',	date:'December 15,2018',},
-	{ id:5,title:'Web Designer',	date:'November 10,2018',},
-	{ id:6,title:'Finance Accountant',	date:'October 5,2018',},
-	{ id:7,title:'Social Media Expert',	date:'December 15,2018',},
-	{ id:8,title:'Web Designer',	date:'November 10,2018',},
-	{ id:9,title:'Finance Accountant',	date:'October 5,2018',},
-	{ id:10,title:'Social Media Expert',	date:'December 15,2018',},
+const jobAlert = [
+	{ id: 1, title: 'Social Media Expert', date: 'December 15,2018', },
+	{ id: 2, title: 'Web Designer', date: 'November 10,2018', },
+	{ id: 3, title: 'Finance Accountant', date: 'October 5,2018', },
+	{ id: 4, title: 'Social Media Expert', date: 'December 15,2018', },
+	{ id: 5, title: 'Web Designer', date: 'November 10,2018', },
+	{ id: 6, title: 'Finance Accountant', date: 'October 5,2018', },
+	{ id: 7, title: 'Social Media Expert', date: 'December 15,2018', },
+	{ id: 8, title: 'Web Designer', date: 'November 10,2018', },
+	{ id: 9, title: 'Finance Accountant', date: 'October 5,2018', },
+	{ id: 10, title: 'Social Media Expert', date: 'December 15,2018', },
 ]
 
-function Jobsalert(){
-	const [company, setCompany]= useState(false);
+function Jobsalert() {
+	const [company, setCompany] = useState(false);
 	const [contacts, setContacts] = useState(jobAlert);
 	// delete data  
-    const handleDeleteClick = (contactId) => {
-        const newContacts = [...contacts];    
-        const index = contacts.findIndex((contact)=> contact.id === contactId);
-        newContacts.splice(index, 1);
-        setContacts(newContacts);
-    }
-	return(
-		<>	
-			<Header2 />
+	const handleDeleteClick = (contactId) => {
+		const newContacts = [...contacts];
+		const index = contacts.findIndex((contact) => contact.id === contactId);
+		newContacts.splice(index, 1);
+		setContacts(newContacts);
+	}
+	return (
+		<>
+			<Header />
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white p-t50 p-b20">
@@ -57,28 +57,28 @@ function Jobsalert(){
 											</div>
 											<ul>
 												<li><Link to={"/jobs-profile"}>
-													<i className="fa fa-user-o" aria-hidden="true"></i> 
+													<i className="fa fa-user-o" aria-hidden="true"></i>
 													<span>Profile</span></Link></li>
 												<li><Link to={"/jobs-my-resume"}>
-													<i className="fa fa-file-text-o" aria-hidden="true"></i> 
+													<i className="fa fa-file-text-o" aria-hidden="true"></i>
 													<span>My Resume</span></Link></li>
 												<li><Link to={"/jobs-saved-jobs"}>
-													<i className="fa fa-heart-o" aria-hidden="true"></i> 
+													<i className="fa fa-heart-o" aria-hidden="true"></i>
 													<span>Saved Jobs</span></Link></li>
 												<li><Link to={"/jobs-applied-job"}>
-													<i className="fa fa-briefcase" aria-hidden="true"></i> 
+													<i className="fa fa-briefcase" aria-hidden="true"></i>
 													<span>Applied Jobs</span></Link></li>
-												<li><Link to={"/jobs-alerts"}  className="active">
-													<i className="fa fa-bell-o" aria-hidden="true"></i> 
+												<li><Link to={"/jobs-alerts"} className="active">
+													<i className="fa fa-bell-o" aria-hidden="true"></i>
 													<span>Job Alerts</span></Link></li>
 												<li><Link to={"/jobs-cv-manager"}>
-													<i className="fa fa-id-card-o" aria-hidden="true"></i> 
+													<i className="fa fa-id-card-o" aria-hidden="true"></i>
 													<span>CV Manager</span></Link></li>
 												<li><Link to={"/jobs-change-password"}>
-													<i className="fa fa-key" aria-hidden="true"></i> 
+													<i className="fa fa-key" aria-hidden="true"></i>
 													<span>Change Password</span></Link></li>
 												<li><Link to={"#"}>
-													<i className="fa fa-sign-out" aria-hidden="true"></i> 
+													<i className="fa fa-sign-out" aria-hidden="true"></i>
 													<span>Log Out</span></Link></li>
 											</ul>
 										</div>
@@ -108,22 +108,22 @@ function Jobsalert(){
 												</tr>
 											</thead>
 											<tbody>
-												{contacts.map((contact,index)=>(
+												{contacts.map((contact, index) => (
 													<tr key={index}>
 														<td className="job-name"><Link to={"/job-detail"}>{contact.title}</Link></td>
 														<td className="criterias">Lorem Ipsum is simply dummy text.</td>
 														<td className="date">{contact.date}</td>
 														<td className="job-links">
-															<Link to={'#'} onClick={()=>setCompany(true)}>
-															<i className="fa fa-eye"></i></Link>
+															<Link to={'#'} onClick={() => setCompany(true)}>
+																<i className="fa fa-eye"></i></Link>
 															<Link to={"#"}
-																onClick={()=>handleDeleteClick(contact.id)}
+																onClick={() => handleDeleteClick(contact.id)}
 															><i className="ti-trash"></i>
 															</Link>
 														</td>
 													</tr>
-												))}	
-												
+												))}
+
 											</tbody>
 										</table>
 										<div className="pagination-bx float-right">
@@ -144,7 +144,7 @@ function Jobsalert(){
 														<img alt="" src={require("./../../images/logo/icon2.png")} />
 													</div>
 													<h5 className="modal-title">Company Name</h5>
-													<button type="button" className="close" onClick={()=>setCompany(false)}>
+													<button type="button" className="close" onClick={() => setCompany(false)}>
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
@@ -158,17 +158,17 @@ function Jobsalert(){
 													</ul>
 												</div>
 												<div className="modal-footer">
-													<button type="button" className="btn btn-secondary" onClick={()=>setCompany(false)}>Close</button>
+													<button type="button" className="btn btn-secondary" onClick={() => setCompany(false)}>Close</button>
 												</div>
 											</div>
 										</div>
 									</Modal>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 			<Footer />
