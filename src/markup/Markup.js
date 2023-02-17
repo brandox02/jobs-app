@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Homepage from './Pages/Homepage1';
 import Homepage2 from './Pages/Homepage2';
@@ -14,7 +14,7 @@ import Changepasswordpage from './Pages/Changepasswordpage';
 
 import Companyprofile from './Pages/company-profile';
 import Companyresume from './Pages/Companyresume';
-import Componypostjobs from './Pages/Componypostjobs';
+import CompanyPostJob from './Pages/company-post-job';
 import Companymanage from './Pages/Companymanage';
 import Companytransactions from './Pages/Companytransactions';
 import Browsecandidates from './Pages/Browsecandidates';
@@ -37,11 +37,6 @@ import Categorylocationjobs from './Pages/Categorylocationjobs';
 import Categoryskilljobs from './Pages/Categoryskilljobs';
 
 import Portfoliogrid2 from './Pages/Portfoliogrid2';
-
-//import Loginpage1 from './Pages/Loginpage1';
-//import Loginpage2 from './Pages/Loginpage2';
-//import Loginpage3 from './Pages/Loginpage3';
-
 import Register1 from './Pages/Register1';
 import Register2 from './Pages/Register2';
 import Error404 from './Pages/Error404';
@@ -78,7 +73,7 @@ const Markup = () => {
 
 					<Route path='/company-profile' exact component={Companyprofile} />
 					<Route path='/company-resume' exact component={Companyresume} />
-					<Route path='/company-post-jobs' exact component={Componypostjobs} />
+					<Route path='/company-post-jobs' exact component={CompanyPostJob} />
 					<Route path='/company-manage-job' exact component={Companymanage} />
 					<Route path='/company-transactions' exact component={Companytransactions} />
 					<Route path='/company-change-password' exact component={CompanyChangePassword} />

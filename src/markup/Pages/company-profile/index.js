@@ -43,6 +43,8 @@ function Companyprofile() {
 														name={'email'}
 														label={'Email de Contacto'}
 														inputProps={{ placeholder: 'Introduce algún email de contacto de la empresa' }}
+														// eslint-disable-next-line
+														inputPattern={{ message: 'Email inválido', value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ }}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
@@ -88,6 +90,8 @@ function Companyprofile() {
 														label={'Facebook'}
 														inputProps={{ placeholder: 'https://www.facebook.com' }}
 														required={false}
+														// eslint-disable-next-line
+														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválida' }}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
@@ -96,6 +100,8 @@ function Companyprofile() {
 														label={'Twitter'}
 														inputProps={{ placeholder: 'https://www.twitter.com/' }}
 														required={false}
+														// eslint-disable-next-line
+														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválido' }}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
@@ -104,6 +110,8 @@ function Companyprofile() {
 														label={'Linkedin'}
 														inputProps={{ placeholder: 'https://www.linkedin.com/' }}
 														required={false}
+														// eslint-disable-next-line
+														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválido' }}
 													/>
 												</div>
 											</div>

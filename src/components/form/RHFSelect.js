@@ -12,7 +12,6 @@ export function RHFSelect({
 }) {
    const { control, formState: { errors } } = useFormContext();
    const value = useMemo(() => 100 * Math.random() * 1000, []);
-   console.log({ options })
    return <Controller
       name={name}
       control={control}

@@ -86,7 +86,7 @@ export function useActions() {
       const isCompanyProfile = !!user.companyProfile;
       const payload = { ...omitUser, [isCompanyProfile ? 'companyProfile' : 'candidateProfile']: copyData };
       const { data: { updateUser } } = await updateProfileMutation({ variables: { input: payload } });
-      toast.success('Información de Perfil Actualizada Correctamente', { duration: 3500 });
+      toast.success('Información de Perfil Actualizada Correctamente');
       goToHome(updateUser);
    });
 
