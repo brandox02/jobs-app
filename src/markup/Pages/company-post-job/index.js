@@ -12,7 +12,8 @@ import { RHFNumberFormatInput } from '../../../components/form/RHFNumberFormatIn
 import { RHFTextarea } from '../../../components/form/RHFTextarea';
 
 function CompanyPostJob() {
-	const { methods, onSubmit, dataSelects, cities } = useActions();
+	const { methods, onSubmit, dataSelects, cities, isEditing, goBack } = useActions();
+	console.log({ isEditing })
 	return (
 		<>
 			<Header />
@@ -25,8 +26,13 @@ function CompanyPostJob() {
 								<div className="col-xl-9 col-lg-8 m-b30">
 									<div className="job-bx submit-resume">
 										<div className="job-bx-title clearfix">
-											<h5 className="font-weight-700 pull-left text-uppercase">Publicar una Vacante</h5>
-											<Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Back</Link>
+											<h5 className="font-weight-700 pull-left text-uppercase">{isEditing ? 'Editando Vacante' : 'Publicar una Vacante'}</h5>
+											{isEditing &&
+												<Link
+													to={"#"}
+													className="site-button right-arrow button-sm float-right"
+													onClick={goBack}
+												>Atrás</Link>}
 										</div>
 										<Form methods={methods} onSubmit={onSubmit}>
 											<div className="row">
@@ -175,7 +181,7 @@ function CompanyPostJob() {
 													</div>
 												</div> */}
 											</div>
-											<button type="submit" className="site-button m-b30">Publicar Vacante</button>
+											<button type="submit" className="site-button m-b30">{isEditing ? 'Actualizar Información' : 'Publicar Vacante'}</button>
 										</Form>
 									</div>
 								</div>

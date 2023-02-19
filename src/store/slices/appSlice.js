@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
    user: null,
-   accessToken: null
+   accessToken: null,
+   tmpDataBetweenScreens: null
 }
 
 export const appSlice = createSlice({
@@ -15,8 +16,11 @@ export const appSlice = createSlice({
       setAccessToken: (state, action) => {
          state.accessToken = action.payload;
       },
+      setTmpDataBetweenScreens: (state, action) => {
+         state.tmpDataBetweenScreens = action.payload;
+      },
    }
 });
 
-export const { setAccessToken, setUser } = appSlice.actions;
+export const { setAccessToken, setUser, setTmpDataBetweenScreens } = appSlice.actions;
 export default appSlice.reducer;

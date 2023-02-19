@@ -1,6 +1,5 @@
 import { gql, createHttpLink, useApolloClient } from '@apollo/client';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setAccessToken, setUser } from './store/slices/appSlice';
 
@@ -60,19 +59,7 @@ export function useAuth() {
    const client = useApolloClient();
    const dispatch = useDispatch();
    const history = useHistory();
-   const { accessToken } = useSelector(state => state.app);
 
-   useEffect(() => {
-      const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));
-      if (!accessToken) {
-         if (appInfo) {
-            goToHome(appInfo);
-            return;
-         }
-         history.push('/login');
-      }
-      // eslint-disable-next-line
-   }, []);
 
    function goToHome({ accessToken, user }) {
       dispatch(setAccessToken(accessToken));

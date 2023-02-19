@@ -1,7 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import Index from './markup/Markup';
 import { useSelector } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
 import './css/plugins.css';
 import './css/style.css';
 import './css/templete.css';
@@ -14,13 +14,34 @@ import { useAuth } from './useAuth';
 
 function App() {
     const { accessToken } = useSelector(state => state.app);
-    useAuth();
+    const { goToHome } = useAuth();
     let routes = (
         <Switch>
             <Route path='/login' component={Login} />
             <Route path='/register-2' component={SignUp} />
         </Switch>
     );
+
+    const history = useHistory();
+
+    useEffect(() => {
+        if (accessToken) {
+            history.push('/company-manage-job');
+        }
+        // eslint-disable-next-line
+    }, []);
+
+    useEffect(() => {
+        const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));
+        if (!accessToken) {
+            if (appInfo) {
+                goToHome(appInfo);
+                return;
+            }
+            history.push('/login');
+        }
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>

@@ -74,6 +74,7 @@ const Markup = () => {
 					<Route path='/company-profile' exact component={Companyprofile} />
 					<Route path='/company-resume' exact component={Companyresume} />
 					<Route path='/company-post-jobs' exact component={CompanyPostJob} />
+					<Route path='/company-update-job' exact component={CompanyPostJob} />
 					<Route path='/company-manage-job' exact component={CompanyManageJob} />
 					<Route path='/company-transactions' exact component={Companytransactions} />
 					<Route path='/company-change-password' exact component={CompanyChangePassword} />

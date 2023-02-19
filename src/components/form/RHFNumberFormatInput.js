@@ -25,12 +25,10 @@ export function RHFNumberFormatInput({ name, label, inputProps = {}, labelProps 
             // ...(required ? { required: { message: 'Este campo es requerido', value } } : {}),
             pattern: inputPattern
          }}
-         render={({ field: { value, onChange } }) => {
-            console.log({ value });
+         render={({ field: { value } }) => {
             return (
                <NumericFormat
                   value={value}
-                  // onChange={onChange}
                   onValueChange={(e) => {
                      setValue(name, e.floatValue);
                   }}

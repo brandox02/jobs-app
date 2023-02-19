@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Form } from '../../components/form/Form';
 import { RHFTextInput } from '../../components/form/RHFTextInput';
 import { useAuth } from '../../useAuth';
@@ -11,7 +11,7 @@ import { withErrorHandler } from '../../withErrorHandler';
 function Login() {
 	const methods = useForm();
 	const { login } = useAuth();
-
+	const history = useHistory();
 	const onLogin = withErrorHandler(login, () => ({ "Resource not found": 'Usuario o contraseña incorrectos', 'Unauthorized': 'Usuario o contraseña incorrectos' }));
 
 	return (
@@ -55,7 +55,7 @@ function Login() {
 											/>
 											<div className="text-center">
 												<button className="site-button float-left">Iniciar Sesión</button>
-												<Link to="register-2" className="site-button-link forget-pass m-t15 float-right"><i className="fa fa-unlock-alt"></i> Registrarme</Link>
+												<button onClick={() => history.push('/register-2')} className="site-button-link forget-pass m-t15 float-right"><i className="fa fa-unlock-alt"></i> Registrarme</button>
 											</div>
 										</Form>
 									</div>

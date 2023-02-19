@@ -9,7 +9,7 @@ export function Pagination({ page, setPage, pageQuantity }) {
                className="previous"
                onClick={() => setPage(page - (page > 0 ? 1 : 0))}
             >
-               <Link to={"#"}><i className="ti-arrow-left"></i> {'Anterior'}
+               <Link to={"#"}><i className="ti-arrow-left"></i>
                </Link>
             </li>
             {[...Array(pageQuantity)].map((_, index) => (
@@ -20,7 +20,7 @@ export function Pagination({ page, setPage, pageQuantity }) {
                   to={"#"}
                   onClick={() => setPage(page + (page + 1 < pageQuantity ? 1 : 0))}
                >
-                  {'Siguiente'} <i className="ti-arrow-right"></i>
+                  <i className="ti-arrow-right"></i>
                </Link>
             </li>
          </ul>
