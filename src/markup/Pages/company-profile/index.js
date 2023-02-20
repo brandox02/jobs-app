@@ -9,8 +9,6 @@ import { RHFTextInput } from '../../../components/form/RHFTextInput';
 import { RHFSelect } from '../../../components/form/RHFSelect';
 import { RHFTextarea } from '../../../components/form/RHFTextarea';
 
-
-
 function Companyprofile() {
 	const { methods, onSubmit, cities, countries } = useActions();
 	return (

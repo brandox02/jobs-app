@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Homepage from './Pages/Homepage1';
 import Homepage2 from './Pages/Homepage2';
 
-import Jobprofile from './Pages/Jobprofile';
+import Jobprofile from './Pages/job-profile';
 import Jobmyresume from './Pages/jobs-my-resume';
 import Jobsappliedjob from './Pages/Jobsappliedjob';
 import Jobsalert from './Pages/Jobsalert';

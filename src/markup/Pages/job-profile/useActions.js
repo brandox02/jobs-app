@@ -1,11 +1,10 @@
-import { useMutation, gql, useQuery } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { withErrorHandler } from '../../../withErrorHandler';
-import toast from 'react-hot-toast';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useSelector } from 'react-redux';
-import { clone, omit } from 'lodash';
-import { useAuth } from '../../../useAuth';
+import toast from 'react-hot-toast';
 import { useEffect } from 'react';
+import { useAuth } from '../../../useAuth';
 
 const UPDATE_PROFILE = gql`
    mutation UpdateUser($input: UpdateUserInput!) {
@@ -62,7 +61,7 @@ const SELECT_DATA = gql`
    }
 `
 
-export function useActions() {
+export const useActions = () => {
    const methods = useForm();
    const { goToHome } = useAuth();
    const { watch, reset } = methods;
@@ -71,30 +70,25 @@ export function useActions() {
    const { data } = useQuery(SELECT_DATA, { variables: { countryId }, fetchPolicy: 'cache-and-network' });
    const { user } = useSelector(state => state.app);
 
+
    useEffect(() => {
-      reset(user.companyProfile);
+      reset(user.candidateProfile);
       // eslint-disable-next-line
    }, [user]);
 
-   const onSubmit = withErrorHandler(async (data) => {
-      const copyData = clone(data);
+   const onSubmit = withErrorHandler(async data => {
+      const copyData = { ...data };
       copyData.countryId = parseInt(copyData.countryId);
       copyData.cityId = parseInt(copyData.cityId);
-
-      const omitUser = omit(user, ['imageUrl', 'imageId', 'isCandidate']);
-
-      const payload = { ...omitUser, companyProfile: copyData };
-      const { data: { updateUser } } = await updateProfileMutation({ variables: { input: payload } });
-      toast.success('Información de Perfil Actualizada Correctamente');
+      console.log({ copyData });
+      const { data: { updateUser } } = await updateProfileMutation({ variables: { input: { id: user.id, candidateProfile: copyData } } });
+      toast.success('Perfil actualizado correctamente');
       goToHome(updateUser);
-
    });
 
 
    const countries = data?.countries || [];
    const cities = data?.cities || [];
 
-   return {
-      methods, onSubmit, countries, cities
-   }
+   return { methods, onSubmit, countries, cities }
 }

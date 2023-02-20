@@ -26,10 +26,10 @@ function App() {
 
     useEffect(() => {
         if (accessToken) {
-            history.push('/company-manage-job');
+            history.push('/jobs-profile');
         }
         // eslint-disable-next-line
-    }, []);
+    }, [accessToken]);
 
     useEffect(() => {
         const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));

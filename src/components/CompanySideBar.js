@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../useAuth';
 
@@ -38,7 +39,9 @@ export function CompanySideBar() {
          iconClassname: 'fa fa-sign-out',
          onClick: logout
       }
-   ]
+   ];
+   const { user } = useSelector(state => state.app);
+   const companyName = user?.companyProfile?.name || '';
    return (
       <div className="col-xl-3 col-lg-4 m-b30">
          <div className="sticky-top">
@@ -54,7 +57,7 @@ export function CompanySideBar() {
                      </div>
                   </div>
                   <div className="candidate-title">
-                     <h4 className="m-b5"><Link to={"#"}>@COMPANY</Link></h4>
+                     <h4 className="m-b5"><Link to={"#"}>{companyName}</Link></h4>
                   </div>
                </div>
                <ul>

@@ -9,8 +9,8 @@ export function RHFRadioGroup({
    options = [{ label: '', value: '' }],
    defaultValue
 }) {
-   const { control, formState: { errors }, setValue, trigger } = useFormContext();
-
+   const { control, formState: { errors, isSubmitted }, setValue, trigger } = useFormContext();
+   console.log({ isSubmitted });
    return <Controller
       name={name}
       control={control}
@@ -37,7 +37,7 @@ export function RHFRadioGroup({
                         <label
                            onClick={async () => {
                               setValue(name, value);
-                              await trigger();
+                              isSubmitted && await trigger();
                            }}
                            className="custom-control-label"
                            htmlFor={value}

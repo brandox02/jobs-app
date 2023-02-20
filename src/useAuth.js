@@ -41,7 +41,6 @@ const LOGIN = gql`
                      phone
                      professionalTitle
                      twitterUrl
-                     updatedAt
                   }
                }
             }
@@ -86,7 +85,6 @@ const SIGNIN = gql`
                      phone
                      professionalTitle
                      twitterUrl
-                     updatedAt
                   }
                }
             }

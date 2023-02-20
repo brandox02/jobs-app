@@ -3,10 +3,8 @@ import { gql } from '@apollo/client';
 export const SELECTS = gql`
    query ListSelects{
       genders {
-         updatedAt
          name
          id
-         createdAt
       }
       workingModalities {
          name
