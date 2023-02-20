@@ -10,8 +10,8 @@ import { useEffect } from 'react';
 const UPDATE_PROFILE = gql`
    mutation UpdateUser($input: UpdateUserInput!) {
    updateUser(input: $input) {
-      accessToken 
-      user {
+      accessToken user { 
+                  isCandidate
                   id 
                   email       
                   lastname
@@ -47,7 +47,7 @@ const UPDATE_PROFILE = gql`
                      twitterUrl
                      updatedAt
                   }
-      }
+               }
    }
 }
 `;
@@ -82,12 +82,13 @@ export function useActions() {
       copyData.countryId = parseInt(copyData.countryId);
       copyData.cityId = parseInt(copyData.cityId);
 
-      const omitUser = omit(user, ['imageUrl', 'imageId']);
-      const isCompanyProfile = !!user.companyProfile;
-      const payload = { ...omitUser, [isCompanyProfile ? 'companyProfile' : 'candidateProfile']: copyData };
+      const omitUser = omit(user, ['imageUrl', 'imageId', 'isCandidate']);
+
+      const payload = { ...omitUser, companyProfile: copyData };
       const { data: { updateUser } } = await updateProfileMutation({ variables: { input: payload } });
       toast.success('Información de Perfil Actualizada Correctamente');
       goToHome(updateUser);
+
    });
 
 

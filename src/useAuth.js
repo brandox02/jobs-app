@@ -7,6 +7,7 @@ const LOGIN = gql`
          mutation Login($email: String!, $password: String!){
             login(email: $email, password: $password) {
                accessToken user { 
+                  isCandidate
                   id 
                   email       
                   lastname
@@ -50,7 +51,44 @@ const LOGIN = gql`
 const SIGNIN = gql`
          mutation Signin($user: CreateUserInput!){
             signin(user: $user) {
-               accessToken user { id firstname lastname}
+               accessToken user { 
+                  isCandidate
+                  id 
+                  email       
+                  lastname
+                  imageUrl
+                  imageId
+                  firstname
+                  companyProfile {
+                     website
+                     twitterUrl
+                     linkedinUrl
+                     name
+                     email
+                     description
+                     countryId
+                     id
+                     foundationDate
+                     facebookUrl
+                     cityId
+                  }
+                  candidateProfile {
+                     id
+                     genderId
+                     facebookUrl
+                     desiredSalary
+                     currentSalary
+                     countryId
+                     cityId
+                     bornDate
+                     aboutMe
+                     linkedinUrl
+                     phone
+                     professionalTitle
+                     twitterUrl
+                     updatedAt
+                  }
+               }
             }
          }
 `;
@@ -88,6 +126,7 @@ export function useAuth() {
       lastname,
       firstname,
       email,
+      isCandidate
    }) {
 
 
@@ -98,6 +137,7 @@ export function useAuth() {
                lastname,
                firstname,
                email,
+               isCandidate
             }
          }
       });

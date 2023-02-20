@@ -27,7 +27,6 @@ export const useActions = () => {
    const isEditing = !!job;
 
    useEffect(() => {
-      console.log({ job, isEditing });
       if (job) {
          const copyJob = pick(
             clone(job),

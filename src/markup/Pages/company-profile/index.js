@@ -53,6 +53,8 @@ function Companyprofile() {
 														label={'Sitio Web'}
 														inputProps={{ placeholder: 'Introduce el sitio web de la empresa' }}
 														required={false}
+														// eslint-disable-next-line
+														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválido' }}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">
@@ -72,7 +74,7 @@ function Companyprofile() {
 												<div className="col-lg-6 col-md-6">
 													<RHFSelect
 														name={'cityId'}
-														label={'Ciudades'}
+														label={'Ciudad'}
 														options={cities.map(({ id, name }) => ({ label: name, value: id }))}
 													/>
 												</div>
@@ -91,7 +93,7 @@ function Companyprofile() {
 														inputProps={{ placeholder: 'https://www.facebook.com' }}
 														required={false}
 														// eslint-disable-next-line
-														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválida' }}
+														inputPattern={{ value: /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/, message: 'Link inválido' }}
 													/>
 												</div>
 												<div className="col-lg-6 col-md-6">

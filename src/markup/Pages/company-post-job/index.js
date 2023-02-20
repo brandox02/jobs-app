@@ -13,7 +13,6 @@ import { RHFTextarea } from '../../../components/form/RHFTextarea';
 
 function CompanyPostJob() {
 	const { methods, onSubmit, dataSelects, cities, isEditing, goBack } = useActions();
-	console.log({ isEditing })
 	return (
 		<>
 			<Header />

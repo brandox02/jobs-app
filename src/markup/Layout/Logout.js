@@ -6,7 +6,7 @@ function LogoutPage() {
     const { logout } = useAuth();
     return (
         <Link to={'#'} title="READ MORE" className="site-button" onClick={logout}>
-            <i className="fa fa-lock"></i> Logout
+            <i className="fa fa-lock"></i> Cerrar Sesión
         </Link>
     )
 }

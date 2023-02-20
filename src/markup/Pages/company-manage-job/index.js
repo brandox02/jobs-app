@@ -9,16 +9,16 @@ import { Pagination } from '../../../components/Pagination';
 import { Modal } from './accessories/Modal';
 
 function Companymanage() {
-	const { jobs, page, setPage, setSelectedJob, selectedJob, goToManagement } = useActions();
-
+	const { jobs, page, setPage, goToManagement, deleteJob, deleteJobModal, setDeleteJobModal, totalPages } = useActions();
 	return (
 		<>
 			<Header />
 			<Modal
-				job={selectedJob}
-				open={!!selectedJob}
-				setOpen={setSelectedJob}
+				open={deleteJobModal}
+				setOpen={setDeleteJobModal}
+				deleteJob={deleteJob}
 			/>
+
 			<div className="page-content bg-white">
 				<div className="content-block">
 					<div className="section-full bg-white p-t50 p-b20">
@@ -66,7 +66,7 @@ function Companymanage() {
 															</div>
 														</td> */}
 														<td className="job-name">
-															<Link to={"#"}>{job.name}</Link>
+															<Link to={"#"} onClick={() => goToManagement(job)}>{job.name}</Link>
 															<ul className="job-post-info">
 																<li><i className="fa fa-map-marker"></i>{`${job.city.name}, ${job.country.name}`}</li>
 																<li><i className="fa fa-bookmark-o"></i> {job.dailyWorkTime.name}</li>
@@ -80,13 +80,13 @@ function Companymanage() {
 														<td className="job-links">
 															<Link to={"#"} onClick={() => goToManagement(job)}>
 																<i className="fa fa-eye"></i></Link>
-															<Link to={"#"}><i className="ti-trash"></i></Link>
+															<Link to={"#"} onClick={() => setDeleteJobModal(job)}><i className="ti-trash"></i></Link>
 														</td>
 													</tr>
 												))}
 											</tbody>
 										</table>
-										<Pagination page={page} setPage={setPage} pageQuantity={5} />
+										<Pagination page={page} setPage={setPage} pageQuantity={totalPages} />
 
 										{/* <Modal show={company} onHide={setCompany} className="modal fade modal-bx-info">
 											<div className="modal-dialog my-0" role="document">

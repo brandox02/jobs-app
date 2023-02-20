@@ -7,7 +7,6 @@ import logo2 from './../../images/logo.png';
 var bnr3 = require('./../../images/background/bg3.jpg');
 
 const enableDocNavigation = false;
-const isAuthenticated = true;
 
 class Header extends Component {
 	state = {
@@ -49,6 +48,10 @@ class Header extends Component {
 		}
 	}
 	render() {
+		const authMetadata = JSON.parse(localStorage.getItem('auth-metadata'));
+		const isAuthenticated = !!authMetadata?.accessToken;
+		const isCandidate = !!authMetadata?.user?.isCandidate;
+
 		return (
 			<>
 				<header className="site-header mo-left header fullwidth">
@@ -85,11 +88,14 @@ class Header extends Component {
 											<Link to={'./'} >Inicio</Link>
 										</li>
 										<li className="">
+											<Link to={isCandidate ? '/jobs-profile' : '/company-profile'} >Mi Perfil</Link>
+										</li>
+										{/* <li className="">
 											<Link to={'/jobs-profile'} >Para Candidatos</Link>
 										</li>
 										<li className="">
 											<Link to={'/company-profile'} >Para Empleadores</Link>
-										</li>
+										</li> */}
 										<li className="">
 											<Link to={'/browse-job-filter-grid'} >Vacantes</Link>
 										</li>
@@ -230,5 +236,7 @@ class Header extends Component {
 		)
 	}
 }
+
+
 export default Header;
 

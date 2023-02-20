@@ -3,6 +3,9 @@ import { gql } from '@apollo/client';
 export const JOBS = gql`
    query Jobs($page: Float!, $perPage: Float!, $where: JobWhereInput!) {
   jobs(page: $page, perPage: $perPage, where: $where) {
+    metadata {
+      totalPages
+    }
     items {
       applications {
         id

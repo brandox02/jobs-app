@@ -5,12 +5,13 @@ import { RHFTextInput } from '../../components/form/RHFTextInput';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../../useAuth';
 import { withErrorHandler } from '../../withErrorHandler';
+import { RHFRadioGroup } from '../../components/form/RHFRadioGroup';
 var bnr = require('./../../images/background/bg6.jpg');
 
 
 function Register2() {
 	const methods = useForm();
-	const { signin } = useAuth()
+	const { signin } = useAuth();
 
 	const onSignUp = withErrorHandler(async (data) => {
 		await signin(data);
@@ -19,7 +20,6 @@ function Register2() {
 	return (
 		<div className="page-wraper">
 			<div className="browse-job login-style3">
-
 				<div className="bg-img-fix" style={{ backgroundImage: `url(${bnr})`, height: "100vh" }}>
 					<div className="row">
 						<div className="col-xl-4 col-lg-5 col-md-6 col-sm-12 bg-white z-index2 relative p-a0 content-scroll skew-section left-bottom">
@@ -52,6 +52,11 @@ function Register2() {
 												name={'password'}
 												label={'Contraseña'}
 												inputProps={{ type: 'password' }}
+											/>
+											<RHFRadioGroup
+												name={'isCandidate'}
+												label={'¿Que estas buscando?'}
+												options={[{ label: 'Empleo', value: true }, { label: 'Empleados', value: false }]}
 											/>
 											<div className="text-center bottom">
 												<button type='submit' className='site-button button-md btn-block text-white'>Registrarme</button>
