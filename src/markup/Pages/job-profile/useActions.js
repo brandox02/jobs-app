@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
 import { useAuth } from '../../../useAuth';
-
+import { omit } from 'lodash';
 const UPDATE_PROFILE = gql`
    mutation UpdateUser($input: UpdateUserInput!) {
    updateUser(input: $input) {
@@ -18,6 +18,8 @@ const UPDATE_PROFILE = gql`
                   imageId
                   firstname
                   companyProfile {
+                     city { id name }
+                     country { id name }
                      website
                      twitterUrl
                      linkedinUrl
@@ -31,6 +33,8 @@ const UPDATE_PROFILE = gql`
                      cityId
                   }
                   candidateProfile {
+                     city { id name }
+                     country { id name }
                      id
                      genderId
                      facebookUrl
@@ -77,11 +81,12 @@ export const useActions = () => {
    }, [user]);
 
    const onSubmit = withErrorHandler(async data => {
-      const copyData = { ...data };
-      copyData.countryId = parseInt(copyData.countryId);
-      copyData.cityId = parseInt(copyData.cityId);
-      console.log({ copyData });
-      const { data: { updateUser } } = await updateProfileMutation({ variables: { input: { id: user.id, candidateProfile: copyData } } });
+      data.countryId = parseInt(data.countryId);
+      data.cityId = parseInt(data.cityId);
+      // delete copyData.candidateProfile.city;
+      // delete copyData.candidateProfile.country;
+      // data.city = null;
+      const { data: { updateUser } } = await updateProfileMutation({ variables: { input: { id: user.id, candidateProfile: omit(data, ['city', 'country']) } } });
       toast.success('Perfil actualizado correctamente');
       goToHome(updateUser);
    });

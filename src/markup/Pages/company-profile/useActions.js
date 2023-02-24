@@ -19,6 +19,8 @@ const UPDATE_PROFILE = gql`
                   imageId
                   firstname
                   companyProfile {
+                     city { id name }
+                     country { id name }
                      website
                      twitterUrl
                      linkedinUrl
@@ -32,6 +34,8 @@ const UPDATE_PROFILE = gql`
                      cityId
                   }
                   candidateProfile {
+                     city { id name }
+                     country { id name }
                      id
                      genderId
                      facebookUrl
@@ -84,6 +88,8 @@ export function useActions() {
       const omitUser = omit(user, ['imageUrl', 'imageId', 'isCandidate']);
 
       const payload = { ...omitUser, companyProfile: copyData };
+      delete payload.companyProfile.city;
+      delete payload.companyProfile.country;
       const { data: { updateUser } } = await updateProfileMutation({ variables: { input: payload } });
       toast.success('Información de Perfil Actualizada Correctamente');
       goToHome(updateUser);

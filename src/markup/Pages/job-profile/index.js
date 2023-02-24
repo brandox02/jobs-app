@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
 import Profilesidebar from '../../Element/Profilesidebar';
@@ -26,7 +25,7 @@ function Jobprofile() {
 									<div className="job-bx job-profile">
 										<div className="job-bx-title clearfix">
 											<h5 className="font-weight-700 pull-left text-uppercase">Información Básica</h5>
-											<Link to={"./"} className="site-button right-arrow button-sm float-right">Back</Link>
+											{/* <Link to={"./"} className="site-button right-arrow button-sm float-right">Back</Link> */}
 										</div>
 										<Form methods={methods} onSubmit={onSubmit}>
 											<div className="row m-b30">

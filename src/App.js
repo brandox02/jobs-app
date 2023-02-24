@@ -26,7 +26,7 @@ function App() {
 
     useEffect(() => {
         if (accessToken) {
-            history.push('/jobs-profile');
+            history.push('/jobs-my-resume');
         }
         // eslint-disable-next-line
     }, [accessToken]);

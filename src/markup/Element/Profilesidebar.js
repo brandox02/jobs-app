@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const items = [
 	{
@@ -30,6 +31,7 @@ const items = [
 ]
 
 function Profilesidebar() {
+	const { user } = useSelector(state => state.app);
 	return (
 		<div className="col-xl-3 col-lg-4 m-b30">
 			<div className="sticky-top">
@@ -46,8 +48,8 @@ function Profilesidebar() {
 						</div>
 						<div className="candidate-title">
 							<div className="">
-								<h4 className="m-b5"><Link to={"#"}>David Martin</Link></h4>
-								<p className="m-b0"><Link to={"#"}>Web developer</Link></p>
+								<h4 className="m-b5">{`${user.firstname} ${user.lastname}`}</h4>
+								<p className="m-b0">{user?.candidateProfile?.professionalTitle || ''}</p>
 							</div>
 						</div>
 					</div>

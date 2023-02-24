@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function Jobprofile() {
+
+	const { user } = useSelector(state => state.app);
+
 	return (
 		<div className="sticky-top">
 			<div className="candidate-info">
@@ -17,8 +20,8 @@ function Jobprofile() {
 					</div>
 					<div className="candidate-title">
 						<div className="">
-							<h4 className="m-b5"><a href="javascript:void(0);">David Matin</a></h4>
-							<p className="m-b0"><a href="javascript:void(0);">Web developer</a></p>
+							<h4 className="m-b5"><a href="javascript:void(0);">{`${user.firstname} ${user.lastname}`}</a></h4>
+							<p className="m-b0"><a href="javascript:void(0);">{user?.candidateProfile?.professionalTitle || ''}</a></p>
 						</div>
 					</div>
 				</div>

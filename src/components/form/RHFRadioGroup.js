@@ -10,7 +10,6 @@ export function RHFRadioGroup({
    defaultValue
 }) {
    const { control, formState: { errors, isSubmitted }, setValue, trigger } = useFormContext();
-   console.log({ isSubmitted });
    return <Controller
       name={name}
       control={control}

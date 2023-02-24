@@ -15,6 +15,8 @@ const LOGIN = gql`
                   imageId
                   firstname
                   companyProfile {
+                     city {id name }
+                     country {id name}
                      website
                      twitterUrl
                      linkedinUrl
@@ -28,6 +30,8 @@ const LOGIN = gql`
                      cityId
                   }
                   candidateProfile {
+                     city {id name }
+                     country {id name}
                      id
                      genderId
                      facebookUrl
@@ -59,6 +63,8 @@ const SIGNIN = gql`
                   imageId
                   firstname
                   companyProfile {
+                     city {id name }
+                     country {id name}
                      website
                      twitterUrl
                      linkedinUrl
@@ -72,6 +78,9 @@ const SIGNIN = gql`
                      cityId
                   }
                   candidateProfile {
+                     city {id name }
+                     country {id name}
+                     city { id name}
                      id
                      genderId
                      facebookUrl
