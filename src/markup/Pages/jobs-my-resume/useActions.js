@@ -190,6 +190,21 @@ export function useActions() {
 
    const onSubmit = withErrorHandler(async () => {
       const data = methods.getValues();
+
+      console.log({ resume })
+      if (!data.resume.length) {
+         toast.error('Debes completar tu resumen')
+         return;
+      }
+      if (!data.educations.length) {
+         toast.error('Debes de completar el apartado de Tu Educación');
+         return;
+      }
+      if (!data.image && !resume?.imageUrl) {
+         toast.error('Debes subir tu CV');
+         return;
+      }
+
       const payload = pick(data, 'educations', 'image', 'keySkills', 'laboralExperiences', 'projects', 'resume');
       payload.educations = payload.educations.map(
          item => ({
@@ -198,18 +213,28 @@ export function useActions() {
          })
       )
       payload.id = uuid();
-      payload.educations = payload.educations.map(item => ({ ...item, education: educations.find(x => x.id === item.educationId) }))
-      // Scroll.scrollTo('resume_headline_bx', {
-      //    duration: 800,
-      //    delay: 0,
-      //    smooth: 'easeInOutQuart',
-      //    containerId: 'scroll-container'
-      // });
+      payload.educations = payload.educations.map(item =>
+      ({
+         ...item, education: educations.find(x => x.id === item.educationId)
+      }))
+      const imageLoaded = methods.watch('image');
+      delete payload.image;
+      await updateUserMutation({
+         variables: {
+            input: {
+               id: user.id,
+               resume: {
+                  ...payload,
+                  ...(imageLoaded ? {
+                     image: imageLoaded
+                  } : {})
+               },
+               image: methods.watch('image')
+            }
+         }
+      });
       Scroll.scrollToTop();
-
-      await updateUserMutation({ variables: { input: { id: user.id, resume: payload } } });
       toast.success('Resumen actualizado correctamente');
-
    })
 
    return { methods, onSubmit, educations }
