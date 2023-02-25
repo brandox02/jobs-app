@@ -25,7 +25,7 @@ var bnr = require('./../../../images/banner/bnr1.jpg');
 //var bnr2 = require('./../../images/background/bg3.jpg');
 
 function Jobmyresume() {
-	const { methods, onSubmit, educations } = useActions();
+	const { methods, onSubmit, educations, stateUser } = useActions();
 	const { user } = useSelector(state => state.app);
 
 	async function onFileChangeCv(data) {
@@ -49,11 +49,11 @@ function Jobmyresume() {
 								<div className="candidate-detail">
 									<div className="canditate-des text-center">
 										<Link to={"#"}>
-											<img alt="" src={methods.watch('imageProfilePicture') || require("./../../../images/team/pic1.jpg")} />
+											<img alt="" src={methods.watch('imageProfilePicture') || stateUser.imageUrl || require("./../../../images/unrecognized-image.jpg")} />
 										</Link>
-										<div className="upload-link" title="update" data-toggle="tooltip" data-placement="right">
-											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} />
-											<i className="fa fa-camera"></i>
+										<div className="upload-link border" title="update" data-toggle="tooltip" data-placement="right" style={{ cursor: 'pointer' }}>
+											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} style={{ cursor: 'pointer' }} />
+											<i className="fa fa-camera" style={{ cursor: 'pointer' }}></i>
 										</div>
 									</div>
 									<div className="text-white browse-job text-left">
@@ -63,10 +63,10 @@ function Jobmyresume() {
 										<p className="m-b15">{user?.candidateProfile?.professionalTitle}</p>
 										<ul className="clearfix">
 											<li><i className="ti-email"></i>{user?.email}</li>
-											<li><i className="ti-mobile"></i>{user?.candidateProfile.phone}</li>
+											<li><i className="ti-mobile"></i>{user?.candidateProfile?.phone}</li>
 											{/* <li><i className="ti-briefcase"></i>{user?.candidateProfile?.professionalTitle}</li> */}
 
-											<li><i className="ti-location-pin"></i> {`${user?.candidateProfile?.city.name}, ${user?.candidateProfile?.country.name}`}</li>
+											{user?.candidateProfile?.city && user?.candidateProfile?.country && <li><i className="ti-location-pin"></i> {`${user?.candidateProfile?.city?.name || ''}, ${user?.candidateProfile?.country?.name || ''}`}</li>}
 										</ul>
 									</div>
 								</div>

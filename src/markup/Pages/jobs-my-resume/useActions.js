@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { animateScroll as Scroll } from 'react-scroll';
 import { useMutation, gql, useQuery } from '@apollo/client';
 import { pick } from 'lodash';
 import toast from 'react-hot-toast';
@@ -7,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { withErrorHandler } from '../../../withErrorHandler';
 import { useEffect } from 'react';
+import { useAuth } from '../../../useAuth';
 
 const defaultValues = {
    resume: '',
@@ -19,7 +19,8 @@ const defaultValues = {
    educationsModalOpen: false,
    projects: [],
    projectsModalOpen: false,
-   image: null
+   image: null,
+   imageProfilePicture: null
 };
 
 // const defaultValues = {
@@ -117,17 +118,51 @@ const QUERY = gql`
    }
 `;
 
-const UPDATE_USER = gql`
+const UPDATE_PROFILE = gql`
    mutation UpdateUser($input: UpdateUserInput!) {
-  updateUser(input: $input) {
-    accessToken 
-    user {
-      
-      companyProfile {
-        cityId countryId id cityId 
-      }
-    }
-  }
+   updateUser(input: $input) {
+      accessToken user { 
+                  isCandidate
+                  id 
+                  email       
+                  lastname
+                  imageUrl
+                  imageId
+                  firstname
+                  companyProfile {
+                     city { id name }
+                     country { id name }
+                     website
+                     twitterUrl
+                     linkedinUrl
+                     name
+                     email
+                     description
+                     countryId
+                     id
+                     foundationDate
+                     facebookUrl
+                     cityId
+                  }
+                  candidateProfile {
+                     city { id name }
+                     country { id name }
+                     id
+                     genderId
+                     facebookUrl
+                     desiredSalary
+                     currentSalary
+                     countryId
+                     cityId
+                     bornDate
+                     aboutMe
+                     linkedinUrl
+                     phone
+                     professionalTitle
+                     twitterUrl
+                  }
+               }
+   }
 }
 `;
 
@@ -174,9 +209,10 @@ const UPDATE_USER = gql`
 
 export function useActions() {
    const methods = useForm({ defaultValues });
-   const [updateUserMutation] = useMutation(UPDATE_USER);
-   const { user } = useSelector(state => state.app);
-   const { data } = useQuery(QUERY, { variables: { userId: user.id } });
+   const [updateUserMutation] = useMutation(UPDATE_PROFILE);
+   const { user: stateUser } = useSelector(state => state.app);
+   const { data } = useQuery(QUERY, { variables: { userId: stateUser.id }, nextFetchPolicy: 'cache-and-network' });
+   const { goToHome } = useAuth();
 
    const educations = data?.educations || [];
    const resume = data?.resume;
@@ -191,7 +227,6 @@ export function useActions() {
    const onSubmit = withErrorHandler(async () => {
       const data = methods.getValues();
 
-      console.log({ resume })
       if (!data.resume.length) {
          toast.error('Debes completar tu resumen')
          return;
@@ -216,26 +251,34 @@ export function useActions() {
       payload.educations = payload.educations.map(item =>
       ({
          ...item, education: educations.find(x => x.id === item.educationId)
-      }))
+      }));
       const imageLoaded = methods.watch('image');
+
+      const profileImageId = stateUser.imageId;
+      const profileImageLoaded = methods.watch('imageProfilePicture');
+      console.log({ profileImageLoaded });
       delete payload.image;
-      await updateUserMutation({
+      delete payload.imageProfilePicture;
+      // { updateUser: { user, accessToken } }
+      const { data: { updateUser: { user, accessToken } } } = await updateUserMutation({
          variables: {
             input: {
-               id: user.id,
+               id: stateUser.id,
+               image: profileImageLoaded,
+               imageId: profileImageId,
                resume: {
                   ...payload,
-                  ...(imageLoaded ? {
-                     image: imageLoaded
-                  } : {})
+                  image: imageLoaded,
+                  imageId: imageLoaded ? resume?.imageId : undefined
                },
-               image: methods.watch('image')
             }
          }
       });
-      Scroll.scrollToTop();
       toast.success('Resumen actualizado correctamente');
+      goToHome({ accessToken, user });
+
+      // Scroll.scrollToTop();
    })
 
-   return { methods, onSubmit, educations }
+   return { methods, onSubmit, educations, stateUser }
 }
