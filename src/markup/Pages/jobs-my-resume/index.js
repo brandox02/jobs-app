@@ -28,12 +28,14 @@ function Jobmyresume() {
 	const { methods, onSubmit, educations } = useActions();
 	const { user } = useSelector(state => state.app);
 
-	async function onFileChange(data) {
-
-
+	async function onFileChangeCv(data) {
 		const base64 = await getBase64(data.currentTarget.files[0]);
 		methods.setValue('image', base64);
-		methods.setValue('imageLoadedFromDevice', true);
+	}
+
+	async function onFileChangeProfilePicture(data) {
+		const base64 = await getBase64(data.currentTarget.files[0]);
+		methods.setValue('imageProfilePicture', base64);
 	}
 
 	return (
@@ -47,10 +49,10 @@ function Jobmyresume() {
 								<div className="candidate-detail">
 									<div className="canditate-des text-center">
 										<Link to={"#"}>
-											<img alt="" src={require("./../../../images/team/pic1.jpg")} />
+											<img alt="" src={methods.watch('imageProfilePicture') || require("./../../../images/team/pic1.jpg")} />
 										</Link>
 										<div className="upload-link" title="update" data-toggle="tooltip" data-placement="right">
-											<input type="file" className="update-flie" />
+											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} />
 											<i className="fa fa-camera"></i>
 										</div>
 									</div>
@@ -99,11 +101,13 @@ function Jobmyresume() {
 																		<i className="fa fa-upload"></i>
 																		{' Cargar CV'}
 																	</p>
-																	<input accept="application/pdf" onChange={onFileChange} type="file" className="site-button form-control" id="customFile" />
+																	<input accept="application/pdf" onChange={onFileChangeCv} type="file" className="site-button form-control" id="customFile" />
 																</div>
 															</div>
 														</div>
 													</div>
+
+
 												</form>
 												{(methods.watch('image') || methods.watch('imageUrl')) && (
 													<div style={{ height: 700 }}>
