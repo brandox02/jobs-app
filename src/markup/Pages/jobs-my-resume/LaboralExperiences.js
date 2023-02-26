@@ -70,7 +70,7 @@ export function LaboralExperiences({ methods: { watch, setValue } }) {
                      <p className="m-b0">{formatDate(item)}</p>
                      <p className="m-b0">{item.description}</p>
                   </div>
-                  <div style={{}}>
+                  <div style={{}} className=''>
                      <span onClick={() => editItem(item)} className="site-button add-btn button-sm">
                         <i className="fa fa-pencil m-r5"></i> Editar
                      </span>

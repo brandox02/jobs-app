@@ -113,7 +113,7 @@ function Profilesidebar() {
 								<img alt="" src={user.imageUrl || require('./../../images/unrecognized-image.jpg')} />
 							</Link>
 							<div className="upload-link" title="update" data-toggle="tooltip" data-placement="right">
-								<input type="file" className="update-flie" onChange={onSubmit} />
+								<input type="file" className="update-flie" onChange={onSubmit} accept='image/*' />
 								<i className="fa fa-camera"></i>
 							</div>
 						</div>

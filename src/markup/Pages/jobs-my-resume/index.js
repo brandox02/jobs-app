@@ -52,7 +52,7 @@ function Jobmyresume() {
 											<img alt="" src={methods.watch('imageProfilePicture') || stateUser.imageUrl || require("./../../../images/unrecognized-image.jpg")} />
 										</Link>
 										<div className="upload-link border" title="update" data-toggle="tooltip" data-placement="right" style={{ cursor: 'pointer' }}>
-											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} style={{ cursor: 'pointer' }} />
+											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} style={{ cursor: 'pointer' }} accept='image/*' />
 											<i className="fa fa-camera" style={{ cursor: 'pointer' }}></i>
 										</div>
 									</div>
