@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { gql, useQuery } from '@apollo/client';
 import { withErrorHandler } from '../../../withErrorHandler';
 import { isNil, omit, omitBy } from "lodash";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 
@@ -139,24 +139,32 @@ const defaultValues = {
 export function useActions() {
   const methods = useForm({ defaultValues });
   const [page, setPage] = useState(0);
-  const { user } = useSelector(state => state.app);
+  // const { user } = useSelector(state => state.app);
   const { setValue, watch, reset } = methods;
   const { data } = useQuery(SELECTS, { fetchPolicy: 'cache-and-network' });
 
   const filters = omitBy(omit(methods.getValues(), ['cities', 'categories']), isNil);
   const { data: jobsData, refetch } = useQuery(JOBS,
     {
-      variables: { page, perPage: 12, where: filters },
+      variables: { page, perPage: 10, where: filters },
       fetchPolicy: 'cache-and-network'
     });
+
+  useEffect(() => {
+    if (watch('englishRequired')) {
+      refetch();
+    }
+    // eslint-disable-next-line
+  }, [watch('englishRequired')]);
+
   const clear = () => {
     reset(defaultValues);
   }
 
-  const onSubmit = withErrorHandler(() => {
-    const data = methods.getValues();
-    const variables = omit(data, ['cities', 'categories']);
-  });
+  // const onSubmit = withErrorHandler(() => {
+  //   const data = methods.getValues();
+  //   const variables = omit(data, ['cities', 'categories']);
+  // });
 
   const pageQuantity = jobsData?.jobs?.metadata?.totalPages || 0;
   const totalItems = jobsData?.jobs?.metadata?.totalItems || 0;

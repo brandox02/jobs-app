@@ -10,7 +10,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 	return (
 		<div className="col-xl-3 col-lg-4 col-md-5 m-b30">
 			<aside id="accordion1" className="sticky-top sidebar-filter bg-white">
-				<Accordion defaultActiveKey="3">
+				<Accordion>
 					<h6
 						className="title">
 						<i className="fa fa-sliders m-r5"></i> Filtrar por
@@ -95,7 +95,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 						<div id="salary" className="acod-body collapse show">
 							<div className="acod-content">
 								<RHFNumberFormatInput
-									label={'Dede'}
+									label={'Desde'}
 									inputProps={{
 										className: "form-control",
 										prefix: 'RD$',
