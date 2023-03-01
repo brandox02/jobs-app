@@ -27,7 +27,7 @@ import Freejobalerts from './Pages/Freejobalerts';
 import Browsejoblist from './Pages/Browsejoblist';
 import Browsejobgrid from './Pages/Browsejobgrid';
 import Browsejobfilterlist from './Pages/Browsejobfilterlist';
-import Browsejobfiltergrid from './Pages/Browsejobfiltergrid';
+import Browsejobfiltergrid from './Pages/browse-jobs';
 
 import Categoryalljob from './Pages/Categoryalljob';
 import Categorycompanyjob from './Pages/Categorycompanyjob';

@@ -216,7 +216,6 @@ export function useActions() {
 
       const profileImageId = stateUser.imageId;
       const profileImageLoaded = methods.watch('imageProfilePicture');
-      console.log({ profileImageLoaded });
       delete payload.image;
       delete payload.imageProfilePicture;
       // { updateUser: { user, accessToken } }

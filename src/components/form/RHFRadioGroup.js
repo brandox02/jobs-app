@@ -7,7 +7,8 @@ export function RHFRadioGroup({
    name,
    label,
    options = [{ label: '', value: '' }],
-   defaultValue
+   defaultValue,
+   className = ''
 }) {
    const { control, formState: { errors, isSubmitted }, setValue, trigger } = useFormContext();
    return <Controller
@@ -22,7 +23,7 @@ export function RHFRadioGroup({
       render={({ field: { value: selectedValue } }) => (
          <div className="form-group">
             <label>{label}</label>
-            <div className="row">
+            <div className={className || 'row'}>
                {options.map(({ label, value }) => (
                   <div className="col-lg-6 col-md-6 col-sm-6 col-6">
                      <div className="custom-control custom-radio">
