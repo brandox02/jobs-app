@@ -18,7 +18,7 @@ const defaultValues = {
    description: ''
 }
 
-export function LaboralExperiences({ methods: { watch, setValue } }) {
+export function LaboralExperiences({ methods: { watch, setValue }, isViewingCandidate }) {
    const laboralExperiencesMethods = useForm({ defaultValues });
    const setModalOpen = value => setValue('laboralExperiencesModalOpen', value);
    const modalOpen = watch('laboralExperiencesModalOpen');
@@ -57,7 +57,9 @@ export function LaboralExperiences({ methods: { watch, setValue } }) {
    return <div id="employment_bx" className="job-bx bg-white m-b30 ">
       <div className="d-flex">
          <h5 className="m-b15">Experiencias Laborales</h5>
-         <Link to={"#"} onClick={() => setModalOpen(true)} className="site-button add-btn button-sm"><i className="bi bi-plus"></i> Nueva</Link>
+         {!isViewingCandidate && (
+            <Link to={"#"} onClick={() => setModalOpen(true)} className="site-button add-btn button-sm"><i className="bi bi-plus"></i> Nueva</Link>
+         )}
       </div>
       <div className='list-row'>
          {watch('laboralExperiences').map(item => (
@@ -70,14 +72,16 @@ export function LaboralExperiences({ methods: { watch, setValue } }) {
                      <p className="m-b0">{formatDate(item)}</p>
                      <p className="m-b0">{item.description}</p>
                   </div>
-                  <div style={{}} className=''>
-                     <span onClick={() => editItem(item)} className="site-button add-btn button-sm">
-                        <i className="fa fa-pencil m-r5"></i> Editar
-                     </span>
-                     <span style={{ marginLeft: 3 }} onClick={() => deleteItem(item.id)} className="site-button add-btn button-sm">
-                        <i className=""></i> Borrar
-                     </span>
-                  </div>
+                  {!isViewingCandidate && (
+                     <div style={{}} className=''>
+                        <span onClick={() => editItem(item)} className="site-button add-btn button-sm">
+                           <i className="fa fa-pencil m-r5"></i> Editar
+                        </span>
+                        <span style={{ marginLeft: 3 }} onClick={() => deleteItem(item.id)} className="site-button add-btn button-sm">
+                           <i className=""></i> Borrar
+                        </span>
+                     </div>
+                  )}
                </div>
 
             </div>

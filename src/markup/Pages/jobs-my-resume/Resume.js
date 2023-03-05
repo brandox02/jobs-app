@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { RHFTextarea } from '../../../components/form/RHFTextarea';
 import { Form } from '../../../components/form/Form';
 
-export function Resume({ methods: { watch, setValue } }) {
+export function Resume({ methods: { watch, setValue }, isViewingCandidate }) {
    const resumeMethods = useForm({ defaultValues: { text: '' } });
    const setResumeModalOpen = value => setValue('resumeModalOpen', value);
    const resumeModalOpen = watch('resumeModalOpen');
@@ -55,9 +55,9 @@ export function Resume({ methods: { watch, setValue } }) {
       </Modal>
       <div className="d-flex">
          <h5 className="m-b15">Resumen</h5>
-         <Link to={"#"} className="site-button add-btn button-sm" onClick={() => setResumeModalOpen(true)}>
+         {!isViewingCandidate && <Link to={"#"} className="site-button add-btn button-sm" onClick={() => setResumeModalOpen(true)}>
             <i className="fa fa-pencil m-r5"></i> Editar
-         </Link>
+         </Link>}
       </div>
       <p className="m-b0">{watch('resume')}</p>
    </div>

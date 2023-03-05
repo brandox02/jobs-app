@@ -5,7 +5,7 @@ import { Form } from '../../../components/form/Form';
 import { RHFTextInput } from '../../../components/form/RHFTextInput';
 import { useForm } from 'react-hook-form';
 
-export function KeySkills({ methods: { watch, setValue } }) {
+export function KeySkills({ methods: { watch, setValue }, isViewingCandidate }) {
    const keySkillsMethods = useForm({ defaultValues: { text: '' } });
    const setModalOpen = value => setValue('keySkillsModalOpen', value);
    const modalOpen = watch('keySkillsModalOpen');
@@ -25,7 +25,16 @@ export function KeySkills({ methods: { watch, setValue } }) {
    return <div id="key_skills_bx" className="job-bx bg-white m-b30">
       <div className="d-flex">
          <h5 className="m-b15">Habilidades Clave</h5>
-         <Link to={"#"} data-toggle="modal" data-target="#keyskills" onClick={() => setModalOpen(true)} className="site-button add-btn button-sm"><i className="fa fa-pencil m-r5"></i> Editar</Link>
+         {!isViewingCandidate && (
+            <Link
+               to={"#"}
+               data-toggle="modal"
+               data-target="#keyskills"
+               onClick={() => setModalOpen(true)}
+               className="site-button add-btn button-sm"
+            ><i className="fa fa-pencil m-r5"></i> Editar
+            </Link>
+         )}
       </div>
       <div className="job-time mr-auto">
          {watch('keySkills').map(item => (

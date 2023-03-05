@@ -18,7 +18,7 @@ const defaultValues = {
    description: ''
 };
 
-export function Projects({ methods: { watch, setValue } }) {
+export function Projects({ methods: { watch, setValue }, isViewingCandidate }) {
    const projectsMethods = useForm({ defaultValues });
    const setModalOpen = value => setValue('projectsModalOpen', value);
    const modalOpen = watch('projectsModalOpen');
@@ -56,12 +56,12 @@ export function Projects({ methods: { watch, setValue } }) {
    return <div id="projects_bx" className="job-bx bg-white m-b30">
       <div className="d-flex">
          <h5 className="m-b15">Proyectos</h5>
-         <Link to={"#"} onClick={() => setModalOpen(true)} className="site-button add-btn button-sm"><i className=""></i> Nuevo</Link>
+         {!isViewingCandidate && <Link to={"#"} onClick={() => setModalOpen(true)} className="site-button add-btn button-sm"><i className=""></i> Nuevo</Link>}
       </div>
       <div className='list-row'>
          {watch('projects').map(project => (
             <div className='list-line'>
-               <div className='d-flex justify-content-between'>
+               {!isViewingCandidate && (<div className='d-flex justify-content-between'>
                   <h6 className="font-14 m-b0">{project.name}</h6>
                   <div style={{ gap: 4, display: 'flex' }}>
                      <span
@@ -73,7 +73,7 @@ export function Projects({ methods: { watch, setValue } }) {
                         className="site-button add-btn button-sm"
                      >Borrar</span>
                   </div>
-               </div>
+               </div>)}
                <p className="m-b0">{project.customer}</p>
                <p className="m-b0">{formatDate(project)}</p>
                <p className="m-b0">{project.description}</p>

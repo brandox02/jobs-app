@@ -2,11 +2,13 @@ import { useForm } from 'react-hook-form'
 import { useMutation, gql, useQuery } from '@apollo/client';
 import { pick } from 'lodash';
 import toast from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { withErrorHandler } from '../../../withErrorHandler';
 import { useEffect } from 'react';
 import { useAuth } from '../../../useAuth';
+import { useHistory } from 'react-router-dom';
+import { setTmpDataBetweenScreens } from '../../../store/slices/appSlice';
 
 // const defaultValues = {
 //    resume: '',
@@ -24,52 +26,15 @@ import { useAuth } from '../../../useAuth';
 // };
 
 const defaultValues = {
-   "resume": "fdsfdsgd",
+   "resume": "",
    "resumeModal": false,
    "keySkillsModalOpen": false,
-   "keySkills": [
-      "klk",
-      "bro"
-   ],
-   "laboralExperiences": [
-      {
-         "companyName": "fdsfsdfds",
-         "charge": "fsdfds",
-         "isYourCurrentJob": true,
-         "startDate": "2023-02-12",
-         "endDate": "",
-         "description": "fsdfsfds",
-         "id": "d3833e2d-0cf8-4d31-bbc5-adf06ffef5fd"
-      }
-   ],
+   "keySkills": [],
+   "laboralExperiences": [],
    "laboralExperiencesModalOpen": false,
-   "educations": [
-      {
-         "educationId": "1",
-         "education": {
-            "id": 1,
-            "name": "Graduado"
-         },
-         "title": "fdsfds",
-         "institution": "fdsfds",
-         "isStudyingHere": true,
-         "startDate": "2023-03-11",
-         "endDate": null,
-         "id": "08258156-7b2a-4b18-8cdb-acfede505455"
-      }
-   ],
+   "educations": [],
    "educationsModalOpen": false,
-   "projects": [
-      {
-         "name": "fdsfds",
-         "customer": "ffdsfds",
-         "isFinished": true,
-         "startDate": "2023-02-12",
-         "endDate": "2023-03-01",
-         "description": "fdsffsdfsd",
-         "id": "7b70281a-b6f5-4270-99df-60768e36a813"
-      }
-   ],
+   "projects": [],
    "projectsModalOpen": false,
    "image": null,
    "resumeModalOpen": false
@@ -166,16 +131,33 @@ const UPDATE_PROFILE = gql`
 }
 `;
 
+const MUTATION = gql`
+	mutation ApplyJob($input: ApplyJobInput!) {
+		applyJob(input: $input)
+	}
+`
+
 
 export function useActions() {
    const methods = useForm({ defaultValues });
    const [updateUserMutation] = useMutation(UPDATE_PROFILE);
-   const { user: stateUser } = useSelector(state => state.app);
-   const { data } = useQuery(QUERY, { variables: { userId: stateUser.id }, fetchPolicy: 'cache-and-network' });
+   const [applyJob] = useMutation(MUTATION);
+   const { user: stateUser, tmpDataBetweenScreens } = useSelector(state => state.app);
+   const isViewingCandidate = !!tmpDataBetweenScreens?.isViewingCandidate;
+   const { data, loading } = useQuery(QUERY, { variables: { userId: isViewingCandidate ? tmpDataBetweenScreens.candidateId : stateUser.id }, fetchPolicy: 'cache-and-network' });
    const { goToHome } = useAuth();
-
+   const history = useHistory();
+   const dispatch = useDispatch();
    const educations = data?.educations || [];
    const resume = data?.resume;
+   const isApplyingJob = !!tmpDataBetweenScreens?.applyingJob;
+
+   useEffect(() => {
+      return () => {
+         dispatch(setTmpDataBetweenScreens(null));
+      }
+      // eslint-disable-next-line
+   }, [])
 
    useEffect(() => {
       if (resume) {
@@ -234,10 +216,18 @@ export function useActions() {
          }
       });
       toast.success('Resumen actualizado correctamente');
-      goToHome({ accessToken, user });
+      goToHome({ accessToken, user, redirectToTheHome: false });
 
       // Scroll.scrollToTop();
    })
 
-   return { methods, onSubmit, educations, stateUser }
+
+   const handleApplyJob = withErrorHandler(async () => {
+      await applyJob({ variables: { input: { userId: stateUser.id, jobId: tmpDataBetweenScreens.jobId } } });
+      toast.success('Haz aplicado correctamente a esta vacante');
+
+      history.push('/jobs-applied-job');
+   })
+
+   return { methods, onSubmit, educations, stateUser, handleApplyJob, isApplyingJob, isViewingCandidate, isLoading: loading }
 }

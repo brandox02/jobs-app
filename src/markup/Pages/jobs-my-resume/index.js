@@ -25,7 +25,8 @@ var bnr = require('./../../../images/banner/bnr1.jpg');
 //var bnr2 = require('./../../images/background/bg3.jpg');
 
 function Jobmyresume() {
-	const { methods, onSubmit, educations, stateUser } = useActions();
+	const { methods, onSubmit, educations, stateUser, handleApplyJob, isApplyingJob, isLoading,
+		isViewingCandidate } = useActions();
 	const { user } = useSelector(state => state.app);
 
 	async function onFileChangeCv(data) {
@@ -36,6 +37,10 @@ function Jobmyresume() {
 	async function onFileChangeProfilePicture(data) {
 		const base64 = await getBase64(data.currentTarget.files[0]);
 		methods.setValue('imageProfilePicture', base64);
+	}
+
+	if (isLoading) {
+		return <div>Cargando...</div>
 	}
 
 	return (
@@ -79,20 +84,20 @@ function Jobmyresume() {
 						<div className="container">
 							<div className="row">
 								<div className="col-xl-3 col-lg-4 col-md-12 col-sm-12 m-b30">
-									<Listingsidebar />
+									<Listingsidebar isViewingCandidate={isViewingCandidate} />
 								</div>
 								<div className="col-xl-9 col-lg-8 col-md-12 col-sm-12 m-b30">
 									<Form methods={methods} onSubmit={() => { }}>
 										<div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-											<Resume methods={methods} />
-											<KeySkills methods={methods} />
-											<LaboralExperiences methods={methods} />
-											<Education methods={methods} educations={educations} />
-											<Projects methods={methods} />
+											<Resume methods={methods} isViewingCandidate={isViewingCandidate} />
+											<KeySkills methods={methods} isViewingCandidate={isViewingCandidate} />
+											<LaboralExperiences methods={methods} isViewingCandidate={isViewingCandidate} />
+											<Education methods={methods} educations={educations} isViewingCandidate={isViewingCandidate} />
+											<Projects methods={methods} isViewingCandidate={isViewingCandidate} />
 											<div id="attach_resume_bx" className="job-bx bg-white m-b30" >
-												<h5 className="m-b10">Anexar CV</h5>
-												<p>El currículum es el documento más importante que buscan los reclutadores. Los reclutadores generalmente no miran perfiles sin currículums.</p>
-												<form className="attach-resume" onSubmit={(d) => console.log(d)}>
+												<h5 className="m-b10">{isViewingCandidate ? 'CV' : "Anexar CV"}</h5>
+												{!isViewingCandidate && <p>El currículum es el documento más importante que buscan los reclutadores. Los reclutadores generalmente no miran perfiles sin currículums.</p>}
+												{!isViewingCandidate && <form className="attach-resume" onSubmit={(d) => console.log(d)}>
 													<div className="row">
 														<div className="col-lg-12 col-md-12">
 															<div className="form-group">
@@ -106,9 +111,7 @@ function Jobmyresume() {
 															</div>
 														</div>
 													</div>
-
-
-												</form>
+												</form>}
 												{(methods.watch('image') || methods.watch('imageUrl')) && (
 													<div style={{ height: 700 }}>
 														<iframe
@@ -122,18 +125,35 @@ function Jobmyresume() {
 													</div>
 												)}
 											</div>
-											<div onClick={onSubmit}>
-												<Link
-													to={"#"}
-													data-toggle="modal"
-													data-target="#keyskills"
-													onClick={() => { }}
-													className="site-button add-btn button-sm"
-													style={{ padding: 10 }}
-												>
-													{'Guardar'}
-												</Link>
-											</div>
+											{!isViewingCandidate && (
+												isApplyingJob ? (
+													<div onClick={handleApplyJob}>
+														<Link
+															to={"#"}
+															data-toggle="modal"
+															data-target="#keyskills"
+															onClick={() => { }}
+															className="site-button add-btn button-sm"
+															style={{ padding: 10 }}
+														>
+															{'Aplicar a la Vacante'}
+														</Link>
+													</div>
+												) : (
+													<div onClick={onSubmit}>
+														<Link
+															to={"#"}
+															data-toggle="modal"
+															data-target="#keyskills"
+															onClick={() => { }}
+															className="site-button add-btn button-sm"
+															style={{ padding: 10 }}
+														>
+															{'Guardar'}
+														</Link>
+													</div>
+												)
+											)}
 										</div>
 									</Form>
 								</div>

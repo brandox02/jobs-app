@@ -13,7 +13,7 @@ import Jobcvmanager from './Pages/Jobcvmanager';
 import Changepasswordpage from './Pages/Changepasswordpage';
 
 import Companyprofile from './Pages/company-profile';
-import Companyresume from './Pages/Companyresume';
+import Companyresume from './Pages/company-applications';
 import CompanyPostJob from './Pages/company-post-job';
 import CompanyManageJob from './Pages/company-manage-job';
 import Companytransactions from './Pages/Companytransactions';
@@ -82,7 +82,7 @@ const Markup = () => {
 
 
 					<Route path='/about-us' exact component={Aboutus} />
-					<Route path='/job-detail' exact component={Jobdetail} />
+					<Route path='/job-detail/:id' exact component={Jobdetail} />
 					<Route path='/companies' exact component={Companies} />
 					<Route path='/free-job-alerts' exact component={Freejobalerts} />
 					<Route path='/browse-job-list' exact component={Browsejoblist} />

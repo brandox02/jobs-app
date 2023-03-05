@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from "react-scroll";
 import { useHistory } from 'react-router-dom'
 
-function Listingsidebar() {
+function Listingsidebar({ isViewingCandidate }) {
 	const { push } = useHistory();
 	const goBack = () => push('/jobs-profile');
 	return (
 		<div className="sticky-top bg-white">
-			<Link onClick={goBack} className="site-button right-arrow button-sm float-right" style={{ color: 'white', transform: 'scale(1.2)', marginRight: 5 }}>Atrás</Link>
+			{!isViewingCandidate && (
+				<Link onClick={goBack} className="site-button right-arrow button-sm float-right" style={{ color: 'white', transform: 'scale(1.2)', marginRight: 5 }}>Atrás</Link>
+			)}
 			<div className="candidate-info onepage">
 				<ul>
 					<li>
@@ -63,7 +65,7 @@ function Listingsidebar() {
 					</li> */}
 					<li>
 						<Link activeClass="active"
-							className="scroll-bar nav-link" to="attach_resume_bx" smooth={true} offset={-70} duration={500}><span>Anexar CV</span>
+							className="scroll-bar nav-link" to="attach_resume_bx" smooth={true} offset={-70} duration={500}><span>{isViewingCandidate ? 'CV' : 'Anexar CV'}</span>
 						</Link>
 					</li>
 				</ul>

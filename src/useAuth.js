@@ -106,7 +106,7 @@ export function useAuth() {
    const history = useHistory();
 
 
-   function goToHome({ accessToken, user }) {
+   function goToHome({ accessToken, user, redirectToTheHome = true }) {
       dispatch(setAccessToken(accessToken));
       dispatch(setUser(user));
       localStorage.setItem('auth-metadata', JSON.stringify({ accessToken, user }));
@@ -117,7 +117,10 @@ export function useAuth() {
             'authorization': `Bearer ${accessToken}`
          },
       }));
-      history.push('/home');
+
+      if (redirectToTheHome) {
+         history.push('/home');
+      }
    }
 
    async function login({ email, password }) {

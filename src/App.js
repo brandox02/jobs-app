@@ -26,7 +26,7 @@ function App() {
 
     useEffect(() => {
         if (accessToken) {
-            history.push('/browse-job-filter-grid');
+            history.push('/company-resume');
         }
         // eslint-disable-next-line
     }, [accessToken]);
