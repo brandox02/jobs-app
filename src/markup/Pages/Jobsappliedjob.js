@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from './../Layout/Header';
 import Footer from './../Layout/Footer';
 import Profilesidebar from '../Element/Profilesidebar';
@@ -8,12 +8,6 @@ import { useSelector } from 'react-redux';
 import { NumericFormat } from 'react-number-format';
 import dayjs from 'dayjs';
 import { Pagination } from '../../components/Pagination'
-
-const postBlog = [
-	{ title: 'PHP Web Developer', },
-	{ title: 'Software Developer', },
-	{ title: 'Branch Credit Manager', },
-];
 
 const QUERY = gql`
 	query Applications($page: Float!, $perPage: Float!, $where: ApplicationWhereInput!){
@@ -98,10 +92,10 @@ function Jobsappliedjob() {
 	const { user } = useSelector(state => state.app);
 	const [page, setPage] = useState(0);
 	const { data } = useQuery(QUERY, {
-		variables:
-		{
+		variables: {
 			where: { userId: user.id }, page, perPage: 10
-		}
+		},
+		nextFetchPolicy: 'network-only'
 	});
 
 	if (!data) {

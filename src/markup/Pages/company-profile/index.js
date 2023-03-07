@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../../Layout/Header';
 import Footer from '../../Layout/Footer';
 import { Form } from '../../../components/form/Form';
@@ -24,7 +23,7 @@ function Companyprofile() {
 									<div className="job-bx submit-resume">
 										<div className="job-bx-title clearfix">
 											<h5 className="font-weight-700 pull-left text-uppercase">Perfil de Compañia</h5>
-											<Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Atrás</Link>
+											{/* <Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Atrás</Link> */}
 										</div>
 
 										<Form methods={methods} onSubmit={onSubmit}>

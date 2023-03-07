@@ -62,7 +62,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="1">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href="#" className="collapsed">Experiencia</a>
+								<a data-toggle="collapse" href="# " className="collapsed">Experiencia</a>
 							</h6>
 						</div>
 					</Accordion.Toggle>
@@ -85,7 +85,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="2">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href="#" className="collapsed" >
+								<a data-toggle="collapse" href="# " className="collapsed" >
 									Salario
 								</a>
 							</h6>
@@ -122,7 +122,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="3">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href="#" className="collapsed" >
+								<a data-toggle="collapse" href="# " className="collapsed" >
 									Contrato de Trabajo
 								</a>
 							</h6>
@@ -146,7 +146,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="4">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href="#" className="collapsed" >
+								<a data-toggle="collapse" href="# " className="collapsed" >
 									Modalidad de Trabajo
 								</a>
 							</h6>
@@ -175,7 +175,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="5">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href={'#'} className="collapsed" >
+								<a data-toggle="collapse" href={'# '} className="collapsed" >
 									Horario de Trabajo
 								</a>
 							</h6>
@@ -203,7 +203,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 					<Accordion.Toggle as={Card} eventKey="6">
 						<div className="acod-head">
 							<h6 className="acod-title">
-								<a data-toggle="collapse" href="#" className="collapsed" >
+								<a data-toggle="collapse" href="# " className="collapsed" >
 									Mostrar Vacantes Que Requieran Inglés
 								</a>
 							</h6>

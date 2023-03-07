@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form"
 import { gql, useQuery } from '@apollo/client';
-import { withErrorHandler } from '../../../withErrorHandler';
 import { isNil, omit, omitBy } from "lodash";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
 
 export const SELECTS = gql`

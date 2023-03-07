@@ -30,7 +30,7 @@ class Jobfindbox extends Component {
 		// Placeholder Animation End
 	}
 	render() {
-		const { cities, categories, refetch, setValue, watch } = this.props;
+		const { cities, categories, refetch, setValue } = this.props;
 		return (
 			<div className="section-full browse-job-find">
 				<div className="container">

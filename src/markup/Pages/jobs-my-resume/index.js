@@ -25,8 +25,10 @@ var bnr = require('./../../../images/banner/bnr1.jpg');
 //var bnr2 = require('./../../images/background/bg3.jpg');
 
 function Jobmyresume() {
-	const { methods, onSubmit, educations, stateUser, handleApplyJob, isApplyingJob, isLoading,
-		isViewingCandidate } = useActions();
+	const { methods, onSubmit, educations, stateUser,
+		handleApplyJob,
+		isApplyingJob, isLoading,
+		isViewingCandidate, userFromViewingCandidate } = useActions();
 	const { user } = useSelector(state => state.app);
 
 	async function onFileChangeCv(data) {
@@ -43,6 +45,11 @@ function Jobmyresume() {
 		return <div>Cargando...</div>
 	}
 
+
+	const linkedinUrl = (isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.linkedinUrl || '';
+	const facebookUrl = (isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.facebookUrl || '';
+	const twitterUrl = (isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.twitterUrl || '';
+
 	return (
 		<>
 			<Header />
@@ -54,24 +61,31 @@ function Jobmyresume() {
 								<div className="candidate-detail">
 									<div className="canditate-des text-center">
 										<Link to={"#"}>
-											<img alt="" src={methods.watch('imageProfilePicture') || stateUser.imageUrl || require("./../../../images/unrecognized-image.jpg")} />
+											<img
+												alt=""
+												src={methods.watch('imageProfilePicture') || stateUser.imageUrl || userFromViewingCandidate?.imageUrl || require("./../../../images/unrecognized-image.jpg")}
+											/>
 										</Link>
-										<div className="upload-link border" title="update" data-toggle="tooltip" data-placement="right" style={{ cursor: 'pointer' }}>
-											<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} style={{ cursor: 'pointer' }} accept='image/*' />
-											<i className="fa fa-camera" style={{ cursor: 'pointer' }}></i>
-										</div>
+										{!isViewingCandidate && (
+											<div className="upload-link border" title="update" data-toggle="tooltip" data-placement="right" style={{ cursor: 'pointer' }}>
+												<input type="file" className="update-flie" onChange={onFileChangeProfilePicture} style={{ cursor: 'pointer' }} accept='image/*' />
+												<i className="fa fa-camera" style={{ cursor: 'pointer' }}></i>
+											</div>
+										)}
 									</div>
 									<div className="text-white browse-job text-left">
-										<h4 className="m-b0">{`${user.firstname} ${user.lastname}`}
+										<h4 className="m-b0">{isViewingCandidate ? `${userFromViewingCandidate.firstname} ${userFromViewingCandidate.lastname}` : `${user.firstname} ${user.lastname}`}
 											{/* <Link to={"#"} onClick={()=>setBasicDetails(true)} className="m-l15 font-16 text-white"><i className="fa fa-pencil"></i></Link> */}
 										</h4>
-										<p className="m-b15">{user?.candidateProfile?.professionalTitle}</p>
-										<ul className="clearfix">
-											<li><i className="ti-email"></i>{user?.email}</li>
-											<li><i className="ti-mobile"></i>{user?.candidateProfile?.phone}</li>
-											{/* <li><i className="ti-briefcase"></i>{user?.candidateProfile?.professionalTitle}</li> */}
-
-											{user?.candidateProfile?.city && user?.candidateProfile?.country && <li><i className="ti-location-pin"></i> {`${user?.candidateProfile?.city?.name || ''}, ${user?.candidateProfile?.country?.name || ''}`}</li>}
+										<p className="m-b15">{isViewingCandidate ? userFromViewingCandidate?.candidateProfile?.professionalTitle : user?.candidateProfile?.professionalTitle}</p>
+										<ul className="clearfix" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+											<li><i className="ti-email"></i>{isViewingCandidate ? userFromViewingCandidate.email : user?.email}</li>
+											<li><i className="ti-mobile"></i>{isViewingCandidate ? userFromViewingCandidate?.candidateProfile?.phone : user?.candidateProfile?.phone}</li>
+											<li><i className="ti-location-pin"></i> {`${(isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.city?.name || ''}, ${(isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.country?.name || ''}`}</li>
+											<li><i className="ti-filter"></i>{(isViewingCandidate ? userFromViewingCandidate : user)?.candidateProfile?.gender?.name}</li>
+											{facebookUrl && <li><i className="ti-facebook"></i>{facebookUrl}</li>}
+											{linkedinUrl && <li><i className="ti-linkedin"></i> {linkedinUrl}</li>}
+											{twitterUrl && <li><i className="ti-twitter"></i> {twitterUrl}</li>}
 										</ul>
 									</div>
 								</div>

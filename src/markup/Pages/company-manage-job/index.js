@@ -9,7 +9,9 @@ import { Pagination } from '../../../components/Pagination';
 import { Modal } from './accessories/Modal';
 
 function Companymanage() {
-	const { jobs, page, setPage, goToManagement, deleteJob, deleteJobModal, setDeleteJobModal, totalPages } = useActions();
+	const { jobs, page, setPage, goToManagement,
+		deleteJob, deleteJobModal, setDeleteJobModal, totalPages, goToApplications
+	} = useActions();
 	return (
 		<>
 			<Header />
@@ -73,8 +75,13 @@ function Companymanage() {
 																<li><i className="fa fa-filter"></i> {job.workingModality.name}</li>
 															</ul>
 														</td>
-														<td className="application text-primary">
-															{`${job.applications.length} ${job.applications.length === 1 ? 'postulación' : 'postulaciones'}`}
+														<td
+															className="application text-primary"
+															onClick={() => goToApplications({ jobId: job.id, jobName: job.name })}
+														>
+															<Link to={'#'}>
+																{`${job.applications.length} ${job.applications.length === 1 ? 'postulación' : 'postulaciones'}`}
+															</Link>
 														</td>
 														<td className="expired pending">{job.status.name} </td>
 														<td className="job-links">

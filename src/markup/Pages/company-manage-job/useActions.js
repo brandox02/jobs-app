@@ -34,7 +34,14 @@ export function useActions() {
     await refetch();
   });
 
+  const goToApplications = ({ jobId, jobName }) => {
+    history.push(`/company-resume?jobId=${jobId}&jobName=${jobName}`);
+  }
+
   const jobs = data?.jobs?.items || [];
   const totalPages = data?.jobs?.metadata?.totalPages || 0;
-  return { jobs, page, setPage, history, goToManagement, deleteJob, deleteJobModal, setDeleteJobModal, totalPages }
+  return {
+    jobs, page, setPage, history, goToManagement, deleteJob,
+    deleteJobModal, setDeleteJobModal, totalPages, goToApplications
+  }
 }

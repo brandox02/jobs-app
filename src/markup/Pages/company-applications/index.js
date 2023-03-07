@@ -9,7 +9,8 @@ import { Pagination } from '../../../components/Pagination';
 
 
 function Companyresume() {
-	const { applications, totalItems, totalPages, setPage, page, goToCandidateProfile } = useActions();
+	const { applications,
+		totalItems, totalPages, setPage, page, goToCandidateProfile, jobName } = useActions();
 
 	return (
 		<>
@@ -23,8 +24,11 @@ function Companyresume() {
 								<div className="col-xl-9 col-lg-8 m-b30">
 									<div className="job-bx clearfix">
 										<div className="job-bx-title clearfix">
-											<h5 className="font-weight-700 pull-left text-uppercase">Postulaciones({totalItems})</h5>
-											{/* <Link to={"/company-manage-job"} className="site-button right-arrow button-sm float-right">Back</Link> */}
+											<h5
+												className="font-weight-700 pull-left text-uppercase"
+											>
+												{`Postulaciones${jobName ? ` de ${jobName}` : ''} (${totalItems})`}
+											</h5>
 										</div>
 										<ul className="post-job-bx browse-job-grid post-resume row">
 											{applications.map(({ job, user }, index) => (
@@ -33,7 +37,7 @@ function Companyresume() {
 														<div className="d-flex m-b20">
 															<div className="job-post-info">
 																<h5
-																	onClick={() => goToCandidateProfile({ userId: user.id })}
+																	onClick={() => goToCandidateProfile({ user })}
 																	className="m-b0"
 																><Link to={"#"}>{`${user?.firstname} ${user?.lastname}`}</Link>
 																</h5>
@@ -64,9 +68,13 @@ function Companyresume() {
 																<Link to={"#"} className="mr-1"><span>{item.name}</span></Link>
 															))}
 														</div>
-														<Link to={"/files/pdf-sample.pdf"} target="blank" className="job-links">
+														<a
+															href={user.resume.imageUrl}
+															target="blank"
+															className="job-links"
+														>
 															<i className="fa fa-download"></i>
-														</Link>
+														</a>
 													</div>
 												</li>
 											))}

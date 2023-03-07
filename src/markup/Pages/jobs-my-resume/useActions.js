@@ -144,20 +144,21 @@ export function useActions() {
    const [applyJob] = useMutation(MUTATION);
    const { user: stateUser, tmpDataBetweenScreens } = useSelector(state => state.app);
    const isViewingCandidate = !!tmpDataBetweenScreens?.isViewingCandidate;
-   const { data, loading } = useQuery(QUERY, { variables: { userId: isViewingCandidate ? tmpDataBetweenScreens.candidateId : stateUser.id }, fetchPolicy: 'cache-and-network' });
+   const { data, loading } = useQuery(QUERY, { variables: { userId: isViewingCandidate ? tmpDataBetweenScreens.candidate.id : stateUser.id }, fetchPolicy: 'cache-and-network' });
    const { goToHome } = useAuth();
    const history = useHistory();
    const dispatch = useDispatch();
    const educations = data?.educations || [];
    const resume = data?.resume;
    const isApplyingJob = !!tmpDataBetweenScreens?.applyingJob;
+   const userFromViewingCandidate = tmpDataBetweenScreens?.candidate;
 
    useEffect(() => {
       return () => {
          dispatch(setTmpDataBetweenScreens(null));
       }
       // eslint-disable-next-line
-   }, [])
+   }, []);
 
    useEffect(() => {
       if (resume) {
@@ -229,5 +230,9 @@ export function useActions() {
       history.push('/jobs-applied-job');
    })
 
-   return { methods, onSubmit, educations, stateUser, handleApplyJob, isApplyingJob, isViewingCandidate, isLoading: loading }
+   return {
+      methods, onSubmit, educations, stateUser, handleApplyJob,
+      isApplyingJob, isViewingCandidate, isLoading: loading,
+      userFromViewingCandidate
+   }
 }

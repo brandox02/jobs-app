@@ -13,29 +13,8 @@ import dayjs from 'dayjs';
 
 var bnr = require('./../../../images/banner/bnr1.jpg');
 
-const jobBlog = [
-	{
-		title: 'Digital Marketing Executive',
-	},
-	{
-		title: 'Digital Marketing Executive',
-	},
-	{
-		title: 'Digital Marketing Executive',
-	},
-	{
-		title: 'Digital Marketing Executive',
-	},
-	{
-		title: 'Digital Marketing Executive',
-	},
-	{
-		title: 'Digital Marketing Executive',
-	},
-]
-
 function Browsejobfiltergrid() {
-	const { methods, reset, setValue, watch, cities = [], categories = [], experienceTimes = [],
+	const { methods, setValue, watch, cities = [], categories = [], experienceTimes = [],
 		employmentContracts = [], workingModalities = [], dailyWorkTimes = [], clear, page, setPage,
 		pageQuantity, totalItems, jobs, refetch
 	} = useActions();

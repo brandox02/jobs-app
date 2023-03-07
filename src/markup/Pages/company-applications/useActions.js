@@ -1,4 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
+import { isNil } from "lodash";
+import { omitBy } from "lodash";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -8,7 +10,25 @@ const QUERY = gql`
 	query Applications($page: Float!, $perPage: Float!, $where: ApplicationWhereInput!){
 		applications(where:$where, page: $page, perPage: $perPage){
 			items {
-            user {firstname lastname id}
+            user {
+              firstname 
+              lastname 
+              id 
+              email 
+              imageUrl
+              resume { imageUrl } 
+              candidateProfile {
+                gender {id name}
+                professionalTitle
+                aboutMe
+                phone
+                country { id name }
+                city { id name }
+                facebookUrl
+                twitterUrl
+                linkedinUrl
+            } 
+          }
 
 				job {
       createdUserId
@@ -88,18 +108,27 @@ const QUERY = gql`
 export function useActions() {
   const [page, setPage] = useState(0);
   const { user } = useSelector(state => state.app);
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const jobId = params?.jobId ? parseInt(params.jobId) : null;
+  const jobName = params?.jobName || '';
   const { data } = useQuery(QUERY, {
     variables:
     {
-      where: { createdUserId: user.id }, page, perPage: 10
+      where: omitBy({ createdUserId: user.id, jobId }, isNil), page, perPage: 10
     }
   });
+
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const goToCandidateProfile = ({ userId }) => {
-    dispatch(setTmpDataBetweenScreens({ isViewingCandidate: true, candidateId: userId }));
+  const goToCandidateProfile = ({ user }) => {
+    dispatch(setTmpDataBetweenScreens({ isViewingCandidate: true, candidate: user }));
     history.push('/jobs-my-resume');
+  }
+
+  function download(dataUrl) {
+    window.open(dataUrl, '_blank');
   }
 
   const totalItems = data?.applications?.metadata?.totalItems || 0;
@@ -107,6 +136,6 @@ export function useActions() {
   const applications = data?.applications?.items || [];
 
   return {
-    totalPages, totalItems, applications, setPage, page, goToCandidateProfile
+    totalPages, totalItems, applications, setPage, page, goToCandidateProfile, download, jobName
   };
 }
