@@ -37,7 +37,8 @@ function Browsejobfiltergrid() {
 										<h5 className="font-weight-700 pull-left text-uppercase">{totalItems} Vacantes Encontradas</h5>
 									</div>
 									<ul className="post-job-bx browse-job-grid row">
-										{jobs.map(({ id, country, city, workingModality, dailyWorkTime, name, minSalary, maxSalary, createdAt }, index) => {
+										{jobs.map(({ id, country, city, workingModality, dailyWorkTime,
+											name, minSalary, maxSalary, createdAt, createdUser }, index) => {
 											const dayjsDiff = dayjs().diff(createdAt, 'days');
 											return (
 												<li className="col-lg-6 col-md-12" key={index} >
@@ -46,6 +47,7 @@ function Browsejobfiltergrid() {
 															<div className="job-post-info">
 																<h5><Link to={`/job-detail/${id}`}>{name}</Link></h5>
 																<ul>
+																	<li><i className="a fa-building-o"></i>{createdUser.companyProfile.name}</li>
 																	<li><i className="fa fa-map-marker"></i> {country.name}, {city.name}</li>
 																	<li><i className="fa fa-bookmark-o"></i> {workingModality.name}</li>
 																	<li><i className="fa fa-clock-o"></i> Publicado hace {dayjsDiff} dias</li>

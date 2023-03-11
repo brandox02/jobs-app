@@ -56,11 +56,12 @@ export const JOBS = gql`
       createdUserId
       createdUser {
         id
+        companyProfile { name }
       }
       id
       location
       maxSalary
-      description
+      description2
       minSalary
       name
       tags {

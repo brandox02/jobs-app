@@ -7,6 +7,7 @@ export const JOBS = gql`
       totalPages
     }
     items {
+      requirements { id name }
       applications {
         id
         status {
@@ -21,7 +22,7 @@ export const JOBS = gql`
       id
       location
       maxSalary
-      description
+      description2
       minSalary
       name
       tags {

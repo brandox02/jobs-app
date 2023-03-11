@@ -24,7 +24,7 @@ const QUERY = gql`
       id
       location
       maxSalary
-      description
+      description2
       minSalary
       name
       tags {
@@ -86,7 +86,7 @@ const QUERY = gql`
 			}
 		}
 	}
-`
+`;
 
 function Jobsappliedjob() {
 	const { user } = useSelector(state => state.app);
@@ -95,7 +95,7 @@ function Jobsappliedjob() {
 		variables: {
 			where: { userId: user.id }, page, perPage: 10
 		},
-		nextFetchPolicy: 'network-only'
+		fetchPolicy: 'cache-and-network'
 	});
 
 	if (!data) {

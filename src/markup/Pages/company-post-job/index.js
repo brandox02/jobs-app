@@ -10,9 +10,11 @@ import { RHFCheckbox } from '../../../components/form/RHFCheckbox';
 import { RHFSelect } from '../../../components/form/RHFSelect';
 import { RHFNumberFormatInput } from '../../../components/form/RHFNumberFormatInput';
 import { RHFTextarea } from '../../../components/form/RHFTextarea';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 function CompanyPostJob() {
-	const { methods, onSubmit, dataSelects, cities, isEditing, goBack } = useActions();
+	const { methods, onSubmit, dataSelects, cities, isEditing, goBack, addNewRequirement, deleteRequirement } = useActions();
 	return (
 		<>
 			<Header />
@@ -54,10 +56,11 @@ function CompanyPostJob() {
 												<div className="col-lg-12 col-md-12">
 													<RHFTextarea
 														label={'Descripción'}
-														name={'description'}
+														name={'description2'}
 														inputProps={{ placeholder: 'Agrega una descripción detallada a esta vacante' }}
 													/>
 												</div>
+
 												<div className="col-lg-8 col-md-8">
 													<RHFTextInput
 														required={false}
@@ -166,6 +169,38 @@ function CompanyPostJob() {
 															placeholder: 'Dias'
 														}}
 													/>
+												</div>
+												<div className='col-lg-12 col-md-12' style={{ position: 'relative' }}>
+													<button
+														className='site-button m-b30'
+														style={{ bottom: 0, right: 20, position: 'absolute' }}
+														onClick={addNewRequirement}
+														type='button'
+													>
+														Añadir
+													</button>
+													<RHFTextarea
+														name={'requirementTxt'}
+														label={'Requerimientos'}
+														placeholder={'Escribe un nuevo requerimiento...'}
+														required={false}
+													/>
+												</div>
+												<div className='col-lg-12 col-md-12'>
+													<ListGroup style={{ marginBottom: 10 }}>
+														{(methods.watch('requirements') || []).map((item, index) => (
+															<ListGroup.Item style={{ display: 'flex', justifyContent: 'space-between' }}>
+																{`${index + 1}. ${item.name}`}
+																<i
+																	class="fa fa-trash"
+																	aria-hidden="true"
+																	style={{ cursor: 'pointer' }}
+																	onClick={() => deleteRequirement(item.id)}
+																>
+																</i>
+															</ListGroup.Item>
+														))}
+													</ListGroup>
 												</div>
 												{/* <div className="col-lg-12 col-md-12">
 													<div className="form-group">

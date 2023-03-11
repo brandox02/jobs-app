@@ -41,7 +41,7 @@ const QUERY = gql`
       id
       location
       maxSalary
-      description
+      description2
       minSalary
       name
       tags {

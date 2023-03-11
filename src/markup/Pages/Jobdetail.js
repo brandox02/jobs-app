@@ -6,7 +6,7 @@ import PageTitle from './../Layout/PageTitle';
 import { gql, useQuery } from '@apollo/client';
 import dayjs from 'dayjs';
 import { NumericFormat } from 'react-number-format';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTmpDataBetweenScreens } from '../../store/slices/appSlice';
 import toast from 'react-hot-toast';
 
@@ -22,6 +22,7 @@ const QUERY = gql`
           name
         }
       }
+		requirements { id name }
       createdUserId
       createdUser {
         id
@@ -29,7 +30,7 @@ const QUERY = gql`
       id
       location
       maxSalary
-      description
+      description2
       minSalary
       name
       tags {
@@ -91,7 +92,7 @@ function Jobdetail() {
 	const d = useParams();
 
 	const { data } = useQuery(QUERY, { variables: { where: { id: parseInt(d.id) } } });
-
+	const { user } = useSelector(state => state.app);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -101,11 +102,14 @@ function Jobdetail() {
 			history.push('/jobs-applied-job')
 			return;
 		}
+
+		if (!user.isCandidate) {
+			toast.error('No puedes aplicar a vacantes siendo empresa!');
+			return;
+		}
 		dispatch(setTmpDataBetweenScreens({ applyingJob: true, jobId: job.id }));
 		history.push('/jobs-my-resume');
 	}
-
-
 
 	if (!data) {
 		return <></>;
@@ -177,19 +181,15 @@ function Jobdetail() {
 
 										<h5 className="font-weight-600 mt-3">Descripción</h5>
 										<div className="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
-										<p>{job.description}</p>
+										<p>{job.description2}</p>
 										{/* <h5 className="font-weight-600">How to Apply</h5>
 										<div className="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
 										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.</p> */}
-										{/* <h5 className="font-weight-600">Requerimientos</h5>
+										<h5 className="font-weight-600">Requerimientos</h5>
 										<div className="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
 										<ul className="list-num-count no-round">
-											<li>The DexignLab Privacy Policy was updated on 25 June 2018.</li>
-											<li>Who We Are and What This Policy Covers</li>
-											<li>Remaining essentially unchanged It was popularised in the 1960s </li>
-											<li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</li>
-											<li>DexignLab standard dummy text ever since</li>
-										</ul> */}
+											{job.requirements.map(item => <li>{item.name}</li>)}
+										</ul>
 										<Link to={"#"} className="site-button" onClick={handleSubmit}>Aplicar a este trabajo</Link>
 									</div>
 								</div>

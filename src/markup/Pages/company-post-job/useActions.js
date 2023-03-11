@@ -12,10 +12,10 @@ import { CREATE_JOB } from './queries/create-job';
 import { UPDATE_JOB } from './queries/update-job';
 import { clone, pick } from 'lodash';
 import { setTmpDataBetweenScreens } from '../../../store/slices/appSlice';
-
+import { v4 as uuid } from 'uuid';
 
 export const useActions = () => {
-   const methods = useForm({ defaultValues: { englishRequired: false } });
+   const methods = useForm({ defaultValues: { englishRequired: false, requirements: [] } });
    const countryId = methods.watch('countryId') ? parseInt(methods.watch('countryId')) : null;
    const { data } = useQuery(CITIES, { variables: { countryId }, fetchPolicy: 'cache-and-network' });
    const { data: dataSelects } = useQuery(SELECTS, { fetchPolicy: 'cache-and-network' });
@@ -25,6 +25,19 @@ export const useActions = () => {
    const job = useSelector(state => state.app.tmpDataBetweenScreens);
    const dispatch = useDispatch();
    const isEditing = !!job;
+
+   const addNewRequirement = () => {
+      if (methods.watch('requirementTxt') === '') {
+         return;
+      }
+      console.log(methods.watch("requirements"));
+      methods.setValue('requirements', [...(methods.watch('requirements') || []), { id: uuid(), name: methods.watch('requirementTxt') }]);
+      methods.setValue('requirementTxt', null);
+   }
+
+   const deleteRequirement = (id) => {
+      methods.setValue('requirements', methods.watch('requirements').filter(item => item.id !== id));
+   }
 
    useEffect(() => {
       if (job) {
@@ -48,8 +61,9 @@ export const useActions = () => {
                'vigencyDays',
                'statusId',
                'tags',
-               'description',
+               'description2',
                'tags',
+               'requirements',
             ]);
          copyJob.tags = copyJob.tags.map(tag => tag.name).join(',');
          methods.reset(copyJob);
@@ -70,7 +84,7 @@ export const useActions = () => {
 
       copyData.tags = copyData.tags ? copyData.tags.split(',').map(item => ({ name: item, ...(isEditing ? { jobId: data.id } : {}) })) : [];
       copyData.statusId = 1;
-
+      delete copyData.requirementTxt;
       const mutation = isEditing ? updateJobMutation : createJobMutation;
 
       await mutation({
@@ -89,5 +103,5 @@ export const useActions = () => {
 
    const cities = data?.cities || [];
 
-   return { methods, onSubmit, dataSelects, cities, isEditing, goBack }
+   return { methods, onSubmit, dataSelects, cities, isEditing, goBack, addNewRequirement, deleteRequirement }
 }
