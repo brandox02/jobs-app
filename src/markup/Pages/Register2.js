@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '../../components/form/Form';
 import { RHFTextInput } from '../../components/form/RHFTextInput';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ var bnr = require('./../../images/background/bg6.jpg');
 function Register2() {
 	const methods = useForm();
 	const { signin } = useAuth();
+	const history = useHistory();
 
 	const onSignUp = withErrorHandler(async (data) => {
 		await signin(data);
@@ -30,10 +31,10 @@ function Register2() {
 								<div className="clearfix"></div>
 								<div className="tab-content nav p-b30 tab">
 									<div id="login" className="tab-pane active ">
-										<h3 className="form-title m-t0">Registro</h3>
-										<div className="dez-separator-outer m-b5">
+										<h3 className="form-title">Registro</h3>
+										{/* <div className="dez-separator-outer m-b5">
 											<div className="dez-separator bg-primary style-liner"></div>
-										</div>
+										</div> */}
 										<Form methods={methods} onSubmit={onSignUp}>
 											<RHFTextInput
 												name={'firstname'}
@@ -60,6 +61,7 @@ function Register2() {
 											/>
 											<div className="text-center bottom">
 												<button type='submit' className='site-button button-md btn-block text-white'>Registrarme</button>
+												<button onClick={() => history.push('/login')} className='site-button button-md btn-block text-white'>Ya tengo una cuenta</button>
 											</div>
 										</Form>
 									</div>

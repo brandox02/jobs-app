@@ -165,7 +165,7 @@ export function useAuth() {
          uri: 'http://localhost:3000/graphql',
          headers: {},
       }));
-      history.push('/login');
+      history.push('/');
    }
 
 

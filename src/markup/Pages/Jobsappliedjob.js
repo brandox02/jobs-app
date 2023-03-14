@@ -13,6 +13,7 @@ const QUERY = gql`
 	query Applications($page: Float!, $perPage: Float!, $where: ApplicationWhereInput!){
 		applications(where:$where, page: $page, perPage: $perPage){
 			items {
+				createdAt
 				job {
       createdUserId
       createdUser {
@@ -102,7 +103,7 @@ function Jobsappliedjob() {
 		return <></>;
 	}
 
-	const jobQuantity = (data?.applications?.metadata?.totalItems || 0);
+	const jobQuantity = data?.applications?.metadata?.totalItems || 0;
 	return (
 		<>
 			<Header />
@@ -126,8 +127,9 @@ function Jobsappliedjob() {
 										</div> */}
 									</div>
 									<ul className="post-job-bx browse-job">
-										{(data?.applications?.items || []).map(({ job }, index) => {
-											const diff = dayjs().diff(job.createdAt, 'days');
+										{(data?.applications?.items || []).map(({ job, createdAt }, index) => {
+											const diffJob = dayjs().diff(job.createdAt, 'days');
+											const diffApplication = dayjs().diff(createdAt, 'days');
 											return (
 												<li key={index}>
 													<div className="post-bx">
@@ -156,12 +158,24 @@ function Jobsappliedjob() {
 															<div className="job-time m-t15 m-b10">
 																{job.tags.map(item => <Link to={''} className="mr-1"><span>{item.name}</span></Link>)}
 															</div>
-															{diff ? <div className="posted-info clearfix">
-																<p className="m-tb0 text-primary float-left">
-																	<span className="text-black m-r10">Publicado hace:</span>{diff + ` dia${diff === 1 ? '' : 's'}`}
-																</p>
-																{/* <Link to={"/jobs-my-resume"} className="site-button button-sm float-right">Apply Job</Link> */}
-															</div> : ''}
+															{diffJob || diffApplication ? (
+																<div className="posted-info clearfix">
+																	<p className="m-tb0 text-primary float-left">
+																		{diffJob && (
+																			<>
+																				<span className="text-black m-r10">Vacante publicada hace:</span>{diffJob + ` dia${diffJob === 1 ? '' : 's'}`}
+																			</>
+																		)}
+																		{diffApplication && (
+																			<>
+																				<br /> <span className="text-black m-r10">Aplicaste a esta vacante hace:</span>{diffApplication + ` dia${diffApplication === 1 ? '' : 's'}`}
+																			</>
+																		)}
+
+																	</p>
+																	{/* <Link to={"/jobs-my-resume"} className="site-button button-sm float-right">Apply Job</Link> */}
+																</div>
+															) : ''}
 														</div>
 													</div>
 												</li>

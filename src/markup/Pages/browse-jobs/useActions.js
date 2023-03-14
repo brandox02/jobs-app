@@ -3,7 +3,6 @@ import { gql, useQuery } from '@apollo/client';
 import { isNil, omit, omitBy } from "lodash";
 import { useEffect, useState } from "react";
 
-
 export const SELECTS = gql`
    query ListSelects{
       cities(countryId: 1) {
@@ -34,6 +33,8 @@ export const SELECTS = gql`
       categories {
          name
          id
+         count
+         classnameIcon
       }
 }
 `;

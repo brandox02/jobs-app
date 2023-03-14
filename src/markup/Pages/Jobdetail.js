@@ -15,7 +15,9 @@ var bnr = require('./../../images/banner/bnr1.jpg');
 const QUERY = gql`
 	query Job($where: JobWhereInput!){
 		job(where: $where){
+			
 		applications {
+			user { id firstname lastname }
         id
         status {
           id
@@ -91,13 +93,21 @@ const QUERY = gql`
 function Jobdetail() {
 	const d = useParams();
 
-	const { data } = useQuery(QUERY, { variables: { where: { id: parseInt(d.id) } } });
+	const { data } = useQuery(QUERY,
+		{
+			variables: { where: { id: parseInt(d.id) } },
+			fetchPolicy: 'cache-and-network'
+		});
 	const { user } = useSelector(state => state.app);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
 	const handleSubmit = () => {
-		if (data.job.applications.length) {
+		if (!user) {
+			toast.error('Antes de iniciar sesión debes iniciar sesión');
+			return;
+		}
+		if (data.job.applications.some(x => x.user.id === user.id)) {
 			toast('Ya has aplicado a esta vacante anteriormente');
 			history.push('/jobs-applied-job')
 			return;

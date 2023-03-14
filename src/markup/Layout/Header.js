@@ -73,7 +73,7 @@ class Header extends Component {
 										{!isAuthenticated && (
 											<>
 												<Link to={"/register-2"} className="site-button"><i className="fa fa-user"></i> Registrarme</Link>
-												<Link to={'#'} title="READ MORE" onClick={this.handleShow} className="site-button"><i className="fa fa-lock"></i> Iniciar Sesión </Link>
+												<Link to={'/login'} className="site-button"><i className="fa fa-lock"></i> Iniciar Sesión </Link>
 											</>
 										)}
 										{isAuthenticated && <Logout />}
@@ -87,9 +87,9 @@ class Header extends Component {
 										<li className="">
 											<Link to={'./'} >Inicio</Link>
 										</li>
-										<li className="">
+										{isAuthenticated && (<li className="">
 											<Link to={isCandidate ? '/jobs-profile' : '/company-profile'} >Mi Perfil</Link>
-										</li>
+										</li>)}
 										{/* <li className="">
 											<Link to={'/jobs-profile'} >Para Candidatos</Link>
 										</li>

@@ -55,8 +55,19 @@ function Login() {
 											/>
 											<div className="text-center">
 												<button className="site-button float-left">Iniciar Sesión</button>
-												<button onClick={() => history.push('/register-2')} className="site-button-link forget-pass m-t15 float-right"><i className="fa fa-unlock-alt"></i> Registrarme</button>
+												<button
+													onClick={() => history.push('/register-2')}
+													className="site-button-link forget-pass m-t15 float-right">
+													<i className="fa fa-unlock-alt">
+													</i> Registrarme
+												</button>
 											</div>
+											<button
+												onClick={() => history.push('/')}
+												className="site-button-link forget-pass m-t15 float-left">
+												<i className="fa fa-home">
+												</i> Volver a la pantalla de inicio
+											</button>
 										</Form>
 									</div>
 								</div>

@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import Index from './markup/Markup';
 import { useSelector } from 'react-redux';
-import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './css/plugins.css';
 import './css/style.css';
 import './css/templete.css';
@@ -11,6 +11,9 @@ import './plugins/slick/slick-theme.min.css';
 import Login from './markup/Pages/Loginpage2';
 import SignUp from './markup/Pages/Register2';
 import { useAuth } from './useAuth';
+import Homepage from './markup/Pages/homepage';
+import Jobdetail from './markup/Pages/Jobdetail';
+import Browsejobfiltergrid from './markup/Pages/browse-jobs';
 
 function App() {
     const { accessToken } = useSelector(state => state.app);
@@ -19,17 +22,20 @@ function App() {
         <Switch>
             <Route path='/login' component={Login} />
             <Route path='/register-2' component={SignUp} />
+            <Route path='/job-detail/:id' exact component={Jobdetail} />
+            <Route path='/browse-job-filter-grid' component={Browsejobfiltergrid} />
+            <Route path='/' exact component={Homepage} />
         </Switch>
     );
 
-    const history = useHistory();
+    // const history = useHistory();
 
-    useEffect(() => {
-        if (accessToken) {
-            history.push('/browse-job-filter-grid');
-        }
-        // eslint-disable-next-line
-    }, [accessToken]);
+    // useEffect(() => {
+    //     if (accessToken) {
+    //         history.push('/jobs-applied-job');
+    //     }
+    //     // eslint-disable-next-line
+    // }, [accessToken]);
 
     useEffect(() => {
         const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));
@@ -38,7 +44,7 @@ function App() {
                 goToHome(appInfo);
                 return;
             }
-            history.push('/login');
+            // history.push('/login');
         }
         // eslint-disable-next-line
     }, []);
