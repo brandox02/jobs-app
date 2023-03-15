@@ -11,7 +11,6 @@ import { RHFSelect } from '../../../components/form/RHFSelect';
 
 function Jobprofile() {
 	const { methods, onSubmit, countries, cities } = useActions();
-
 	return (
 		<>
 			<Header />
@@ -65,7 +64,7 @@ function Jobprofile() {
 															placeholder: 'RD$'
 														}}
 														name={'desiredSalary'}
-
+														required={false}
 													/>
 												</div>
 												{/* <div className="col-lg-6 col-md-6">

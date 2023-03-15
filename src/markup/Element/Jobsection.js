@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { dateToStringAgo } from '../../utils/dateToStringAgo';
 
 function Jobsection({ jobs, recentJobsTotalItems }) {
-	console.log({ jobs });
 	return (
 		<div className="section-full bg-white content-inner-2">
 			<div className="container">

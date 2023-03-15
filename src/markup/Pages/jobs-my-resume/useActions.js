@@ -182,6 +182,10 @@ export function useActions() {
          toast.error('Debes subir tu CV');
          return;
       }
+      if (!data.keySkills) {
+         toast.error('Debes completar el apartado de habilidades clave');
+         return;
+      }
 
       const payload = pick(data, 'educations', 'image', 'keySkills', 'laboralExperiences', 'projects', 'resume');
       payload.educations = payload.educations.map(
@@ -224,6 +228,31 @@ export function useActions() {
 
 
    const handleApplyJob = withErrorHandler(async () => {
+      if (!stateUser.candidateProfile) {
+         toast.error('Debes completar tu información de perfil');
+         history.push('/jobs-profile');
+         return;
+      }
+      const data = methods.getValues();
+      if (!data.resume.length) {
+         toast.error('Debes completar tu resumen')
+         return;
+      }
+      if (!data.educations.length) {
+         toast.error('Debes de completar el apartado de Tu Educación');
+         return;
+      }
+      if (!data.image && !resume?.imageUrl) {
+         toast.error('Debes subir tu CV');
+         return;
+      }
+      if (!data.keySkills) {
+         toast.error('Debes completar el apartado de habilidades clave');
+         return;
+      }
+
+
+
       await applyJob({ variables: { input: { userId: stateUser.id, jobId: tmpDataBetweenScreens.jobId } } });
       toast.success('Haz aplicado correctamente a esta vacante');
 

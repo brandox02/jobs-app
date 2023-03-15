@@ -1,10 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import { CompanySideBar } from '../../components/CompanySideBar';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { withErrorHandler } from '../../withErrorHandler';
+import { gql, useMutation } from '@apollo/client';
+import toast from 'react-hot-toast';
+import { Form } from '../../components/form/Form';
+import { RHFTextInput } from '../../components/form/RHFTextInput';
+
+const UPDATE_PASSWORD = gql`
+	mutation UpdatePassword($input: ChangePasswordInput!){
+		changePassword(input: $input)
+	}
+`;
 
 function CompanyChangePassword() {
+
+	const methods = useForm();
+	const [updatePasswordMutation] = useMutation(UPDATE_PASSWORD);
+	const { user } = useSelector(state => state.app);
+
+	const handleSubmit = withErrorHandler(async (data) => {
+		data.email = user.email;
+		await updatePasswordMutation({ variables: { input: data } });
+		toast.success('Contraseña actualizada exitosamente');
+	}, () => {
+		return {
+			'UMMATCH_PASS_CURR': 'La contraseña actual es incorrecta',
+			'MATCH_NEW_PASS_AND_OLD': 'La contraseña actual y la nueva son iguales',
+			'UNMATCH_NEW_PASSWORD_AND_COPY_NEW_PASSWORD': 'La nueva contraseña y su confimación no son iguales'
+		}
+	});
+
 	return (
 		<>
 			<Header />
@@ -15,41 +44,40 @@ function CompanyChangePassword() {
 							<div className="row">
 								<CompanySideBar />
 								<div className="col-xl-9 col-lg-8 m-b30">
-
-
 									<div className="job-bx job-profile">
 										<div className="job-bx-title clearfix">
 											<h5 className="font-weight-700 pull-left text-uppercase">Cambiar Contraseña</h5>
-											<Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Back</Link>
+											{/* <Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Back</Link> */}
 										</div>
-										<form>
+										<Form methods={methods} onSubmit={handleSubmit}>
 											<div className="row">
 												<div className="col-lg-12">
-													<div className="form-group">
-														<label>Actual Contraseña</label>
-														<input type="password" className="form-control" />
-													</div>
+													<RHFTextInput
+														name={'oldPassword'}
+														label={'Antigua Contraseña'}
+														inputProps={{ type: 'password' }}
+													/>
 												</div>
 												<div className="col-lg-6">
-													<div className="form-group">
-														<label>Nueva Contraseña </label>
-														<input type="password" placeholder='' className="form-control" />
-													</div>
+													<RHFTextInput
+														name={'newPassword'}
+														label={'Nueva Contraseña'}
+														inputProps={{ type: 'password' }}
+													/>
 												</div>
 												<div className="col-lg-6">
-													<div className="form-group">
-														<label>Confirma la Nueva Contraseña</label>
-														<input type="password" className="form-control" />
-													</div>
+													<RHFTextInput
+														name={'copyNewPassword'}
+														label={'Repetir Nueva Contraseña'}
+														inputProps={{ type: 'password' }}
+													/>
 												</div>
 												<div className="col-lg-12 m-b10">
-													<button className="site-button">Guardar</button>
+													<button className="site-button">Actualizar Contraseña</button>
 												</div>
 											</div>
-										</form>
+										</Form>
 									</div>
-
-
 								</div>
 							</div>
 						</div>

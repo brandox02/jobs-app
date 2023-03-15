@@ -17,10 +17,7 @@ function Accordsidebar({ experienceTimes, employmentContracts, workingModalities
 						<Link
 							to={"#"}
 							className="font-12 float-right"
-							onClick={() => {
-								clear();
-								console.log('mood')
-							}}
+							onClick={() => clear()}
 						>Limpiar Filtros</Link>
 					</h6>
 

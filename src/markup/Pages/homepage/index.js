@@ -43,40 +43,50 @@ function Homepage() {
                                  </div>
                                  <ul className="post-job-bx browse-job-grid row">
                                     {jobs.map(({ id, country, city, workingModality, dailyWorkTime,
-                                       name, minSalary, maxSalary, createdAt, createdUser }, index) => {
+                                       name, minSalary, maxSalary, createdAt, createdUser, englishRequired }, index) => {
                                        const dayjsDiff = dayjs().diff(createdAt, 'days');
                                        return (
                                           <li className="col-lg-6 col-md-12" key={index} >
                                              <div className="post-bx">
-                                                <div className="d-flex m-b30">
-                                                   <div className="job-post-info">
-                                                      <h5><Link to={`/job-detail/${id}`}>{name}</Link></h5>
-                                                      <ul>
-                                                         <li><i className="a fa-building-o"></i>{createdUser.companyProfile.name}</li>
-                                                         <li><i className="fa fa-map-marker"></i> {country.name}, {city.name}</li>
-                                                         <li><i className="fa fa-bookmark-o"></i> {workingModality.name}</li>
-                                                         <li><i className="fa fa-clock-o"></i> Publicado hace {dayjsDiff} dias</li>
-                                                      </ul>
+                                                <div className=''>
+                                                   <div className="d-flex m-b30">
+                                                      <div className="job-post-info">
+                                                         <h5><Link to={`/job-detail/${id}`}>{name}</Link></h5>
+                                                         <ul>
+                                                            <li><i className="a fa-building-o"></i>{createdUser.companyProfile.name}</li>
+                                                            <li><i className="fa fa-map-marker"></i> {country.name}, {city.name}</li>
+                                                            <li><i className="fa fa-bookmark-o"></i> {workingModality.name}</li>
+                                                            <li><i className="fa fa-clock-o"></i> Publicado hace {dayjsDiff} dias</li>
+                                                         </ul>
+                                                      </div>
                                                    </div>
-                                                </div>
-                                                <div className="d-flex">
-                                                   <div className="job-time mr-auto">
-                                                      <Link to={''}><span>{dailyWorkTime.name}</span></Link>
-                                                   </div>
-                                                   <div className="salary-bx">
-                                                      <NumericFormat
-                                                         displayType='text'
-                                                         value={minSalary}
-                                                         prefix={'$'}
-                                                         thousandSeparator
-                                                      />
-                                                      {' - '}
-                                                      <NumericFormat
-                                                         displayType='text'
-                                                         value={maxSalary}
-                                                         suffix={'$'}
-                                                         thousandSeparator
-                                                      />
+                                                   <div className="d-flex" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                                                      <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                         <div className="job-time mr-auto">
+                                                            <Link to={''}><span>{dailyWorkTime.name}</span></Link>
+                                                         </div>
+                                                         {englishRequired && (
+                                                            <div className="job-time mr-auto">
+                                                               <Link to={''}><span>{'Inglés es Requerido'}</span></Link>
+                                                            </div>
+                                                         )}
+                                                      </div>
+                                                      <div className="salary-bx" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                                                         <NumericFormat
+                                                            displayType='text'
+                                                            value={minSalary}
+                                                            prefix={'$'}
+                                                            thousandSeparator
+                                                         // style={{ position: 'absolute', right: 0 }}
+                                                         />
+                                                         {' - '}
+                                                         <NumericFormat
+                                                            displayType='text'
+                                                            value={maxSalary}
+                                                            suffix={'$'}
+                                                            thousandSeparator
+                                                         />
+                                                      </div>
                                                    </div>
                                                 </div>
                                                 {/* <label className="like-btn">

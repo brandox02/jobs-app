@@ -30,7 +30,6 @@ export const useActions = () => {
       if (methods.watch('requirementTxt') === '') {
          return;
       }
-      console.log(methods.watch("requirements"));
       methods.setValue('requirements', [...(methods.watch('requirements') || []), { id: uuid(), name: methods.watch('requirementTxt') }]);
       methods.setValue('requirementTxt', null);
    }

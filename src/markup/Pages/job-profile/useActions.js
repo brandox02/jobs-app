@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useEffect } from 'react';
 import { useAuth } from '../../../useAuth';
 import { omit } from 'lodash';
+
 const UPDATE_PROFILE = gql`
    mutation UpdateUser($input: UpdateUserInput!) {
    updateUser(input: $input) {
@@ -74,7 +75,6 @@ export const useActions = () => {
    const { data } = useQuery(SELECT_DATA, { variables: { countryId }, fetchPolicy: 'cache-and-network' });
    const { user } = useSelector(state => state.app);
 
-
    useEffect(() => {
       reset(user.candidateProfile);
       // eslint-disable-next-line
@@ -83,6 +83,7 @@ export const useActions = () => {
    const onSubmit = withErrorHandler(async data => {
       data.countryId = parseInt(data.countryId);
       data.cityId = parseInt(data.cityId);
+      if (data.desiredSalary === undefined) data.desiredSalary = null;
       // delete copyData.candidateProfile.city;
       // delete copyData.candidateProfile.country;
       // data.city = null;

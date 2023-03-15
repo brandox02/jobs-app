@@ -28,11 +28,6 @@ const items = [
 		to: '/jobs-change-password',
 		iconClassname: 'fa fa-key'
 	},
-	{
-		text: 'Cerrar Sesión',
-		to: './',
-		iconClassname: 'fa fa-sign-out'
-	}
 ];
 
 const UPDATE_PROFILE = gql`

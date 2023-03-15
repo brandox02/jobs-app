@@ -1,12 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../useAuth';
-
-
 
 export function CompanySideBar() {
-   const { logout } = useAuth();
    const items = [
       {
          text: 'Información de Perfil',
@@ -33,12 +29,6 @@ export function CompanySideBar() {
          to: '/company-change-password',
          iconClassname: 'fa fa-key'
       },
-      {
-         text: 'Cerrar Sesión',
-         to: './',
-         iconClassname: 'fa fa-sign-out',
-         onClick: logout
-      }
    ];
    const { user } = useSelector(state => state.app);
    const companyName = user?.companyProfile?.name || '';
