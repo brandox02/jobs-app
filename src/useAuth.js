@@ -6,7 +6,8 @@ import { setAccessToken, setUser } from './store/slices/appSlice';
 const LOGIN = gql`
          mutation Login($email: String!, $password: String!){
             login(email: $email, password: $password) {
-               accessToken user { 
+               accessToken user {
+                  isAdmin
                   isCandidate
                   id 
                   email       
@@ -56,6 +57,7 @@ const SIGNIN = gql`
             signin(user: $user) {
                accessToken user { 
                   isCandidate
+                  isAdmin
                   id 
                   email       
                   lastname

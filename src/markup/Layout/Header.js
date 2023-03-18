@@ -51,6 +51,7 @@ class Header extends Component {
 		const authMetadata = JSON.parse(localStorage.getItem('auth-metadata'));
 		const isAuthenticated = !!authMetadata?.accessToken;
 		const isCandidate = !!authMetadata?.user?.isCandidate;
+		const isAdmin = !!authMetadata?.user?.isAdmin;
 
 		return (
 			<>
@@ -88,14 +89,16 @@ class Header extends Component {
 											<Link to={'./'} >Inicio</Link>
 										</li>
 										{isAuthenticated && (<li className="">
-											<Link to={isCandidate ? '/jobs-profile' : '/company-profile'} >Mi Perfil</Link>
+											<Link
+												to={(() => {
+													if (isAdmin) {
+														return '/admin-backoffice-candidates';
+													}
+													return isCandidate ? '/jobs-profile' : '/company-profile'
+												})()
+												}
+											>{isAdmin ? 'Backoffice' : 'Mi Perfil'}</Link>
 										</li>)}
-										{/* <li className="">
-											<Link to={'/jobs-profile'} >Para Candidatos</Link>
-										</li>
-										<li className="">
-											<Link to={'/company-profile'} >Para Empleadores</Link>
-										</li> */}
 										<li className="">
 											<Link to={'/browse-job-filter-grid'} >Vacantes</Link>
 										</li>

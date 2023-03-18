@@ -88,6 +88,7 @@ const UPDATE_PROFILE = gql`
    updateUser(input: $input) {
       accessToken user { 
                   isCandidate
+                  isAdmin
                   id 
                   email       
                   lastname

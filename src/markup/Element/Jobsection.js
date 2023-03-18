@@ -36,7 +36,7 @@ function Jobsection({ jobs, recentJobsTotalItems }) {
 												<span><img alt="" src={require("./../../images/logo/icon1.png")} /></span>
 											</div>
 											<div className="job-post-info">
-												<h4><Link to={"/job-detail"}>{name}</Link></h4>
+												<h4><Link to={`/job-detail/${id}`}>{name}</Link></h4>
 												<ul>
 													<li><i className="fa fa-map-marker"></i> {`${city.name}, ${country.name}`}</li>
 													<li><i className="fa fa-bookmark-o"></i> {dailyWorkTime.name}</li>

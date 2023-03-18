@@ -52,6 +52,8 @@ import Blogleftimg from './Pages/Blogleftimg';
 import Blogdetail from './Pages/Blogdetail';
 import ScrollToTop from './Element/ScrollToTop';
 import CompanyChangePassword from './Pages/Componychangepasword';
+import AdminBackofficeCandidates from './Pages/admin-backoffice-candidates';
+import AdminBackofficeApplications from './Pages/admin-backoffice-applications';
 
 const Markup = () => {
 	return (
@@ -111,6 +113,9 @@ const Markup = () => {
 					<Route path='/blog-detailed-grid-sidebar' exact component={Blogdetailgridsidebar} />
 					<Route path='/blog-left-img' exact component={Blogleftimg} />
 					<Route path='/blog-details' exact component={Blogdetail} />
+
+					<Route path='/admin-backoffice-candidates' exact component={AdminBackofficeCandidates} />
+					<Route path='/admin-backoffice-applications' exact component={AdminBackofficeApplications} />
 
 				</Switch>
 			</div>

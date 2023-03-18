@@ -12,6 +12,7 @@ const UPDATE_PROFILE = gql`
    updateUser(input: $input) {
       accessToken user { 
                   isCandidate
+                  isAdmin
                   id 
                   email       
                   lastname
@@ -87,7 +88,12 @@ export const useActions = () => {
       // delete copyData.candidateProfile.city;
       // delete copyData.candidateProfile.country;
       // data.city = null;
-      const { data: { updateUser } } = await updateProfileMutation({ variables: { input: { id: user.id, candidateProfile: omit(data, ['city', 'country']) } } });
+      const { data: { updateUser } } = await updateProfileMutation({
+         variables:
+         {
+            input: { id: user.id, candidateProfile: omit(data, ['city', 'country', 'isAdmin']) }
+         }
+      });
       toast.success('Perfil actualizado correctamente');
       goToHome(updateUser);
    });

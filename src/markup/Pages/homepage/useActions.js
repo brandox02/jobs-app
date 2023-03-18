@@ -1,5 +1,6 @@
 // import { gql, useQuery } from '@apollo/client';
 import { gql, useQuery } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
 import { useActions as useActionsBrowseJobs } from '../../../markup/Pages/browse-jobs/useActions';
 
 export const JOBS = gql`
@@ -60,11 +61,11 @@ export const JOBS = gql`
 export const useActions = () => {
   const fromBrowseJobs = useActionsBrowseJobs();
   const { data } = useQuery(JOBS, { variables: { page: 0, perPage: 20, where: {} } });
-
+  const history = useHistory();
 
   const recentJobs = data?.jobs?.items || [];
   const recentJobsTotalItems = data?.jobs?.metadata?.totalItems || 0;
   return {
-    fromBrowseJobs, recentJobs, recentJobsTotalItems
+    fromBrowseJobs, recentJobs, recentJobsTotalItems, history
   }
 }

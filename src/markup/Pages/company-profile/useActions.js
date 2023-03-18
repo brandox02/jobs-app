@@ -12,6 +12,7 @@ const UPDATE_PROFILE = gql`
    updateUser(input: $input) {
       accessToken user { 
                   isCandidate
+                  isAdmin
                   id 
                   email       
                   lastname
@@ -85,7 +86,7 @@ export function useActions() {
       copyData.countryId = parseInt(copyData.countryId);
       copyData.cityId = parseInt(copyData.cityId);
 
-      const omitUser = omit(user, ['imageUrl', 'imageId', 'isCandidate']);
+      const omitUser = omit(user, ['imageUrl', 'imageId', 'isCandidate', 'isAdmin']);
 
       const payload = { ...omitUser, companyProfile: copyData };
       delete payload.companyProfile.city;

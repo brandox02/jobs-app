@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setTmpDataBetweenScreens } from "../../../store/slices/appSlice";
+import { useLocation } from "react-router-dom";
 
 const QUERY = gql`
 	query Applications($page: Float!, $perPage: Float!, $where: ApplicationWhereInput!){
@@ -106,16 +107,21 @@ const QUERY = gql`
 `;
 
 export function useActions() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const userId = searchParams.get('userId') ? parseInt(searchParams.get('userId')) : null;
   const [page, setPage] = useState(0);
   const { user } = useSelector(state => state.app);
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const jobId = params?.jobId ? parseInt(params.jobId) : null;
   const jobName = params?.jobName || '';
+  const createdUserId = user.isAdmin ? null : user.id;
+
   const { data } = useQuery(QUERY, {
     variables:
     {
-      where: omitBy({ createdUserId: user.id, jobId }, isNil), page, perPage: 10
+      where: omitBy({ createdUserId, jobId, userId }, isNil), page, perPage: 10
     }
   });
 

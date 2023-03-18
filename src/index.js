@@ -18,7 +18,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <SimpleReactLightbox>
-                <BrowserRouter basename='/react/demo'>
+                <BrowserRouter >
                     <ApolloProvider client={client}>
                         <Toaster />
                         <App />
