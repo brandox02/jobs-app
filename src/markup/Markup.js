@@ -53,7 +53,12 @@ import Blogdetail from './Pages/Blogdetail';
 import ScrollToTop from './Element/ScrollToTop';
 import CompanyChangePassword from './Pages/Componychangepasword';
 import AdminBackofficeCandidates from './Pages/admin-backoffice-candidates';
-import AdminBackofficeApplications from './Pages/admin-backoffice-applications';
+import AdminBackofficeCompanies from './Pages/admin-backoffice-companies';
+import AdminBackofficeRequests from './Pages/admin-backoffice-requests';
+import { candidateLayout } from './Layout/CandidateLayout';
+import { companyLayout } from './Layout/CompanyLayout';
+import { adminBackofficeLayout } from './Layout/AdminBackofficeLayout';
+import AdminBackofficeCVs from './Pages/admin-backoffice-cvs';
 
 const Markup = () => {
 	return (
@@ -63,23 +68,22 @@ const Markup = () => {
 					<Route path='/' exact component={Homepage} />
 					<Route path='/home' exact component={Homepage} />
 					<Route path='/index-2' exact component={Homepage2} />
-
-					<Route path='/jobs-profile' exact component={Jobprofile} />
+					<Route path='/jobs-profile' exact component={candidateLayout(Jobprofile)} />
 					<Route path='/jobs-my-resume' exact component={Jobmyresume} />
-					<Route path='/jobs-applied-job' exact component={Jobsappliedjob} />
+					<Route path='/jobs-applied-job' exact component={candidateLayout(Jobsappliedjob)} />
 					<Route path='/jobs-alerts' exact component={Jobsalert} />
 					<Route path='/jobs-saved-jobs' exact component={Jobsavedjobs} />
 					<Route path='/jobs-cv-manager' exact component={Jobcvmanager} />
-					<Route path='/jobs-change-password' exact component={Changepasswordpage} />
+					<Route path='/jobs-change-password' exact component={candidateLayout(Changepasswordpage)} />
 
 
-					<Route path='/company-profile' exact component={Companyprofile} />
-					<Route path='/company-resume' exact component={Companyresume} />
-					<Route path='/company-post-jobs' exact component={CompanyPostJob} />
-					<Route path='/company-update-job' exact component={CompanyPostJob} />
-					<Route path='/company-manage-job' exact component={CompanyManageJob} />
+					<Route path='/company-profile' exact component={companyLayout(Companyprofile)} />
+					<Route path='/company-resume' exact component={companyLayout(Companyresume)} />
+					<Route path='/company-post-jobs' exact component={companyLayout(CompanyPostJob)} />
+					<Route path='/company-update-job' exact component={companyLayout(CompanyPostJob)} />
+					<Route path='/company-manage-job' exact component={companyLayout(CompanyManageJob)} />
 					<Route path='/company-transactions' exact component={Companytransactions} />
-					<Route path='/company-change-password' exact component={CompanyChangePassword} />
+					<Route path='/company-change-password' exact component={companyLayout(CompanyChangePassword)} />
 					<Route path='/browse-candidates' exact component={Browsecandidates} />
 
 
@@ -114,8 +118,13 @@ const Markup = () => {
 					<Route path='/blog-left-img' exact component={Blogleftimg} />
 					<Route path='/blog-details' exact component={Blogdetail} />
 
-					<Route path='/admin-backoffice-candidates' exact component={AdminBackofficeCandidates} />
-					<Route path='/admin-backoffice-applications' exact component={AdminBackofficeApplications} />
+					<Route path='/admin-backoffice-candidates' exact component={adminBackofficeLayout(AdminBackofficeCandidates)} />
+
+					<Route path='/admin-backoffice-applications' exact component={adminBackofficeLayout(Companyresume)} />
+					<Route path='/admin-backoffice-companies' exact component={AdminBackofficeCompanies} />
+					<Route path='/admin-backoffice-requests' exact component={adminBackofficeLayout(AdminBackofficeRequests)} />
+					<Route path='/admin-backoffice-detail-job' exact component={adminBackofficeLayout(CompanyPostJob)} />
+					<Route path='/admin-backoffice-users-bank' exact component={adminBackofficeLayout(AdminBackofficeCVs)} />
 
 				</Switch>
 			</div>

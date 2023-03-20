@@ -6,7 +6,8 @@ export function RHFCheckbox({
    name,
    label,
    required = true,
-   inputPattern = null
+   inputPattern = null,
+   disabled = false
 }) {
    const { control, formState: { errors }, setValue } = useFormContext();
    const value = useMemo(() => 100 * Math.random() * 1000, []);
@@ -27,6 +28,7 @@ export function RHFCheckbox({
                id={name}
                onClick={() => setValue(name, !value)}
                checked={value}
+               disabled={disabled}
             />
             <label
                className='custom-control-label'

@@ -1,19 +1,23 @@
-import { gql, useQuery } from '@apollo/client';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { setTmpDataBetweenScreens } from '../../../store/slices/appSlice';
+import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setTmpDataBetweenScreens } from "../../../store/slices/appSlice";
 
 const USERS = gql`
-   query Users($isCandidate: Boolean, $page: Float, $perPage: Float){
-      users(where: {isCandidate: $isCandidate}, page: $page, perPage: $perPage) {
+   query Users($isCandidate: Boolean, $page: Float, $perPage: Float, $belongToCvBank: Boolean){
+      users(where: {isCandidate: $isCandidate, belongToCvBank: $belongToCvBank}, page: $page, perPage: $perPage) {
          metadata {
             totalItems
             totalPages
          }
          items {
                   applications { id }
+                  resume {
+                     imageUrl
+                  }
                   isAdmin
+                  
                   id 
                   email       
                   lastname
@@ -41,30 +45,28 @@ const USERS = gql`
 
 export function useActions() {
    const [page, setPage] = useState(0);
-   const { data } = useQuery(USERS,
+
+   const { data } = useQuery(USERS, {
+      variables:
       {
-         variables: { isCandidate: true, isAdmin: false, page, perPage: 12 },
-         fetchPolicy: 'cache-and-network'
-      });
+         belongToCvBank: true, isCandidate: true, page, perPage: 10
+      },
+      fetchPolicy: 'cache-and-network'
+   });
 
    const dispatch = useDispatch();
    const history = useHistory();
 
-   const users = data?.users?.items || [];
-   const totalPages = data?.users?.metadata?.totalPages || 0;
    const totalItems = data?.users?.metadata?.totalItems || 0;
+   const totalPages = data?.users?.metadata?.totalPages || 0;
+   const users = data?.users?.items || [];
 
    const goToCandidateProfile = ({ user }) => {
       dispatch(setTmpDataBetweenScreens({ isViewingCandidate: true, candidate: user }));
       history.push('/jobs-my-resume');
    }
 
-   const goToApplications = ({ userId }) => {
-      history.push(`/admin-backoffice-applications?userId=${userId}&pre-label=Candidatos`);
-      console.log(userId)
-   }
-
    return {
-      users, totalPages, totalItems, page, setPage, goToCandidateProfile, goToApplications
-   }
+      totalPages, totalItems, users, setPage, page, goToCandidateProfile
+   };
 }

@@ -13,6 +13,7 @@ const UPDATE_PROFILE = gql`
       accessToken user { 
                   isCandidate
                   isAdmin
+                  
                   id 
                   email       
                   lastname
@@ -35,6 +36,7 @@ const UPDATE_PROFILE = gql`
                      cityId
                   }
                   candidateProfile {
+                     belongToCvBank
                      city { id name }
                      country { id name }
                      id
@@ -85,9 +87,8 @@ export const useActions = () => {
       data.countryId = parseInt(data.countryId);
       data.cityId = parseInt(data.cityId);
       if (data.desiredSalary === undefined) data.desiredSalary = null;
-      // delete copyData.candidateProfile.city;
-      // delete copyData.candidateProfile.country;
-      // data.city = null;
+      if (data.desiredSalary === undefined) data.belongToCvBank = false;
+
       const { data: { updateUser } } = await updateProfileMutation({
          variables:
          {

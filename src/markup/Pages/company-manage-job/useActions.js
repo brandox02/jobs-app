@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 export function useActions() {
   const { user } = useSelector(state => state.app);
   const [page, setPage] = useState(0);
-  const [deleteJobModal, setDeleteJobModal] = useState(null);
+  const [deleteJobModal, setDeleteJobModal] = useState(false);
   const { data, refetch } = useQuery(JOBS,
     {
       variables: { page, perPage: 12, where: { createdUserId: user.id } },

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export function AdminBackofficeSideBar() {
@@ -14,23 +13,22 @@ export function AdminBackofficeSideBar() {
       //    to: '/company-post-jobs',
       //    iconClassname: 'fa fa-file-text-o'
       // },
-      // {
-      //    text: 'Administrar Vacantes',
-      //    to: '/company-manage-job',
-      //    iconClassname: 'fa fa-briefcase'
-      // },
-      // {
-      //    text: 'Postulaciones',
-      //    to: '/company-resume',
-      //    iconClassname: 'fa fa-id-card-o'
-      // },
-      // {
-      //    text: 'Cambiar contraseña',
-      //    to: '/company-change-password',
-      //    iconClassname: 'fa fa-key'
-      // },
+      {
+         text: 'Compañias',
+         to: '/admin-backoffice-companies',
+         iconClassname: 'fa fa-briefcase'
+      },
+      {
+         text: 'Solicitudes',
+         to: '/admin-backoffice-requests',
+         iconClassname: 'fa fa-id-card-o'
+      },
+      {
+         text: `Banco de CV's`,
+         to: '/admin-backoffice-users-bank',
+         iconClassname: 'fa fa-key'
+      },
    ];
-   const { user } = useSelector(state => state.app);
    // const companyName = user?.companyProfile?.name || '';
    return (
       <div className="col-xl-3 col-lg-4 m-b30">

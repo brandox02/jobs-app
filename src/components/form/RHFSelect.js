@@ -8,7 +8,8 @@ export function RHFSelect({
    label,
    options = [{ value: '', label: '' }],
    required = true,
-   inputPattern = null
+   inputPattern = null,
+   disabled = false
 }) {
    const { control, formState: { errors } } = useFormContext();
    const value = useMemo(() => 100 * Math.random() * 1000, []);
@@ -28,6 +29,7 @@ export function RHFSelect({
                custom
                className="custom-select"
                onChange={onChange}
+               disabled={disabled}
             >
                {[{ label: 'Selecciona una opción', value: null }, ...options]
                   .map(item => <option key={item.value} value={item.value}>{item.label}</option>)}

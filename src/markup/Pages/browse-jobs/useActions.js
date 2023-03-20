@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { gql, useQuery } from '@apollo/client';
-import { clone, isNil, omit, omitBy } from "lodash";
+import { isNil, omit, omitBy } from "lodash";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -172,9 +172,13 @@ export function useActions() {
     //   pathname: location.pathname,
     //   search
     // });
-    console.log(`${location.pathname}${search}`);
+
+
+    // console.log(`${location.pathname}${search}`);
+    // history.push(`${location.pathname}${search}`);
+
+
     // history.push('/home?englishRequired=true');
-    history.push(`${location.pathname}${search}`);
     // history.replace({
     //   pathname: location.pathname,
     //   search,

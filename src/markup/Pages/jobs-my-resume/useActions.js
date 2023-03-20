@@ -89,6 +89,7 @@ const UPDATE_PROFILE = gql`
       accessToken user { 
                   isCandidate
                   isAdmin
+                  
                   id 
                   email       
                   lastname
@@ -111,6 +112,7 @@ const UPDATE_PROFILE = gql`
                      cityId
                   }
                   candidateProfile {
+                     belongToCvBank
                      city { id name }
                      country { id name }
                      id

@@ -110,19 +110,24 @@ export function useActions() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get('userId') ? parseInt(searchParams.get('userId')) : null;
+  const preLabel = searchParams.get('pre-label') || '';
+  // const createdUserId = searchParams.get('createdUserId') ? parseInt(searchParams.get('createdUserId')): null;
   const [page, setPage] = useState(0);
   const { user } = useSelector(state => state.app);
   const urlSearchParams = new URLSearchParams(window.location.search);
   const params = Object.fromEntries(urlSearchParams.entries());
   const jobId = params?.jobId ? parseInt(params.jobId) : null;
   const jobName = params?.jobName || '';
-  const createdUserId = user.isAdmin ? null : user.id;
+  const createdUserId = user.isAdmin ?
+    (searchParams.get('createdUserId') ? parseInt(searchParams.get('createdUserId')) : null)
+    : user.id;
 
   const { data } = useQuery(QUERY, {
     variables:
     {
       where: omitBy({ createdUserId, jobId, userId }, isNil), page, perPage: 10
-    }
+    },
+    fetchPolicy: 'cache-and-network'
   });
 
   const dispatch = useDispatch();
@@ -142,6 +147,6 @@ export function useActions() {
   const applications = data?.applications?.items || [];
 
   return {
-    totalPages, totalItems, applications, setPage, page, goToCandidateProfile, download, jobName
+    totalPages, totalItems, applications, setPage, page, goToCandidateProfile, download, jobName, preLabel
   };
 }

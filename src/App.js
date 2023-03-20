@@ -32,7 +32,7 @@ function App() {
 
     useEffect(() => {
         if (accessToken) {
-            history.push('/admin-backoffice-candidates');
+            // history.push('/admin-backoffice-users-bank');
         }
         // eslint-disable-next-line
     }, [accessToken]);

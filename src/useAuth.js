@@ -31,6 +31,7 @@ const LOGIN = gql`
                      cityId
                   }
                   candidateProfile {
+                     belongToCvBank
                      city {id name }
                      country {id name}
                      id
@@ -58,6 +59,7 @@ const SIGNIN = gql`
                accessToken user { 
                   isCandidate
                   isAdmin
+                  
                   id 
                   email       
                   lastname
@@ -80,6 +82,7 @@ const SIGNIN = gql`
                      cityId
                   }
                   candidateProfile {
+                     belongToCvBank
                      city {id name }
                      country {id name}
                      city { id name}

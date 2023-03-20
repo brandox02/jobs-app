@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from './../Layout/Header';
-import Footer from './../Layout/Footer';
-import Profilesidebar from '../Element/Profilesidebar';
 import { gql, useQuery } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import { NumericFormat } from 'react-number-format';
@@ -106,17 +103,9 @@ function Jobsappliedjob() {
 	const jobQuantity = data?.applications?.metadata?.totalItems || 0;
 	return (
 		<>
-			<Header />
-			<div className="page-content bg-white">
-				<div className="content-block">
-					<div className="section-full bg-white p-t50 p-b20">
-						<div className="container">
-							<div className="row">
-								<Profilesidebar />
-								<div className="col-xl-9 col-lg-8 m-b30 browse-job">
-									<div className="job-bx-title  clearfix">
-										<h5 className="font-weight-700 pull-left text-uppercase">{jobQuantity + ` vacante${jobQuantity === 1 ? '' : 's'} aplicada${jobQuantity === 1 ? '' : 's'}`} </h5>
-										{/* <div className="float-right">
+			<div className="job-bx-title  clearfix">
+				<h5 className="font-weight-700 pull-left text-uppercase">{jobQuantity + ` vacante${jobQuantity === 1 ? '' : 's'} aplicada${jobQuantity === 1 ? '' : 's'}`} </h5>
+				{/* <div className="float-right">
 											<span className="select-title">Sort by freshness</span>
 											<select className="custom-btn">
 												<option>Last 2 Months</option>
@@ -125,76 +114,69 @@ function Jobsappliedjob() {
 												<option>Last 3 Days</option>
 											</select>
 										</div> */}
-									</div>
-									<ul className="post-job-bx browse-job">
-										{(data?.applications?.items || []).map(({ job, createdAt }, index) => {
-											const diffJob = dayjs().diff(job.createdAt, 'days');
-											const diffApplication = dayjs().diff(createdAt, 'days');
-											return (
-												<li key={index}>
-													<div className="post-bx">
-														<div className="job-post-info m-a0">
-															{/* <h4><Link to={"/job-detail"}>{job.title}</Link></h4> */}
-															<ul>
-																<li><Link to={`/job-detail/${job.id}`}><h5>{job.name}</h5></Link></li><br />
-																<li><Link to={"/company-profile"}>{`@${job.createdUser.companyProfile.name}`}</Link></li>
-																<li><i className="fa fa-map-marker"></i>{`${job.city.name}, ${job.country.name}`}</li>
-																<li><i className="fa fa-money"></i>
-																	<NumericFormat
-																		thousandSeparator
-																		prefix='$'
-																		displayType='text'
-																		value={job.minSalary}
-																	/> {' - '}
+			</div>
+			<ul className="post-job-bx browse-job">
+				{(data?.applications?.items || []).map(({ job, createdAt }, index) => {
+					const diffJob = dayjs().diff(job.createdAt, 'days');
+					const diffApplication = dayjs().diff(createdAt, 'days');
+					return (
+						<li key={index}>
+							<div className="post-bx">
+								<div className="job-post-info m-a0">
+									{/* <h4><Link to={"/job-detail"}>{job.title}</Link></h4> */}
+									<ul>
+										<li><Link to={`/job-detail/${job.id}`}><h5>{job.name}</h5></Link></li><br />
+										<li><Link to={"/company-profile"}>{`@${job.createdUser.companyProfile.name}`}</Link></li>
+										<li><i className="fa fa-map-marker"></i>{`${job.city.name}, ${job.country.name}`}</li>
+										<li><i className="fa fa-money"></i>
+											<NumericFormat
+												thousandSeparator
+												prefix='$'
+												displayType='text'
+												value={job.minSalary}
+											/> {' - '}
 
-																	<NumericFormat
-																		thousandSeparator
-																		prefix='$'
-																		displayType='text'
-																		value={job.maxSalary}
-																	/>
-																</li>
-															</ul>
-															<div className="job-time m-t15 m-b10">
-																{job.tags.map(item => <Link to={''} className="mr-1"><span>{item.name}</span></Link>)}
-															</div>
-															{diffJob || diffApplication ? (
-																<div className="posted-info clearfix">
-																	<p className="m-tb0 text-primary float-left">
-																		{diffJob && (
-																			<>
-																				<span className="text-black m-r10">Vacante publicada hace:</span>{diffJob + ` dia${diffJob === 1 ? '' : 's'}`}
-																			</>
-																		)}
-																		{diffApplication && (
-																			<>
-																				<br /> <span className="text-black m-r10">Aplicaste a esta vacante hace:</span>{diffApplication + ` dia${diffApplication === 1 ? '' : 's'}`}
-																			</>
-																		)}
-
-																	</p>
-																	{/* <Link to={"/jobs-my-resume"} className="site-button button-sm float-right">Apply Job</Link> */}
-																</div>
-															) : ''}
-														</div>
-													</div>
-												</li>
-											)
-										})}
-
+											<NumericFormat
+												thousandSeparator
+												prefix='$'
+												displayType='text'
+												value={job.maxSalary}
+											/>
+										</li>
 									</ul>
-									<Pagination
-										page={page}
-										setPage={setPage}
-										pageQuantity={data?.applications?.metadata?.totalPages || 0}
-									/>
+									<div className="job-time m-t15 m-b10">
+										{job.tags.map(item => <Link to={''} className="mr-1"><span>{item.name}</span></Link>)}
+									</div>
+									{diffJob || diffApplication ? (
+										<div className="posted-info clearfix">
+											<p className="m-tb0 text-primary float-left">
+												{diffJob && (
+													<>
+														<span className="text-black m-r10">Vacante publicada hace:</span>{diffJob + ` dia${diffJob === 1 ? '' : 's'}`}
+													</>
+												)}
+												{diffApplication && (
+													<>
+														<br /> <span className="text-black m-r10">Aplicaste a esta vacante hace:</span>{diffApplication + ` dia${diffApplication === 1 ? '' : 's'}`}
+													</>
+												)}
+
+											</p>
+											{/* <Link to={"/jobs-my-resume"} className="site-button button-sm float-right">Apply Job</Link> */}
+										</div>
+									) : ''}
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<Footer />
+						</li>
+					)
+				})}
+
+			</ul>
+			<Pagination
+				page={page}
+				setPage={setPage}
+				pageQuantity={data?.applications?.metadata?.totalPages || 0}
+			/>
 		</>
 	)
 }

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { withErrorHandler } from '../../../withErrorHandler';
 import { useQuery, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { parseIntKeysInObject } from '../../../utils/parseIntKeysInObject';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +15,9 @@ import { setTmpDataBetweenScreens } from '../../../store/slices/appSlice';
 import { v4 as uuid } from 'uuid';
 
 export const useActions = () => {
+   const location = useLocation();
+   const searchParams = new URLSearchParams(location);
+   const readonly = searchParams.get('readonly') === 'true' ? true : false;
    const methods = useForm({ defaultValues: { englishRequired: false, requirements: [] } });
    const countryId = methods.watch('countryId') ? parseInt(methods.watch('countryId')) : null;
    const { data } = useQuery(CITIES, { variables: { countryId }, fetchPolicy: 'cache-and-network' });
@@ -95,12 +98,21 @@ export const useActions = () => {
          }
       });
 
-      toast.success(`Vacante ${isEditing ? 'actualizada' : 'creada'} correctamente`);
+      if (isEditing) {
+         toast.success(`Vacante actualizada correctamente`);
+         return;
+      }
+
+      toast.success('Tu vacante se ha mandado a revisar, cuando sea aprobada se te notificará por correo electrónico'
+         , { duration: 5000 }
+      );
+
+
       history.push('/company-manage-job');
    });
    const goBack = () => history.push('/company-manage-job');
 
    const cities = data?.cities || [];
 
-   return { methods, onSubmit, dataSelects, cities, isEditing, goBack, addNewRequirement, deleteRequirement }
+   return { methods, onSubmit, dataSelects, cities, isEditing, goBack, addNewRequirement, deleteRequirement, readonly }
 }

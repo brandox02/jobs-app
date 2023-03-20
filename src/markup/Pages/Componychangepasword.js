@@ -1,7 +1,4 @@
 import React from 'react';
-import Header from '../Layout/Header';
-import Footer from '../Layout/Footer';
-import { CompanySideBar } from '../../components/CompanySideBar';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { withErrorHandler } from '../../withErrorHandler';
@@ -36,56 +33,38 @@ function CompanyChangePassword() {
 
 	return (
 		<>
-			<Header />
-			<div className="page-content bg-white">
-				<div className="content-block">
-					<div className="section-full bg-white p-t50 p-b20">
-						<div className="container">
-							<div className="row">
-								<CompanySideBar />
-								<div className="col-xl-9 col-lg-8 m-b30">
-									<div className="job-bx job-profile">
-										<div className="job-bx-title clearfix">
-											<h5 className="font-weight-700 pull-left text-uppercase">Cambiar Contraseña</h5>
-											{/* <Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Back</Link> */}
-										</div>
-										<Form methods={methods} onSubmit={handleSubmit}>
-											<div className="row">
-												<div className="col-lg-12">
-													<RHFTextInput
-														name={'oldPassword'}
-														label={'Antigua Contraseña'}
-														inputProps={{ type: 'password' }}
-													/>
-												</div>
-												<div className="col-lg-6">
-													<RHFTextInput
-														name={'newPassword'}
-														label={'Nueva Contraseña'}
-														inputProps={{ type: 'password' }}
-													/>
-												</div>
-												<div className="col-lg-6">
-													<RHFTextInput
-														name={'copyNewPassword'}
-														label={'Repetir Nueva Contraseña'}
-														inputProps={{ type: 'password' }}
-													/>
-												</div>
-												<div className="col-lg-12 m-b10">
-													<button className="site-button">Actualizar Contraseña</button>
-												</div>
-											</div>
-										</Form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
+			<div className="job-bx-title clearfix">
+				<h5 className="font-weight-700 pull-left text-uppercase">Cambiar Contraseña</h5>
+				{/* <Link to={"/company-profile"} className="site-button right-arrow button-sm float-right">Back</Link> */}
 			</div>
-			<Footer />
+			<Form methods={methods} onSubmit={handleSubmit}>
+				<div className="row">
+					<div className="col-lg-12">
+						<RHFTextInput
+							name={'oldPassword'}
+							label={'Antigua Contraseña'}
+							inputProps={{ type: 'password' }}
+						/>
+					</div>
+					<div className="col-lg-6">
+						<RHFTextInput
+							name={'newPassword'}
+							label={'Nueva Contraseña'}
+							inputProps={{ type: 'password' }}
+						/>
+					</div>
+					<div className="col-lg-6">
+						<RHFTextInput
+							name={'copyNewPassword'}
+							label={'Repetir Nueva Contraseña'}
+							inputProps={{ type: 'password' }}
+						/>
+					</div>
+					<div className="col-lg-12 m-b10">
+						<button className="site-button">Actualizar Contraseña</button>
+					</div>
+				</div>
+			</Form>
 		</>
 	)
 }

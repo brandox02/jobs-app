@@ -8,7 +8,8 @@ export function RHFTextarea({
    labelProps = {},
    inputPattern = null,
    required = true,
-   placeholder = ''
+   placeholder = '',
+   disabled = false
 }) {
    const { register, formState: { errors } } = useFormContext();
    const value = useMemo(() => 100 * Math.random() * 1000, []);
@@ -25,6 +26,7 @@ export function RHFTextarea({
          {...inputProps}
          placeholder={placeholder}
          className={'form-control ' + inputProps?.className || ''}
+         disabled={disabled}
       />
       {errors[name] && (
          <div className='' style={{ color: 'red' }}>

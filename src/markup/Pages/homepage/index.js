@@ -51,7 +51,7 @@ function Homepage() {
                                                 <div className=''>
                                                    <div className="d-flex m-b30">
                                                       <div className="job-post-info">
-                                                         <h5 onClick={() => history.push(`/job-detail/${id}`)}><Link>{name}</Link></h5>
+                                                         <h5><Link to={`/job-detail/${id}`}>{name}</Link></h5>
                                                          <ul>
                                                             <li><i className="a fa-building-o"></i>{createdUser.companyProfile.name}</li>
                                                             <li><i className="fa fa-map-marker"></i> {country.name}, {city.name}</li>

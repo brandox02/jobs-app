@@ -36,6 +36,7 @@ const UPDATE_PROFILE = gql`
       accessToken user { 
                   isCandidate
 						isAdmin
+						
                   id 
                   email       
                   lastname
@@ -58,6 +59,7 @@ const UPDATE_PROFILE = gql`
                      cityId
                   }
                   candidateProfile {
+							belongToCvBank
                      city { id name }
                      country { id name }
                      id
@@ -105,7 +107,7 @@ function Profilesidebar() {
 				<div className="candidate-info">
 					<div className="candidate-detail text-center">
 						<div className="canditate-des">
-							<Link to={''}>
+							<Link to={'#'}>
 								<img alt="" src={user.imageUrl || require('./../../images/unrecognized-image.jpg')} />
 							</Link>
 							<div className="upload-link" title="update" data-toggle="tooltip" data-placement="right">
