@@ -117,7 +117,7 @@ export function useAuth() {
       localStorage.setItem('auth-metadata', JSON.stringify({ accessToken, user }));
 
       client.setLink(createHttpLink({
-         uri: 'http://localhost:3000/graphql',
+         uri: process.env.REACT_APP_API_URL,
          headers: {
             'authorization': `Bearer ${accessToken}`
          },
@@ -167,7 +167,7 @@ export function useAuth() {
       localStorage.removeItem('auth-metadata');
 
       client.setLink(createHttpLink({
-         uri: 'http://localhost:3000/graphql',
+         uri: process.env.REACT_APP_API_URL,
          headers: {},
       }));
       history.push('/');
