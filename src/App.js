@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import Index from './markup/Markup';
 import { useSelector } from 'react-redux';
-import { Route, Switch, useHistory, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './css/plugins.css';
 import './css/style.css';
 import './css/templete.css';
@@ -28,14 +28,14 @@ function App() {
         </Switch>
     );
 
-    const history = useHistory();
+    // const history = useHistory();
 
-    useEffect(() => {
-        if (accessToken) {
-            // history.push('/admin-backoffice-users-bank');
-        }
-        // eslint-disable-next-line
-    }, [accessToken]);
+    // useEffect(() => {
+    //     if (accessToken) {
+    //         // history.push('/admin-backoffice-users-bank');
+    //     }
+    //     // eslint-disable-next-line
+    // }, [accessToken]);
 
     useEffect(() => {
         const appInfo = JSON.parse(localStorage.getItem('auth-metadata'));

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useActions } from './useActions';
-import { NumericFormat } from 'react-number-format';
 import { Pagination } from '../../../components/Pagination';
 
 function AdminBackofficeCVs() {

@@ -19,7 +19,7 @@ function Homepage() {
    const { fromBrowseJobs: { methods, setValue, watch, cities = [], categories = [], experienceTimes = [],
       employmentContracts = [], workingModalities = [], dailyWorkTimes = [], clear, page, setPage,
       pageQuantity, totalItems, jobs, refetch
-   }, recentJobs, recentJobsTotalItems, history } = useActions();
+   }, recentJobs, recentJobsTotalItems } = useActions();
 
    return (
       <Form methods={methods} onSubmit={() => { }}>

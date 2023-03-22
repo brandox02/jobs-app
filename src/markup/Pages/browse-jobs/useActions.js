@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { gql, useQuery } from '@apollo/client';
 import { isNil, omit, omitBy } from "lodash";
 import { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+// import { useHistory, useLocation } from "react-router-dom";
 
 export const SELECTS = gql`
    query ListSelects{
@@ -139,7 +139,7 @@ const defaultValues = {
 
 export function useActions() {
   const methods = useForm({ defaultValues });
-  const { watch: w } = methods;
+  // const { watch: w } = methods;
   const [page, setPage] = useState(0);
   // const { user } = useSelector(state => state.app);
   const { setValue, watch, reset } = methods;
@@ -152,7 +152,7 @@ export function useActions() {
       fetchPolicy: 'cache-and-network'
     });
 
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     if (watch('englishRequired')) {
@@ -160,42 +160,42 @@ export function useActions() {
     }
     // eslint-disable-next-line
   }, [watch('englishRequired')]);
-  const location = useLocation();
+  // const location = useLocation();
 
-  useEffect(() => {
-    const search = `?${Object.entries(methods.getValues())
-      .filter(([_, value]) => !isNil(value) && !Array.isArray(value))
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&')}`;
+  // useEffect(() => {
+  //   const search = `?${Object.entries(methods.getValues())
+  //     .filter(([_, value]) => !isNil(value) && !Array.isArray(value))
+  //     .map(([key, value]) => `${key}=${value}`)
+  //     .join('&')}`;
 
-    // history.push({
-    //   pathname: location.pathname,
-    //   search
-    // });
-
-
-    // console.log(`${location.pathname}${search}`);
-    // history.push(`${location.pathname}${search}`);
+  //   // history.push({
+  //   //   pathname: location.pathname,
+  //   //   search
+  //   // });
 
 
-    // history.push('/home?englishRequired=true');
-    // history.replace({
-    //   pathname: location.pathname,
-    //   search,
-    // });
-  }, [
-    /* eslint-disable */
-    w('experienceTimeId'),
-    w('maxSalary'),
-    w('minSalary'),
-    w('employmentContractId'),
-    w('workingModalityId'),
-    w('dailyWorkTimeId'),
-    w('englishRequired'),
-    w('name'),
-    w('cityId'),
-    w('categoryId')
-  ]);
+  //   // console.log(`${location.pathname}${search}`);
+  //   // history.push(`${location.pathname}${search}`);
+
+
+  //   // history.push('/home?englishRequired=true');
+  //   // history.replace({
+  //   //   pathname: location.pathname,
+  //   //   search,
+  //   // });
+  // }, [
+  //   /* eslint-disable */
+  //   w('experienceTimeId'),
+  //   w('maxSalary'),
+  //   w('minSalary'),
+  //   w('employmentContractId'),
+  //   w('workingModalityId'),
+  //   w('dailyWorkTimeId'),
+  //   w('englishRequired'),
+  //   w('name'),
+  //   w('cityId'),
+  //   w('categoryId')
+  // ]);
 
   const clear = () => {
     reset(defaultValues);
