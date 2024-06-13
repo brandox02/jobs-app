@@ -103,6 +103,10 @@ class Header extends Component {
 												})()
 												}
 											>{isAdmin ? 'Backoffice' : 'Mi Perfil'}</Link>
+											<Link
+												to={'/'}
+												onClick={this.props.logout}
+											>{'Cerrar Sesión'}</Link>
 										</li>)}
 										{!isAuthenticated && (
 											<li className="">

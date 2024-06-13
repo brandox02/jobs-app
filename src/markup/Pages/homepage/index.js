@@ -13,6 +13,7 @@ import Jobfindbox from '../../Element/Jobfindbox';
 import Accordsidebar from '../../Element/Accordsidebar';
 import dayjs from 'dayjs';
 import { Form } from '../../../components/form/Form';
+import { useAuth } from '../../../useAuth';
 
 function Homepage() {
 
@@ -21,10 +22,12 @@ function Homepage() {
       pageQuantity, totalItems, jobs, refetch
    }, recentJobs, recentJobsTotalItems } = useActions();
 
+   const { logout } = useAuth();
+
    return (
       <Form methods={methods} onSubmit={() => { }}>
          <div className="page-wraper">
-            <Header />
+            <Header logout={logout} />
             <div className="page-content">
                <IndexBanner />
                <div className="page-content bg-white">
