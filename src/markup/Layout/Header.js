@@ -20,21 +20,20 @@ class Header extends Component {
 	handleShow = () => {
 		this.setState({ show: true });
 	};
+
+	toggleFunc = () => {
+		const sidebarmenu = document.querySelector('.myNavbar');
+		sidebarmenu.classList.toggle('show');
+	};
+
 	componentDidMount() {
 		// sidebar open/close
-
-		var Navicon = document.querySelector('.navicon');
-		var sidebarmenu = document.querySelector('.myNavbar ');
-
-		function toggleFunc() {
-			sidebarmenu.classList.toggle('show');
-			//   Navicon.classList.toggle('open');
-		}
-		Navicon.addEventListener('click', toggleFunc);
+		const Navicon = document.querySelector('.navicon');
+		Navicon.addEventListener('click', this.toggleFunc);
 
 		// Sidenav li open close
-		var navUl = [].slice.call(document.querySelectorAll('.navbar-nav > li > a, .sub-menu > li > a'));
-		for (var y = 0; y < navUl.length; y++) {
+		const navUl = [].slice.call(document.querySelectorAll('.navbar-nav > li > a, .sub-menu > li > a'));
+		for (let y = 0; y < navUl.length; y++) {
 			navUl[y].addEventListener('click', function () { checkLi(this) });
 		}
 
@@ -47,6 +46,12 @@ class Header extends Component {
 			}, 100);
 		}
 	}
+
+	componentWillUnmount() {
+		const Navicon = document.querySelector('.navicon');
+		Navicon.removeEventListener('click', this.toggleFunc);
+	}
+
 	render() {
 		const authMetadata = JSON.parse(localStorage.getItem('auth-metadata'));
 		const isAuthenticated = !!authMetadata?.accessToken;
@@ -64,7 +69,7 @@ class Header extends Component {
 									<Link to={"/"}><img src={logo2} className="logo" alt="img" /></Link>
 								</div>
 
-								<button className="navbar-toggler collapsed navicon  justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+								<button className="navbar-toggler collapsed navicon justify-content-end" type="button" aria-label="Toggle navigation">
 									<span></span>
 									<span></span>
 									<span></span>
@@ -99,9 +104,15 @@ class Header extends Component {
 												}
 											>{isAdmin ? 'Backoffice' : 'Mi Perfil'}</Link>
 										</li>)}
+										{!isAuthenticated && (
+											<li className="">
+												<Link to={'/login'}>Iniciar Sesión</Link>
+											</li>
+										)}
 										<li className="">
 											<Link to={'/browse-job-filter-grid'} >Vacantes</Link>
 										</li>
+
 										{enableDocNavigation && (<>
 											<li className="">
 												<Link to={'#'} >Home <i className="fa fa-chevron-down"></i></Link>
@@ -194,7 +205,7 @@ class Header extends Component {
 					</div>
 				</header>
 				{/*  Model Start */}
-				<Modal className=" lead-form-modal" show={this.state.show} onHide={this.handleClose} centered >
+				<Modal className="lead-form-modal" show={this.state.show} onHide={this.handleClose} centered >
 					<div className="modal-dialog" role="document">
 						<div className="modal-content">
 							<button type="button" className="close" onClick={this.handleClose}>
@@ -240,6 +251,4 @@ class Header extends Component {
 	}
 }
 
-
 export default Header;
-
