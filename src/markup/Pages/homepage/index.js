@@ -56,7 +56,7 @@ function Homepage() {
                                                       <div className="job-post-info">
                                                          <h5><Link to={`/job-detail/${id}`}>{name}</Link></h5>
                                                          <ul>
-                                                            <li><i className="a fa-building-o"></i>{createdUser.companyProfile.name}</li>
+                                                            <li><i className="a fa-building-o"></i>{createdUser?.companyProfile?.name}</li>
                                                             <li><i className="fa fa-map-marker"></i> {country.name}, {city.name}</li>
                                                             <li><i className="fa fa-bookmark-o"></i> {workingModality.name}</li>
                                                             <li><i className="fa fa-clock-o"></i> Publicado hace {dayjsDiff} dias</li>
