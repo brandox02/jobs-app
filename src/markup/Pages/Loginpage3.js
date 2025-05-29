@@ -70,7 +70,7 @@ function Loginpage3(){
 					<div className="row">
 						<div className="col-lg-12 text-center">
 							<span className="float-left text-black-light"> © Copyright by <i className="fa fa-heart m-lr5 text-red heart"></i>
-							<Link to={"#"} className="text-primary">DexignZone </Link></span>
+							<Link to={"#"} className="text-primary">InnovaCore </Link></span>
 							<span className="float-right">All rights reserved.</span>
 						</div>
 					</div>

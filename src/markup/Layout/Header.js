@@ -108,11 +108,11 @@ class Header extends Component {
 												onClick={this.props.logout}
 											>{'Cerrar Sesión'}</Link>
 										</li>)}
-										{!isAuthenticated && (
+										{/* {!isAuthenticated && (
 											<li className="">
 												<Link to={'/login'}>Iniciar Sesión</Link>
 											</li>
-										)}
+										)} */}
 										<li className="">
 											<Link to={'/browse-job-filter-grid'} >Vacantes</Link>
 										</li>

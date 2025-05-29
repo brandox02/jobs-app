@@ -68,8 +68,8 @@ function Register2() {
 								</div>
 								<div className="bottom-footer clearfix m-t10 m-b20 row text-center">
 									<div className="col-lg-12 text-center">
-										<span> © Copyright by <i className="fa fa-heart m-lr5 text-red heart"></i>
-											<Link to={''} >JobsApp </Link> Todos los derechos reservados.</span>
+										<span> © Copyright by
+											<Link to={''} >InnovaCore </Link> Todos los derechos reservados.</span>
 									</div>
 								</div>
 							</div>

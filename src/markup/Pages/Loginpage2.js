@@ -79,8 +79,8 @@ function Login() {
 					<div className="container">
 						<div className="row">
 							<div className="col-lg-12 text-center">
-								<span className="float-left">© Powered by <i className="fa fa-heart m-lr5 text-red heart"></i>
-									<Link to={"#"}>Brandox02 Development </Link> </span>
+								<span className="float-left">© Powered by 
+									<Link to={"#"}> InnovaCore</Link> </span>
 								<span className="float-right">
 									Todos los Derechos Reservados.
 								</span>
